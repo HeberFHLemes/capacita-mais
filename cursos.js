@@ -1,6 +1,14 @@
-const LISTA_ID = "lista-cursos";
 const DATA_PATH = "data/cursos.json";
 
+const LISTA_ID = "lista-cursos";
+const CONTADOR_ID = "contador-cursos";
+const BOTAO_LIMPAR_ID = "btn-limpar-filtros";
+const CAMPO_BUSCA_ID = "campo-busca";
+
+/**
+ * Lê os dados do arquivo JSON usando fetch.
+ * @returns {Promise<Array>} Retorna a lista de cursos ou um array vazio em caso de erro.
+ */
 async function lerDados() {
     try {
         const response = await fetch(DATA_PATH);
@@ -16,6 +24,11 @@ async function lerDados() {
     }
 }
 
+/**
+ * Gera o HTML para um card de curso.
+ * @param {Object} curso - O objeto de dados do curso.
+ * @returns {string} O HTML do card.
+ */
 function criarCardCurso(curso) {
     return `
         <div class="col-md-6 col-lg-4 mb-4">
@@ -32,8 +45,14 @@ function criarCardCurso(curso) {
     `;
 }
 
+/**
+ * Renderiza (substitui) a lista de cards no container principal.
+ * @param {Array} listaCursos - A lista de cursos a ser exibida (filtrada ou completa).
+ */
 function renderizarCursos(listaCursos) {
     const container = document.getElementById(LISTA_ID);
+    const contador = document.getElementById(CONTADOR_ID);
+
     if (!container) {
         console.error(`Elemento com ID ${LISTA_ID} não encontrado.`);
         return;
@@ -48,11 +67,85 @@ function renderizarCursos(listaCursos) {
             content += criarCardCurso(curso);
         });
     }
+    if (contador) contador.textContent = `${listaCursos.length} Cursos Encontrados`;
     
     content += `</div>`;
     container.innerHTML = content;
 }
 
+/**
+ * Configura todos os Event Listeners para busca e filtros.
+ */
+function configurarFiltros() {
+
+    const aplicarFiltrosERenderizar = () => {
+        const resultados = filtrarCursos(listaCursosGlobal);
+        renderizarCursos(resultados);
+    };
+
+    // keyup na barra de busca
+    document.getElementById('campo-busca')
+        .addEventListener('keyup', aplicarFiltrosERenderizar);
+
+    // change para os checkboxes/radios
+    const controladorFiltros = document.querySelectorAll('input[name="radioCusto"]');
+    controladorFiltros.forEach(controle => {
+        controle.addEventListener('change', aplicarFiltrosERenderizar);
+    })
+
+    // click para o botão de limpar filtros
+    document.getElementById(BOTAO_LIMPAR_ID).addEventListener('click', () => {
+            limparFiltros();
+            aplicarFiltrosERenderizar();
+    });
+}
+
+/**
+ * Aplica todos os filtros e busca sobre a lista completa.
+ * Lê o estado atual dos inputs (busca, checkboxes, radio buttons) do DOM.
+ * @param {Array} listaCompleta - O array completo de cursos (window.listaCursosGlobal).
+ * @returns {Array} A lista de cursos após a aplicação de todos os filtros.
+ */
+function filtrarCursos(listaCompleta, termo) {
+    let resultados = listaCompleta;
+
+    // faz a busca na lista de cursos
+    const busca = document.getElementById(CAMPO_BUSCA_ID).value.toLowerCase();
+    if (busca) {
+        resultados = resultados.filter(curso => 
+            curso.titulo.toLowerCase().includes(busca) ||
+            curso.descricao.toLowerCase().includes(busca) ||
+            (curso.categoria && curso.categoria.toLowerCase().includes(busca))
+        );
+    }
+
+    // filtra por radio / checkbox assinalado
+    // categoria -> ainda não considerado para a filtragem
+    // apenas preco/custo.
+    const custoSelecionado = document.querySelector('input[name="radioCusto"]:checked');
+    if (custoSelecionado && custoSelecionado.value !== 'Todos') {
+        const custoFiltro = custoSelecionado.value; // Gratuito || Pago
+
+        resultados = resultados.filter(curso => 
+            curso.preco && curso.preco.toLowerCase() === custoFiltro.toLowerCase()
+        );
+    }
+
+    return resultados;
+}
+
+/**
+ * Limpa todos os controles de filtro no DOM.
+ */
+function limparFiltros() {
+    document.getElementById('campo-busca').value = '';
+    // TODO: 
+    // Desmarcar os checkboxes/radios
+}
+
+/**
+ * Função principal assíncrona para carregar dados e configurar a interface.
+ */
 async function iniciarAplicacao() {
     console.log("Iniciando carregamento de cursos...");
     
@@ -60,8 +153,8 @@ async function iniciarAplicacao() {
 
     if (!cursosCarregados || cursosCarregados.length === 0) {
         console.log("Nenhum curso encontrado ou erro de carregamento.");
-        adicionarCards([]);
-        return;
+        // criarCardCurso([]);
+        // return;
     }
 
     console.log(`Cursos carregados com sucesso: ${cursosCarregados.length}`);
@@ -72,8 +165,8 @@ async function iniciarAplicacao() {
     // Renderiza os cards dos cursos
     renderizarCursos(cursosCarregados);
     
-    // TODO: função que configura os Event Listeners da barra de busca
-    // (busca e filtragem de cursos)
+    // Configura os Event Listeners da busca e filtragem
+    configurarFiltros();
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacao);
