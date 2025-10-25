@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "titulo": "Introdução ao HTML5",
+    "descricao": "Aprenda os fundamentos da estrutura de páginas web e boas práticas de marcação.",
+    "plataforma": "Curso em Vídeo",
+    "categoria": "Desenvolvimento Web",
+    "nivel": "Iniciante",
+    "preco": "Gratuito",
+    "link": "https://www.cursoemvideo.com/curso/html5/",
+    "imagem": "imagens/html5.jpg"
+  },
+  {
+    "id": 2,
+    "titulo": "Lógica de Programação Essencial",
+    "descricao": "Desenvolva o raciocínio lógico e aprenda a base para qualquer linguagem de programação.",
+    "plataforma": "DIO",
+    "categoria": "Programação",
+    "nivel": "Básico",
+    "preco": "Gratuito",
+    "link": "https://www.dio.me/curso-logica",
+    "imagem": "imagens/logica.jpg"
+  },
+  {
+    "id": 3,
+    "titulo": "Excel para o Mercado de Trabalho",
+    "descricao": "Domine as principais fórmulas e recursos para impulsionar sua produtividade.",
+    "plataforma": "Fundação Bradesco",
+    "categoria": "Produtividade",
+    "nivel": "Intermediário",
+    "preco": "Gratuito",
+    "link": "https://www.ev.org.br/cursos/excel",
+    "imagem": "imagens/excel.jpg"
+  },
+  {
+    "id": 4,
+    "titulo": "Git e GitHub",
+    "descricao": "Dominando controle de versão de código.",
+    "plataforma": "Alura",
+    "categoria": "Ferramentas de Desenvolvimento",
+    "nivel": "Iniciante",
+    "preco": "Pago",
+    "link": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo",
+    "imagem": "imagens/git.jpg"
+  }
+]
