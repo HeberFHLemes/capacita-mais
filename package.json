@@ -1,0 +1,14 @@
+{
+  "name": "capacita-mais",
+  "version": "1.0.0",
+  "description": "Capacita+ é um website que visa indicar conteúdo gratuito e acessível para capacitação.",
+  "scripts": {
+    "format": "prettier --write .",
+    "check-style": "prettier --check ."
+  },
+  "author": "HeberFHLemes <hfhlemes@gmail.com>",
+  "license": "",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

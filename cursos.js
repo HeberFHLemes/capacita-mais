@@ -10,18 +10,17 @@ const CAMPO_BUSCA_ID = "campo-busca";
  * @returns {Promise<Array>} Retorna a lista de cursos ou um array vazio em caso de erro.
  */
 async function lerDados() {
-    try {
-        const response = await fetch(DATA_PATH);
+  try {
+    const response = await fetch(DATA_PATH);
 
-        if (!response.ok) {
-            throw new Error(`Erro HTTP - Status: ${response.status}`);
-        }
-        return await response.json();
-    
-    } catch (error) {
-        console.error("Erro ao processar dados do arquivo JSON:", error);
-        return []; // Array vazio retornado caso haja erro
+    if (!response.ok) {
+      throw new Error(`Erro HTTP - Status: ${response.status}`);
     }
+    return await response.json();
+  } catch (error) {
+    console.error("Erro ao processar dados do arquivo JSON:", error);
+    return []; // Array vazio retornado caso haja erro
+  }
 }
 
 /**
@@ -30,13 +29,13 @@ async function lerDados() {
  * @returns {string} O HTML do card.
  */
 function criarCardCurso(curso) {
-    return `
+  return `
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
                     <h5 class="card-title">${curso.titulo}</h5>
                     <span class="badge bg-primary me-2">${curso.categoria}</span>
-                    <span class="badge ${curso.preco === 'Gratuito' ? 'bg-success' : 'bg-warning'}">${curso.preco}</span>
+                    <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-warning"}">${curso.preco}</span>
                     <p class="card-text mt-3">${curso.descricao}</p>
                     <a href="${curso.link}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">Acessar Curso</a>
                 </div>
@@ -50,54 +49,52 @@ function criarCardCurso(curso) {
  * @param {Array} listaCursos - A lista de cursos a ser exibida (filtrada ou completa).
  */
 function renderizarCursos(listaCursos) {
-    const container = document.getElementById(LISTA_ID);
-    const contador = document.getElementById(CONTADOR_ID);
+  const container = document.getElementById(LISTA_ID);
+  const contador = document.getElementById(CONTADOR_ID);
 
-    if (!container) {
-        console.error(`Elemento com ID ${LISTA_ID} não encontrado.`);
-        return;
-    }
+  if (!container) {
+    console.error(`Elemento com ID ${LISTA_ID} não encontrado.`);
+    return;
+  }
 
-    let content = `<div class="row">`;
-    
-    if (listaCursos.length === 0) {
-        content += `<div class="col-12"><p class="alert alert-info">Nenhum curso disponível no momento.</p></div>`;
-    } else {
-        listaCursos.forEach((curso) => {
-            content += criarCardCurso(curso);
-        });
-    }
-    if (contador) contador.textContent = `${listaCursos.length} Cursos Encontrados`;
-    
-    content += `</div>`;
-    container.innerHTML = content;
+  let content = `<div class="row">`;
+
+  if (listaCursos.length === 0) {
+    content += `<div class="col-12"><p class="alert alert-info">Nenhum curso disponível no momento.</p></div>`;
+  } else {
+    listaCursos.forEach((curso) => {
+      content += criarCardCurso(curso);
+    });
+  }
+  if (contador) contador.textContent = `${listaCursos.length} Cursos Encontrados`;
+
+  content += `</div>`;
+  container.innerHTML = content;
 }
 
 /**
  * Configura todos os Event Listeners para busca e filtros.
  */
 function configurarFiltros() {
+  const aplicarFiltrosERenderizar = () => {
+    const resultados = filtrarCursos(listaCursosGlobal);
+    renderizarCursos(resultados);
+  };
 
-    const aplicarFiltrosERenderizar = () => {
-        const resultados = filtrarCursos(listaCursosGlobal);
-        renderizarCursos(resultados);
-    };
+  // keyup na barra de busca
+  document.getElementById(CAMPO_BUSCA_ID).addEventListener("keyup", aplicarFiltrosERenderizar);
 
-    // keyup na barra de busca
-    document.getElementById(CAMPO_BUSCA_ID)
-        .addEventListener('keyup', aplicarFiltrosERenderizar);
+  // change para os checkboxes/radios
+  const controladorFiltros = document.querySelectorAll('input[name="radioCusto"]');
+  controladorFiltros.forEach((controle) => {
+    controle.addEventListener("change", aplicarFiltrosERenderizar);
+  });
 
-    // change para os checkboxes/radios
-    const controladorFiltros = document.querySelectorAll('input[name="radioCusto"]');
-    controladorFiltros.forEach(controle => {
-        controle.addEventListener('change', aplicarFiltrosERenderizar);
-    })
-
-    // click para o botão de limpar filtros
-    document.getElementById(BOTAO_LIMPAR_ID).addEventListener('click', () => {
-            limparFiltros();
-            aplicarFiltrosERenderizar();
-    });
+  // click para o botão de limpar filtros
+  document.getElementById(BOTAO_LIMPAR_ID).addEventListener("click", () => {
+    limparFiltros();
+    aplicarFiltrosERenderizar();
+  });
 }
 
 /**
@@ -107,63 +104,64 @@ function configurarFiltros() {
  * @returns {Array} A lista de cursos após a aplicação de todos os filtros.
  */
 function filtrarCursos(listaCompleta, termo) {
-    let resultados = listaCompleta;
+  let resultados = listaCompleta;
 
-    // faz a busca na lista de cursos
-    const busca = document.getElementById(CAMPO_BUSCA_ID).value.toLowerCase();
-    if (busca) {
-        resultados = resultados.filter(curso => 
-            curso.titulo.toLowerCase().includes(busca) ||
-            curso.descricao.toLowerCase().includes(busca) ||
-            (curso.categoria && curso.categoria.toLowerCase().includes(busca))
-        );
-    }
+  // faz a busca na lista de cursos
+  const busca = document.getElementById(CAMPO_BUSCA_ID).value.toLowerCase();
+  if (busca) {
+    resultados = resultados.filter(
+      (curso) =>
+        curso.titulo.toLowerCase().includes(busca) ||
+        curso.descricao.toLowerCase().includes(busca) ||
+        (curso.categoria && curso.categoria.toLowerCase().includes(busca))
+    );
+  }
 
-    // filtra por radio / checkbox assinalado
-    // categoria -> ainda não considerado para a filtragem
-    // apenas preco/custo.
-    const custoSelecionado = document.querySelector('input[name="radioCusto"]:checked');
-    if (custoSelecionado && custoSelecionado.value !== 'Todos') {
-        const custoFiltro = custoSelecionado.value; // Gratuito || Pago
+  // filtra por radio / checkbox assinalado
+  // categoria -> ainda não considerado para a filtragem
+  // apenas preco/custo.
+  const custoSelecionado = document.querySelector('input[name="radioCusto"]:checked');
+  if (custoSelecionado && custoSelecionado.value !== "Todos") {
+    const custoFiltro = custoSelecionado.value; // Gratuito || Pago
 
-        resultados = resultados.filter(curso => 
-            curso.preco && curso.preco.toLowerCase() === custoFiltro.toLowerCase()
-        );
-    }
+    resultados = resultados.filter(
+      (curso) => curso.preco && curso.preco.toLowerCase() === custoFiltro.toLowerCase()
+    );
+  }
 
-    return resultados;
+  return resultados;
 }
 
 /**
  * Limpa todos os controles de filtro no DOM.
  */
 function limparFiltros() {
-    document.getElementById('campo-busca').value = '';
-    // TODO: Desmarcar os checkboxes/radios (se forem adicionados outros)
+  document.getElementById("campo-busca").value = "";
+  // TODO: Desmarcar os checkboxes/radios (se forem adicionados outros)
 }
 
 /**
  * Função principal assíncrona para carregar dados e configurar a interface.
  */
 async function iniciarAplicacao() {
-    console.log("Iniciando carregamento de cursos...");
-    
-    const cursosCarregados = await lerDados();
+  console.log("Iniciando carregamento de cursos...");
 
-    if (!cursosCarregados || cursosCarregados.length === 0) {
-        console.log("Nenhum curso encontrado ou erro de carregamento.");
-    } else {    
-        console.log(`Cursos carregados com sucesso: ${cursosCarregados.length}`);
-    }
-    
-    // Armazena os dados globalmente (útil para a filtragem)
-    window.listaCursosGlobal = cursosCarregados;
-    
-    // Renderiza os cards dos cursos
-    renderizarCursos(cursosCarregados);
-    
-    // Configura os Event Listeners da busca e filtragem
-    configurarFiltros();
+  const cursosCarregados = await lerDados();
+
+  if (!cursosCarregados || cursosCarregados.length === 0) {
+    console.log("Nenhum curso encontrado ou erro de carregamento.");
+  } else {
+    console.log(`Cursos carregados com sucesso: ${cursosCarregados.length}`);
+  }
+
+  // Armazena os dados globalmente (útil para a filtragem)
+  window.listaCursosGlobal = cursosCarregados;
+
+  // Renderiza os cards dos cursos
+  renderizarCursos(cursosCarregados);
+
+  // Configura os Event Listeners da busca e filtragem
+  configurarFiltros();
 }
 
-document.addEventListener('DOMContentLoaded', iniciarAplicacao);
+document.addEventListener("DOMContentLoaded", iniciarAplicacao);

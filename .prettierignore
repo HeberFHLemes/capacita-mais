@@ -1,0 +1,10 @@
+.gitignore
+.dockerignore
+node_modules
+dist
+build
+*.log
+Dockerfile
+.nginx.conf
+README.md
+Makefile

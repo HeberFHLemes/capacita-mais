@@ -1,30 +1,30 @@
 /* Melhor contraste na seção Hero  */
 .hero-section {
-    background: radial-gradient(circle at top left, #f0f7ff 0%, #ffffff 80%);
-    padding: 6rem 0;
+  background: radial-gradient(circle at top left, #f0f7ff 0%, #ffffff 80%);
+  padding: 6rem 0;
 }
 
 /* Estilos para os cards */
 .impact-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  text-align: center;
 }
 
 /* Ajuste de ícones */
 .impact-card i {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    color: #0d6efd; /* Cor primária do Bootstrap */
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #0d6efd; /* Cor primária do Bootstrap */
 }
 
 /* Animação ao passar o mouse (cards) */
 .impact-card:hover {
   transform: translateY(-5px);
   transition: all 0.3s ease;
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 /* Animação ao passar o mouse (logos - parceiros) */
