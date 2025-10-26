@@ -84,7 +84,7 @@ function configurarFiltros() {
     };
 
     // keyup na barra de busca
-    document.getElementById('campo-busca')
+    document.getElementById(CAMPO_BUSCA_ID)
         .addEventListener('keyup', aplicarFiltrosERenderizar);
 
     // change para os checkboxes/radios
@@ -139,8 +139,7 @@ function filtrarCursos(listaCompleta, termo) {
  */
 function limparFiltros() {
     document.getElementById('campo-busca').value = '';
-    // TODO: 
-    // Desmarcar os checkboxes/radios
+    // TODO: Desmarcar os checkboxes/radios (se forem adicionados outros)
 }
 
 /**
@@ -153,11 +152,9 @@ async function iniciarAplicacao() {
 
     if (!cursosCarregados || cursosCarregados.length === 0) {
         console.log("Nenhum curso encontrado ou erro de carregamento.");
-        // criarCardCurso([]);
-        // return;
+    } else {    
+        console.log(`Cursos carregados com sucesso: ${cursosCarregados.length}`);
     }
-
-    console.log(`Cursos carregados com sucesso: ${cursosCarregados.length}`);
     
     // Armazena os dados globalmente (útil para a filtragem)
     window.listaCursosGlobal = cursosCarregados;
