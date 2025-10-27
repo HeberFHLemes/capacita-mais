@@ -3,6 +3,5 @@
   "singleQuote": false,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "printWidth": 100,
-  "htmlWhitespaceSensitivity": "ignore"
+  "printWidth": 100
 }
