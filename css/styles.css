@@ -38,3 +38,73 @@ footer {
   font-size: 1rem;
   letter-spacing: 0.2px;
 }
+
+/* Seção de links para contato - icons */
+#contato-section ul {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#contato-section li {
+  display: inline-block;
+  margin: 0 25px;
+  transition: transform 0.2s ease;
+}
+
+#contato-section li:hover {
+  transform: scale(1.1);
+}
+
+#contato-section ul li:first-child {
+  margin-left: 0px;
+}
+
+/* Texto/seção "Sobre nós" */
+#sobre-section-text {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: justify;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+#sobre-section h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+#sobre-section h5 {
+  font-size: 1.3rem;
+}
+
+#sobre-section h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #0d6efd;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  #sobre-section-text {
+    font-size: 1rem;
+    padding: 0 15px;
+  }
+
+  #sobre-section h2 {
+    font-size: 1.8rem;
+  }
+
+  #sobre-section h5 {
+    font-size: 1.1rem;
+  }
+}
