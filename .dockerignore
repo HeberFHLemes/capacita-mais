@@ -1,8 +1,11 @@
 .git
 .gitignore
 Dockerfile
+Makefile
 README.md
 node_modules
 *.log
 *.env
 assets
+package.json
+package-lock.json
