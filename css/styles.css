@@ -28,7 +28,7 @@
 }
 
 /* Animação ao passar o mouse (logos - parceiros) */
-.border:hover {
+img:hover {
   background-color: #f8f9fa;
   transform: scale(1.05);
   transition: 0.3s ease;
@@ -75,7 +75,7 @@ footer {
   text-align: center;
   position: relative;
   padding-bottom: 0.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 #sobre-section h5 {
@@ -88,7 +88,7 @@ footer {
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 80px;
+  width: 200px;
   height: 3px;
   background-color: #0d6efd;
   border-radius: 2px;
