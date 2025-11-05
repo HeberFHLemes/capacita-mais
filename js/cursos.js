@@ -1,3 +1,5 @@
+import { gerarCheckbox } from "./utils.js";
+
 const DATA_PATH = "data/cursos.json";
 
 const LISTA_ID = "lista-cursos";
@@ -84,10 +86,14 @@ function configurarFiltros() {
   // keyup na barra de busca
   document.getElementById(CAMPO_BUSCA_ID).addEventListener("keyup", aplicarFiltrosERenderizar);
 
-  // change para os checkboxes/radios
-  const controladorFiltros = document.querySelectorAll('input[name="radioCusto"]');
-  controladorFiltros.forEach((controle) => {
+  // change para os checkboxes e radios
+  // radios de custo
+  document.querySelectorAll('input[name="radioCusto"]').forEach((controle) => {
     controle.addEventListener("change", aplicarFiltrosERenderizar);
+  });
+  // checkboxes de categoria
+  document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+    checkbox.addEventListener("change", aplicarFiltrosERenderizar);
   });
 
   // click para o botão de limpar filtros
@@ -117,9 +123,7 @@ function filtrarCursos(listaCompleta, termo) {
     );
   }
 
-  // filtra por radio / checkbox assinalado
-  // categoria -> ainda não considerado para a filtragem
-  // apenas preco/custo.
+  // filtra por qual radio de custo está selecionado
   const custoSelecionado = document.querySelector('input[name="radioCusto"]:checked');
   if (custoSelecionado && custoSelecionado.value !== "Todos") {
     const custoFiltro = custoSelecionado.value; // Gratuito || Pago
@@ -129,6 +133,15 @@ function filtrarCursos(listaCompleta, termo) {
     );
   }
 
+  // filtra por todos os checkboxes de categoria selecionados
+  const categoriasSelecionadas = Array.from(
+    document.querySelectorAll('input[type="checkbox"]:checked')
+  ).map((checkbox) => checkbox.value);
+
+  if (categoriasSelecionadas.length > 0) {
+    resultados = resultados.filter((curso) => categoriasSelecionadas.includes(curso.categoria));
+  }
+
   return resultados;
 }
 
@@ -136,8 +149,39 @@ function filtrarCursos(listaCompleta, termo) {
  * Limpa todos os controles de filtro no DOM.
  */
 function limparFiltros() {
+  // Limpa o campo de busca
   document.getElementById("campo-busca").value = "";
-  // TODO: Desmarcar os checkboxes/radios (se forem adicionados outros)
+
+  // Reseta o radio de custo para "Todos"
+  document.getElementById("radioTodos").checked = true;
+
+  // Limpa os checkboxes de categoria
+  const categorias = document.querySelectorAll('input[type="checkbox"]');
+  categorias.forEach((checkbox) => {
+    checkbox.checked = false;
+  });
+}
+
+/**
+ * Renderiza os filtros de categoria com base na lista de cursos.
+ * @param {Array} cursos  O array completo de cursos
+ */
+function renderizarCategorias(cursos) {
+  const categoriasUnicas = [...new Set(cursos.map((curso) => curso.categoria))];
+  const containerCategorias = document.getElementById("filtros-categorias-div");
+
+  categoriasUnicas.forEach((categoria) => {
+    const checkboxCategoria = gerarCheckbox(
+      categoria,
+      `check${categoria.replace(/\s+/g, "")}`,
+      categoria,
+      ["form-check", "filtro-categoria"],
+      ["form-check-input"],
+      ["form-check-label"],
+      false
+    );
+    containerCategorias.appendChild(checkboxCategoria);
+  });
 }
 
 /**
@@ -159,6 +203,9 @@ async function iniciarAplicacao() {
 
   // Renderiza os cards dos cursos
   renderizarCursos(cursosCarregados);
+
+  // Renderiza as categorias listadas para filtragem
+  renderizarCategorias(cursosCarregados);
 
   // Configura os Event Listeners da busca e filtragem
   configurarFiltros();

@@ -21,9 +21,7 @@
   <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
       <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="#">
-          Capacita<span class="text-secondary">+</span>
-        </a>
+        <a class="navbar-brand fw-bold text-primary" href="index.html"> Capacita+ </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -63,6 +61,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-4 mb-4">
+          <!-- Filtro por custo -->
           <div class="card p-3 mb-3 shadow-sm">
             <h5 class="fw-bold mb-3">Filtrar por Custo</h5>
             <div class="form-check">
@@ -97,17 +96,9 @@
               <label class="form-check-label" for="radioTodos">Todos</label>
             </div>
           </div>
-          <div class="card p-3 shadow-sm">
+          <!-- Filtro por categoria -->
+          <div class="card p-3 shadow-sm" id="filtros-categorias-div">
             <h5 class="fw-bold mb-3">Filtrar por Categoria</h5>
-            <div class="form-check">
-              <input
-                class="form-check-input filtro-categoria"
-                type="checkbox"
-                value="Frontend"
-                id="checkFrontend"
-              />
-              <label class="form-check-label" for="checkFrontend">Front-end</label>
-            </div>
           </div>
           <button id="btn-limpar-filtros" class="btn btn-outline-dark btn-sm mt-3 w-100">
             Limpar Filtros
@@ -129,6 +120,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="js/cursos.js"></script>
+    <script type="module" src="js/cursos.js"></script>
   </body>
 </html>
