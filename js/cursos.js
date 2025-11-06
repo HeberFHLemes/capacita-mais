@@ -11,7 +11,7 @@ const CAMPO_BUSCA_ID = "campo-busca";
  * Lê os dados do arquivo JSON usando fetch.
  * @returns {Promise<Array>} Retorna a lista de cursos ou um array vazio em caso de erro.
  */
-async function lerDados() {
+export async function lerDados() {
   try {
     const response = await fetch(DATA_PATH);
 

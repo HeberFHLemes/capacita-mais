@@ -120,3 +120,7 @@ footer {
     font-size: 1.1rem;
   }
 }
+
+.formulario-link {
+  text-decoration: none;
+}
