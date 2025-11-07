@@ -45,7 +45,9 @@ function criarCardCurso(curso) {
                     <span class="badge bg-primary me-2">${curso.categoria}</span>
                     <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-warning"}">${curso.preco}</span>
                     <p class="card-text mt-3">${curso.descricao}</p>
-                    <a href="${curso.link}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">Acessar Curso</a>
+                </div>
+                <div class="card-footer text-center bg-white border-0">
+                  <a href="${curso.link}" target="_blank" class="btn btn-sm btn-outline-primary w-100">Acessar Curso</a>
                 </div>
             </div>
         </div>

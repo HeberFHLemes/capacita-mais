@@ -1,36 +1,33 @@
 [
   {
     "id": 1,
-    "titulo": "Introdução ao HTML5",
-    "descricao": "Aprenda os fundamentos da estrutura de páginas web e boas práticas de marcação.",
+    "titulo": "Curso de HTML5",
+    "descricao": "Aprender a criar sites do zero nunca foi tão acessível!",
     "plataforma": "Curso em Vídeo",
-    "categoria": "Desenvolvimento Web",
+    "categoria": "Programação Front-End",
     "nivel": "Iniciante",
     "preco": "Gratuito",
-    "link": "https://www.cursoemvideo.com/curso/html5/",
-    "imagem": "imagens/html5.jpg"
+    "link": "https://www.cursoemvideo.com/curso/html5/"
   },
   {
     "id": 2,
-    "titulo": "Lógica de Programação Essencial",
-    "descricao": "Desenvolva o raciocínio lógico e aprenda a base para qualquer linguagem de programação.",
+    "titulo": "Formação Automação de Testes com Cypress",
+    "descricao": "Descubra o caminho para se tornar um(a) profissional qualificado(a) em qualidade de software!",
     "plataforma": "DIO",
-    "categoria": "Programação",
-    "nivel": "Básico",
-    "preco": "Gratuito",
-    "link": "https://www.dio.me/curso-logica",
-    "imagem": "imagens/logica.jpg"
+    "categoria": "Testes Automatizados",
+    "nivel": "Avançado",
+    "preco": "Pago",
+    "link": "https://web.dio.me/track/formacao-automacao-testes-cypress"
   },
   {
     "id": 3,
-    "titulo": "Excel para o Mercado de Trabalho",
+    "titulo": "Excel 2016 (do básico ao avançado)",
     "descricao": "Domine as principais fórmulas e recursos para impulsionar sua produtividade.",
     "plataforma": "Fundação Bradesco",
     "categoria": "Produtividade",
-    "nivel": "Intermediário",
+    "nivel": "Básico ao Avançado",
     "preco": "Gratuito",
-    "link": "https://www.ev.org.br/cursos/excel",
-    "imagem": "imagens/excel.jpg"
+    "link": "https://www.ev.org.br/trilhas-de-conhecimento/excel-2016-do-basico-ao-avancado"
   },
   {
     "id": 4,
@@ -40,7 +37,36 @@
     "categoria": "Ferramentas de Desenvolvimento",
     "nivel": "Iniciante",
     "preco": "Pago",
-    "link": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo",
-    "imagem": "imagens/git.jpg"
+    "link": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo"
+  },
+  {
+    "id": 5,
+    "titulo": "Desenvolvimento Web com HTML, CSS e JavaScript",
+    "descricao": "Aprenda a desenvolver apps web usando HTML5, CSS3 e JavaScript com este curso gratuito de programação front-end.",
+    "plataforma": "Cursa",
+    "categoria": "Programação Front-End",
+    "nivel": "Iniciante",
+    "preco": "Gratuito",
+    "link": "https://cursa.app/pt/curso-gratuito/desenvolvimento-web-com-html-css-e-javascript-eiff"
+  },
+  {
+    "id": 6,
+    "titulo": "Programação para todos (Primeiros passos no Python)",
+    "descricao": "Curso completo para aprender Python do zero.",
+    "plataforma": "Coursera",
+    "categoria": "Programação",
+    "nivel": "Iniciante",
+    "preco": "Gratuito",
+    "link": "https://www.coursera.org/learn/python"
+  },
+  {
+    "id": 7,
+    "titulo": "Eletrônica básica",
+    "descricao": "Curso online gratuito de Eletrônica Básica. Aprenda desde medidas práticas até amplificação de sinais e testes com transistores. Ideal para iniciantes e entusiastas.",
+    "plataforma": "Cursa",
+    "categoria": "Eletrônica",
+    "nivel": "Iniciante",
+    "preco": "Gratuito",
+    "link": "https://cursa.app/pt/curso-gratuito/eletronica-basica-bec"
   }
 ]
