@@ -24,7 +24,6 @@ export async function lerDados() {
       cursosEmCache = await response.json();
     }
     return cursosEmCache;
-
   } catch (error) {
     console.error("Erro ao processar dados do arquivo JSON:", error);
     return [];
@@ -205,9 +204,7 @@ export async function popularSelectDeCursos(idSelect, callback) {
 
   // placeholder
   select.innerHTML = "";
-  select.appendChild(
-    new Option("Selecione um curso", "", true, false)
-  );
+  select.appendChild(new Option("Selecione um curso", "", true, false));
 
   cursos.forEach((curso) => {
     const option = document.createElement("option");

@@ -2,22 +2,22 @@ import { popularSelectDeCursos } from "./cursos.js";
 
 /**
  * Preenche os campos do formulário com os dados do curso selecionado.
- * @param {Array<Object>} cursos 
+ * @param {Array<Object>} cursos
  */
 function addSelectChangeListener(cursos) {
   const select = document.getElementById("select-cursos-edicao");
   select.addEventListener("change", function () {
-      if (!this.value) return;
+    if (!this.value) return;
 
-      const cursoSelecionado = cursos.find((curso) => curso.titulo === this.value);
-      if (cursoSelecionado) {
-        document.getElementById("titulo").value = cursoSelecionado.titulo;
-        document.getElementById("descricao").value = cursoSelecionado.descricao;
-        document.getElementById("categoria").value = cursoSelecionado.categoria;
-        document.getElementById("plataforma").value = cursoSelecionado.plataforma;
-        document.getElementById("preco").value = cursoSelecionado.preco;
-        document.getElementById("link").value = cursoSelecionado.link;
-      }
+    const cursoSelecionado = cursos.find((curso) => curso.titulo === this.value);
+    if (cursoSelecionado) {
+      document.getElementById("titulo").value = cursoSelecionado.titulo;
+      document.getElementById("descricao").value = cursoSelecionado.descricao;
+      document.getElementById("categoria").value = cursoSelecionado.categoria;
+      document.getElementById("plataforma").value = cursoSelecionado.plataforma;
+      document.getElementById("preco").value = cursoSelecionado.preco;
+      document.getElementById("link").value = cursoSelecionado.link;
+    }
   });
 }
 
