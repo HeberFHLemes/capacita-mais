@@ -7,21 +7,27 @@ const CONTADOR_ID = "contador-cursos";
 const BOTAO_LIMPAR_ID = "btn-limpar-filtros";
 const CAMPO_BUSCA_ID = "campo-busca";
 
+let cursosEmCache = null;
+
 /**
  * Lê os dados do arquivo JSON usando fetch.
  * @returns {Promise<Array>} Retorna a lista de cursos ou um array vazio em caso de erro.
  */
 export async function lerDados() {
   try {
-    const response = await fetch(DATA_PATH);
+    if (!cursosEmCache) {
+      const response = await fetch(DATA_PATH);
 
-    if (!response.ok) {
-      throw new Error(`Erro HTTP - Status: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Erro HTTP - Status: ${response.status}`);
+      }
+      cursosEmCache = await response.json();
     }
-    return await response.json();
+    return cursosEmCache;
+
   } catch (error) {
     console.error("Erro ao processar dados do arquivo JSON:", error);
-    return []; // Array vazio retornado caso haja erro
+    return [];
   }
 }
 
@@ -182,6 +188,32 @@ function renderizarCategorias(cursos) {
     );
     containerCategorias.appendChild(checkboxCategoria);
   });
+}
+
+/**
+ * Popula um select com os cursos disponíveis como options.
+ * @param {string} idSelect - O ID do elemento select a ser populado.
+ * @param {function} [callback] - Função opcional a ser chamada após popular o select, que tenha como parametro a lista de cursos.
+ * @returns {void}
+ */
+export async function popularSelectDeCursos(idSelect, callback) {
+  const select = document.getElementById(idSelect);
+
+  const cursos = await lerDados();
+
+  // placeholder
+  select.innerHTML = "";
+  select.appendChild(
+    new Option("Selecione um curso", "", true, false)
+  );
+
+  cursos.forEach((curso) => {
+    const option = document.createElement("option");
+    option.value = curso.titulo;
+    option.textContent = curso.titulo;
+    select.appendChild(option);
+  });
+  if (callback) callback(cursos);
 }
 
 /**
