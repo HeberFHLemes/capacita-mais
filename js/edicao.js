@@ -16,7 +16,7 @@ function popularSelectDeCursos(idSelect, callback) {
     placeholder.value = "";
     placeholder.textContent = "Selecione um curso";
     placeholder.selected = true;
-    placeholder.disabled = true;
+    // placeholder.disabled = true;
     select.appendChild(placeholder);
 
     cursos.forEach((curso) => {
