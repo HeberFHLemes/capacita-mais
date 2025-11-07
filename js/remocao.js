@@ -11,6 +11,7 @@ async function popularSelectDeCursos(idSelect, callback) {
   placeholder.selected = true;
   placeholder.disabled = true;
   select.appendChild(placeholder);
+
   cursos.forEach((curso) => {
     const option = document.createElement("option");
     option.value = curso.titulo;
@@ -27,11 +28,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.getElementById("form-remocao-curso").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const curso = document.getElementById("select-cursos-remocao").value;
+  const select = document.getElementById("select-cursos-remocao");
+  const curso = select.value;
   if (!curso) {
     alert("Por favor, selecione um curso para remover.");
     return;
   }
+  
+  select.remove(select.selectedIndex);
 
   const msg = document.getElementById("msg-remocao");
   msg.textContent = `Curso "${curso}" removido com sucesso!`;
