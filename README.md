@@ -3,7 +3,7 @@
 ## Descrição
 Um portal livre de curadoria para cursos de capacitação.
 
-Acessível em: [heberfhlemes.github.io/capacita-mais](gttps://heberfhlemes.github.io/capacita-mais)
+Acessível em: [heberfhlemes.github.io/capacita-mais](https://heberfhlemes.github.io/capacita-mais)
 
 
 ### Nota
