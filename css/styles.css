@@ -39,6 +39,13 @@ body {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
+img {
+  max-width: 150px;
+  max-height: 60px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
 /* Animação ao passar o mouse (logos - parceiros) */
 img:hover {
   background-color: #f8f9fa;
