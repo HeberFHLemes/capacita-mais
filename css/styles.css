@@ -60,23 +60,27 @@ footer {
 
 /* Cards de cursos */
 .card-text {
-  text-align: justify;
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: darkslategray;
 }
+
 .badge {
   font-size: 0.8rem;
 }
+
 .form-check {
   margin-bottom: 0.5rem;
 }
+
 .form-check-input {
   cursor: pointer;
 }
+
 .form-check-label {
   cursor: pointer;
 }
+
 .form-check-label {
   user-select: none;
 }

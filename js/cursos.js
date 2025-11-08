@@ -37,12 +37,12 @@ export async function lerDados() {
  */
 function criarCardCurso(curso) {
   return `
-        <div class="col-md-6 col-lg-4 mb-4">
+        <div class="col-md-6 col-lg-4 mb-4 w-auto-100">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
                     <h5 class="card-title">${curso.titulo}</h5>
                     <span class="badge bg-primary me-2">${curso.categoria}</span>
-                    <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-warning"}">${curso.preco}</span>
+                    <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-danger"}">${curso.preco}</span>
                     <p class="card-text mt-3">${curso.descricao}</p>
                 </div>
                 <div class="card-footer text-center bg-white border-0">
