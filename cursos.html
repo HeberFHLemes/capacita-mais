@@ -36,10 +36,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link fw-medium" aria-current="page" href="index.html">Início</a>
+              <a class="nav-link fw-medium" href="index.html">Início</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium active" aria-current="page" href="#">Cursos</a>
+              <a class="nav-link fw-medium active" aria-current="page" href="cursos.html">Cursos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fw-medium" href="sobre.html">Sobre Nós</a>
@@ -50,6 +50,7 @@
     </nav>
 
     <div class="container my-4">
+      <label for="campo-busca" class="form-label fw-bold">Buscar Cursos</label>
       <input
         type="search"
         id="campo-busca"
@@ -63,38 +64,40 @@
         <div class="col-lg-3 col-md-4 mb-4">
           <!-- Filtro por custo -->
           <div class="card p-3 mb-3 shadow-sm">
-            <h5 class="fw-bold mb-3">Filtrar por Custo</h5>
-            <div class="form-check">
-              <input
-                class="form-check-input filtro-custo"
-                type="radio"
-                name="radioCusto"
-                value="Gratuito"
-                id="radioGratuito"
-              />
-              <label class="form-check-label" for="radioGratuito">Gratuito</label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input filtro-custo"
-                type="radio"
-                name="radioCusto"
-                value="Pago"
-                id="radioPago"
-              />
-              <label class="form-check-label" for="radioPago">Pago</label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input filtro-custo"
-                type="radio"
-                name="radioCusto"
-                value="Todos"
-                id="radioTodos"
-                checked
-              />
-              <label class="form-check-label" for="radioTodos">Todos</label>
-            </div>
+            <fieldset class="border-0 m-0 p-0">
+              <legend class="fw-bold mb-3 h5">Filtrar por Custo</legend>
+              <div class="form-check">
+                <input
+                  class="form-check-input filtro-custo"
+                  type="radio"
+                  name="radioCusto"
+                  value="Gratuito"
+                  id="radioGratuito"
+                />
+                <label class="form-check-label" for="radioGratuito">Gratuito</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input filtro-custo"
+                  type="radio"
+                  name="radioCusto"
+                  value="Pago"
+                  id="radioPago"
+                />
+                <label class="form-check-label" for="radioPago">Pago</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input filtro-custo"
+                  type="radio"
+                  name="radioCusto"
+                  value="Todos"
+                  id="radioTodos"
+                  checked
+                />
+                <label class="form-check-label" for="radioTodos">Todos</label>
+              </div>
+            </fieldset>
           </div>
           <!-- Filtro por categoria -->
           <div class="card p-3 shadow-sm" id="filtros-categorias-div">

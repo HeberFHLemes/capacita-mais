@@ -60,23 +60,27 @@ footer {
 
 /* Cards de cursos */
 .card-text {
-  text-align: justify;
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: darkslategray;
 }
+
 .badge {
   font-size: 0.8rem;
 }
+
 .form-check {
   margin-bottom: 0.5rem;
 }
+
 .form-check-input {
   cursor: pointer;
 }
+
 .form-check-label {
   cursor: pointer;
 }
+
 .form-check-label {
   user-select: none;
 }
@@ -106,13 +110,12 @@ footer {
 #sobre-section-text {
   max-width: 800px;
   margin: 0 auto;
-  text-align: justify;
   font-size: 1.1rem;
   line-height: 1.7;
   color: #333;
 }
 
-#sobre-section h2 {
+#sobre-section h1 {
   font-size: 2.2rem;
   text-align: center;
   position: relative;
@@ -120,11 +123,11 @@ footer {
   margin-bottom: 1.8rem;
 }
 
-#sobre-section h5 {
+#sobre-section h2 {
   font-size: 1.3rem;
 }
 
-#sobre-section h2::after {
+#sobre-section h1::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -142,15 +145,21 @@ footer {
     padding: 0 15px;
   }
 
-  #sobre-section h2 {
+  #sobre-section h1 {
     font-size: 1.8rem;
   }
 
-  #sobre-section h5 {
+  #sobre-section h2 {
     font-size: 1.1rem;
   }
 }
 
+/* Melhor contraste na navegação dos formulários */
 .formulario-link {
-  text-decoration: none;
+  color: #0645AD;
+}
+
+.formulario-link a:hover,
+.formulario-link a:focus {
+  color: #0B0080;
 }

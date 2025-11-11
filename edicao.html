@@ -18,29 +18,28 @@
     <div class="container my-5">
       <div class="row justify-content-center">
         <div class="col-lg-6">
-          <nav
-            style="--bs-breadcrumb-divider: &quot; | &quot;"
-            aria-label="breadcrumb"
-            class="justify-content-center d-flex"
-          >
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a class="formulario-link" href="cadastro.html">Cadastrar</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">Editar</li>
-              <li class="breadcrumb-item">
-                <a class="formulario-link" href="remocao.html">Remover</a>
-              </li>
-            </ol>
-          </nav>
+          <ul class="nav nav-underline justify-content-center">
+            <li class="nav-item">
+              <a class="nav-link formulario-link" href="cadastro.html">Cadastrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link formulario-link active" aria-current="page" href="edicao.html">Editar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link formulario-link" href="remocao.html">Remover</a>
+            </li>
+          </ul>
           <div class="card shadow-sm p-4">
             <h1 class="h4 mb-4 text-center">Editar Curso</h1>
 
             <form id="form-edicao-curso">
               <div class="mb-3">
+                <label for="select-cursos-edicao" class="form-label">Curso</label>
                 <select
                   class="lista-cursos-existentes form-select"
                   id="select-cursos-edicao"
+                  name="select-cursos-edicao"
+                  aria-placeholder="Curso a ser editado"
                 ></select>
               </div>
 
