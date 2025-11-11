@@ -83,10 +83,11 @@ function renderizarCursos(listaCursos) {
 
 /**
  * Configura todos os Event Listeners para busca e filtros.
+ * @param {Array} listaCursos - A lista de cursos obtida ao lerDados().
  */
-function configurarFiltros() {
+function configurarFiltros(listaCursos) {
   const aplicarFiltrosERenderizar = () => {
-    const resultados = filtrarCursos(listaCursosGlobal);
+    const resultados = filtrarCursos(listaCursos);
     renderizarCursos(resultados);
   };
 
@@ -113,10 +114,10 @@ function configurarFiltros() {
 /**
  * Aplica todos os filtros e busca sobre a lista completa.
  * Lê o estado atual dos inputs (busca, checkboxes, radio buttons) do DOM.
- * @param {Array} listaCompleta - O array completo de cursos (window.listaCursosGlobal).
+ * @param {Array} listaCompleta - O array completo de cursos.
  * @returns {Array} A lista de cursos após a aplicação de todos os filtros.
  */
-function filtrarCursos(listaCompleta, termo) {
+function filtrarCursos(listaCompleta) {
   let resultados = listaCompleta;
 
   // faz a busca na lista de cursos
@@ -202,16 +203,23 @@ export async function popularSelectDeCursos(idSelect, callback) {
 
   const cursos = await lerDados();
 
-  // placeholder
   select.innerHTML = "";
-  select.appendChild(new Option("Selecione um curso", "", true, false));
+  if (cursos.length == 0) {
+    select.appendChild(new Option("Nenhum curso encontrado", "", true, false));
+  } else {
+    let placeholder = new Option("Selecione o curso", "", true, false);
+    placeholder.disabled = true;
+    placeholder.hidden = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
 
-  cursos.forEach((curso) => {
-    const option = document.createElement("option");
-    option.value = curso.titulo;
-    option.textContent = curso.titulo;
-    select.appendChild(option);
-  });
+    cursos.forEach((curso) => {
+      const option = document.createElement("option");
+      option.value = curso.titulo;
+      option.textContent = curso.titulo;
+      select.appendChild(option);
+    });
+  }
   if (callback) callback(cursos);
 }
 
@@ -229,9 +237,6 @@ async function iniciarAplicacao() {
     console.log(`Cursos carregados com sucesso: ${cursosCarregados.length}`);
   }
 
-  // Armazena os dados globalmente (útil para a filtragem)
-  window.listaCursosGlobal = cursosCarregados;
-
   // Renderiza os cards dos cursos
   renderizarCursos(cursosCarregados);
 
@@ -239,7 +244,7 @@ async function iniciarAplicacao() {
   renderizarCategorias(cursosCarregados);
 
   // Configura os Event Listeners da busca e filtragem
-  configurarFiltros();
+  configurarFiltros(cursosCarregados);
 }
 
 document.addEventListener("DOMContentLoaded", iniciarAplicacao);

@@ -155,6 +155,12 @@ footer {
   }
 }
 
-.formulario-link {
-  text-decoration: none;
+/* Melhor contraste na navegação dos formulários */
+.nav-link {
+  color: #0645AD;
+}
+
+.nav-link a:hover,
+.nav-link a:focus {
+  color: #0B0080;
 }
