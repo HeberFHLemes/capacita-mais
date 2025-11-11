@@ -19,6 +19,7 @@ document.getElementById("form-remocao-curso").addEventListener("submit", functio
   const msg = document.getElementById("msg-remocao");
   msg.textContent = `Curso "${curso}" removido com sucesso!`;
   msg.classList.remove("d-none");
+  msg.scrollIntoView({ behavior: "smooth", block: "center" });
 
   this.reset();
 });

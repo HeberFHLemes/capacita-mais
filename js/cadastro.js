@@ -5,6 +5,7 @@ document.getElementById("form-cadastro-curso").addEventListener("submit", functi
   const msg = document.getElementById("msg");
   msg.textContent = `Curso "${titulo}" cadastrado com sucesso!`;
   msg.classList.remove("d-none");
+  msg.scrollIntoView({ behavior: "smooth", block: "center" });
 
   this.reset(); // Limpa os campos
 });

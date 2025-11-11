@@ -37,6 +37,7 @@ document.getElementById("form-edicao-curso").addEventListener("submit", function
   const msg = document.getElementById("msg-edicao");
   msg.textContent = `Curso "${titulo}" editado com sucesso!`;
   msg.classList.remove("d-none");
-
+  msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  
   this.reset();
 });
