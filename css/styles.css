@@ -156,11 +156,11 @@ footer {
 }
 
 /* Melhor contraste na navegação dos formulários */
-.nav-link {
+.formulario-link {
   color: #0645AD;
 }
 
-.nav-link a:hover,
-.nav-link a:focus {
+.formulario-link a:hover,
+.formulario-link a:focus {
   color: #0B0080;
 }
