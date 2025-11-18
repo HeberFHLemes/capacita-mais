@@ -46,7 +46,7 @@ function criarCardCurso(curso) {
                     <p class="card-text mt-3">${curso.descricao}</p>
                 </div>
                 <div class="card-footer text-center bg-white border-0">
-                  <a href="${curso.link}" target="_blank" class="btn btn-sm btn-outline-primary w-100">Acessar Curso</a>
+                  <a href="${curso.link}" target="_blank" rel="noreferrer" class="btn btn-sm btn-outline-primary w-100">Acessar Curso</a>
                 </div>
             </div>
         </div>
