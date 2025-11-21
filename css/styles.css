@@ -24,14 +24,12 @@ body {
   height: 100%;
   text-align: center;
 }
-
 /* Ajuste de ícones */
 .impact-card i {
   font-size: 3rem;
   margin-bottom: 15px;
-  color: #0d6efd; /* Cor primária do Bootstrap */
+  color: #0d6efd;
 }
-
 /* Animação ao passar o mouse (cards) */
 .impact-card:hover {
   transform: translateY(-5px);
@@ -43,7 +41,6 @@ img {
   max-width: 150px;
   max-height: 60px;
   padding: 10px;
-  border-radius: 8px;
 }
 
 /* Animação ao passar o mouse (logos - parceiros) */
@@ -104,6 +101,11 @@ footer {
 
 #contato-section ul li:first-child {
   margin-left: 0px;
+}
+
+#contato-section a {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Texto/seção "Sobre nós" */
