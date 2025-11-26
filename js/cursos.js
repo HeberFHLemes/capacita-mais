@@ -40,13 +40,20 @@ function criarCardCurso(curso) {
         <div class="col-md-6 col-lg-4 mb-4 w-auto-100">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
-                    <h5 class="card-title">${curso.titulo}</h5>
-                    <span class="badge bg-primary me-2">${curso.categoria}</span>
-                    <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-danger"}">${curso.preco}</span>
-                    <p class="card-text mt-3">${curso.descricao}</p>
+                  <h5 class="card-title">${curso.titulo}</h5>
+                  <span class="badge bg-primary me-2">${curso.categoria}</span>
+                  <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-danger"}">
+                    ${curso.preco}
+                  </span>
+                  <p class="card-text mt-3">${curso.descricao}</p>
                 </div>
+                <ul class="list-group list-group-flush" style="font-size: 1rem !important;">
+                  <li class="list-group-item text-center">${curso.plataforma}</li>
+                </ul>
                 <div class="card-footer text-center bg-white border-0">
-                  <a href="${curso.link}" target="_blank" rel="noreferrer" class="btn btn-sm btn-outline-primary w-100">Acessar Curso</a>
+                  <a href="${curso.link}" target="_blank" rel="noreferrer" class="btn btn-sm btn-outline-primary w-100">
+                    Acessar Curso <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
                 </div>
             </div>
         </div>
@@ -94,8 +101,7 @@ function configurarFiltros(listaCursos) {
   // keyup na barra de busca
   document.getElementById(CAMPO_BUSCA_ID).addEventListener("keyup", aplicarFiltrosERenderizar);
 
-  // change para os checkboxes e radios
-  // radios de custo
+  // change para os checkboxes e radios de custo
   document.querySelectorAll('input[name="radioCusto"]').forEach((controle) => {
     controle.addEventListener("change", aplicarFiltrosERenderizar);
   });
@@ -195,7 +201,8 @@ function renderizarCategorias(cursos) {
 /**
  * Popula um select com os cursos disponíveis como options.
  * @param {string} idSelect - O ID do elemento select a ser populado.
- * @param {function} [callback] - Função opcional a ser chamada após popular o select, que tenha como parametro a lista de cursos.
+ * @param {function} [callback] - Função opcional a ser chamada após popular o select, 
+ * que tenha como parametro a lista de cursos.
  * @returns {void}
  */
 export async function popularSelectDeCursos(idSelect, callback) {
