@@ -3,7 +3,6 @@ import { gerarCheckbox } from "./utils.js";
 const DATA_PATH = "data/cursos.json";
 
 const LISTA_ID = "lista-cursos";
-const CONTADOR_ID = "contador-cursos";
 const BOTAO_LIMPAR_ID = "btn-limpar-filtros";
 const CAMPO_BUSCA_ID = "campo-busca";
 
@@ -40,21 +39,21 @@ function criarCardCurso(curso) {
         <div class="col-md-6 col-lg-4 mb-4 w-auto-100">
             <div class="card shadow-sm h-100">
                 <div class="card-body">
-                  <h5 class="card-title">${curso.titulo}</h5>
+                  <h5 class="card-title card-curso-titulo">${curso.titulo}</h5>
                   <span class="badge bg-primary me-2">${curso.categoria}</span>
                   <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-danger"}">
                     ${curso.preco}
                   </span>
-                  <p class="card-text mt-3">${curso.descricao}</p>
+                  <p class="card-text card-curso-descricao mt-3">${curso.descricao}</p>
                 </div>
-                <ul class="list-group list-group-flush" style="font-size: 1rem !important;">
-                  <li class="list-group-item text-center">${curso.plataforma}</li>
-                </ul>
                 <div class="card-footer text-center bg-white border-0">
                   <a href="${curso.link}" target="_blank" rel="noreferrer" class="btn btn-sm btn-outline-primary w-100">
                     Acessar Curso <i class="bi bi-box-arrow-up-right"></i>
                   </a>
                 </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item text-center">${curso.plataforma}</li>
+                </ul>
             </div>
         </div>
     `;
@@ -66,7 +65,6 @@ function criarCardCurso(curso) {
  */
 function renderizarCursos(listaCursos) {
   const container = document.getElementById(LISTA_ID);
-  const contador = document.getElementById(CONTADOR_ID);
 
   if (!container) {
     console.error(`Elemento com ID ${LISTA_ID} não encontrado.`);
@@ -82,7 +80,6 @@ function renderizarCursos(listaCursos) {
       content += criarCardCurso(curso);
     });
   }
-  if (contador) contador.textContent = `${listaCursos.length} Cursos Encontrados`;
 
   content += `</div>`;
   container.innerHTML = content;
