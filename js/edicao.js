@@ -1,4 +1,17 @@
-import { popularSelectDeCursos } from "./cursos.js";
+import { popularSelectDeCursos } from "./cursos-render.js";
+import { carregarCursos } from "./cursos-data.js";
+import CursosFormHandler from "./cursos-form-handler.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const cursos = await carregarCursos();
+  popularSelectDeCursos("select-cursos-edicao", cursos, addSelectChangeListener);
+
+  const form = document.getElementById("form-edicao-curso");
+  if (form) {
+    const handler = new CursosFormHandler();
+    form.addEventListener("submit", (e) => handler.editar(e));
+  }
+});
 
 /**
  * Preenche os campos do formulário com os dados do curso selecionado.
@@ -9,7 +22,10 @@ function addSelectChangeListener(cursos) {
   select.addEventListener("change", function () {
     if (!this.value) return;
 
-    const cursoSelecionado = cursos.find((curso) => curso.titulo === this.value);
+    // const cursoSelecionado = cursos.find((curso) => curso.titulo === this.value);
+    const cursoSelecionado = cursos.find(
+      (curso) => curso.id == this.value
+    );
     if (cursoSelecionado) {
       document.getElementById("titulo").value = cursoSelecionado.titulo;
       document.getElementById("descricao").value = cursoSelecionado.descricao;
@@ -20,24 +36,3 @@ function addSelectChangeListener(cursos) {
     }
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  popularSelectDeCursos("select-cursos-edicao", addSelectChangeListener);
-});
-
-document.getElementById("form-edicao-curso").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  if (!document.getElementById("select-cursos-edicao").value) {
-    alert("Por favor, selecione um curso para editar.");
-    return;
-  }
-
-  const titulo = document.getElementById("titulo").value;
-  const msg = document.getElementById("msg-edicao");
-  msg.textContent = `Curso "${titulo}" editado com sucesso!`;
-  msg.classList.remove("d-none");
-  msg.scrollIntoView({ behavior: "smooth", block: "center" });
-  
-  this.reset();
-});
