@@ -49,72 +49,76 @@
       </div>
     </nav>
 
-    <h1 class="text-center mt-4 text-underline">Cursos disponíveis</h1>
-
-    <div class="container my-4">
-      <label for="campo-busca" class="form-label fw-bold">Buscar Cursos</label>
-      <input
-        type="search"
-        id="campo-busca"
-        class="form-control form-control-lg"
-        placeholder="Digite o nome, tema ou habilidade do curso..."
-      />
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 mb-4">
-          <!-- Filtro por custo -->
-          <div class="card p-3 mb-3 shadow-sm">
-            <fieldset class="border-0 m-0 p-0">
-              <legend class="fw-bold mb-3 h5">Filtrar por Custo</legend>
-              <div class="form-check">
-                <input
-                  class="form-check-input filtro-custo"
-                  type="radio"
-                  name="radioCusto"
-                  value="Gratuito"
-                  id="radioGratuito"
-                />
-                <label class="form-check-label" for="radioGratuito">Gratuito</label>
+    <header>
+      <h1 id="cursos-header" class="text-center mt-4 text-underline pt-4">Cursos disponíveis</h1>
+    </header>
+    
+    <section id="cursos-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 mb-4">
+            <aside class="sticky-lg-top" style="top: 80px; z-index: 1000;">
+              <!-- Barra de pesquisa -->
+              <label for="campo-busca" class="form-label fw-bold">Pesquisa</label>
+              <input
+                type="search"
+                id="campo-busca"
+                class="form-control mb-3 shadow-sm"
+                placeholder="Pesquisar curso por palavra-chave"
+              />
+              <!-- Filtro por custo -->
+              <div class="card p-3 mb-3 shadow-sm">
+                <fieldset class="border-0 m-0 p-0">
+                  <legend class="fw-bold mb-3 h4">Custo</legend>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input filtro-custo"
+                      type="radio"
+                      name="radioCusto"
+                      value="Gratuito"
+                      id="radioGratuito"
+                    />
+                    <label class="form-check-label" for="radioGratuito">Gratuito</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input filtro-custo"
+                      type="radio"
+                      name="radioCusto"
+                      value="Pago"
+                      id="radioPago"
+                    />
+                    <label class="form-check-label" for="radioPago">Pago</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input filtro-custo"
+                      type="radio"
+                      name="radioCusto"
+                      value="Todos"
+                      id="radioTodos"
+                      checked
+                    />
+                    <label class="form-check-label" for="radioTodos">Todos</label>
+                  </div>
+                </fieldset>
               </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input filtro-custo"
-                  type="radio"
-                  name="radioCusto"
-                  value="Pago"
-                  id="radioPago"
-                />
-                <label class="form-check-label" for="radioPago">Pago</label>
-              </div>
-              <div class="form-check">
-                <input
-                  class="form-check-input filtro-custo"
-                  type="radio"
-                  name="radioCusto"
-                  value="Todos"
-                  id="radioTodos"
-                  checked
-                />
-                <label class="form-check-label" for="radioTodos">Todos</label>
-              </div>
-            </fieldset>
+              <!-- Filtro por categoria -->
+              <fieldset class="card p-3 shadow-sm" id="filtros-categorias-div">
+                <legend class="fw-bold mb-3 h4">Categoria</legend>
+              </fieldset>
+              <button id="btn-limpar-filtros" class="btn btn-outline-dark btn-sm mt-3 w-100">
+                Limpar Filtros
+              </button>
+            </aside>
           </div>
-          <!-- Filtro por categoria -->
-          <div class="card p-3 shadow-sm" id="filtros-categorias-div">
-            <h5 class="fw-bold mb-3">Filtrar por Categoria</h5>
-          </div>
-          <button id="btn-limpar-filtros" class="btn btn-outline-dark btn-sm mt-3 w-100">
-            Limpar Filtros
-          </button>
-        </div>
 
-        <div class="col-lg-9 col-md-8">
-          <div id="lista-cursos" class="row"></div>
+          <div class="col-lg-9 col-md-8 mt-3 py-3"> 
+            <div id="lista-cursos" class="row align-items-stretch"></div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <footer class="bg-dark text-white py-4 mt-auto border-top border-secondary-subtle">
       <div class="container text-center">

@@ -1,25 +1,14 @@
-import { popularSelectDeCursos } from "./cursos.js";
+import { popularSelectDeCursos } from "./cursos-render.js";
+import { carregarCursos } from "./cursos-data.js";
+import CursosFormHandler from "./cursos-form-handler.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  popularSelectDeCursos("select-cursos-remocao");
-});
+document.addEventListener("DOMContentLoaded", async () => {
+  const cursos = await carregarCursos();
+  popularSelectDeCursos("select-cursos-remocao", cursos);
 
-document.getElementById("form-remocao-curso").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const select = document.getElementById("select-cursos-remocao");
-  const curso = select.value;
-  if (!curso) {
-    alert("Por favor, selecione um curso para remover.");
-    return;
+  const form = document.getElementById("form-remocao-curso");
+  if (form) {
+    const handler = new CursosFormHandler();
+    form.addEventListener("submit", (e) => handler.remover(e));
   }
-
-  select.remove(select.selectedIndex);
-
-  const msg = document.getElementById("msg-remocao");
-  msg.textContent = `Curso "${curso}" removido com sucesso!`;
-  msg.classList.remove("d-none");
-  msg.scrollIntoView({ behavior: "smooth", block: "center" });
-
-  this.reset();
 });
