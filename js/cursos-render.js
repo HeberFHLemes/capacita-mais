@@ -1,28 +1,40 @@
 const LISTA_ID = "lista-cursos";
 
 function criarCardCurso(curso) {
+  const isGratuito = curso.preco === "Gratuito";
+  const badgePrecoClass = isGratuito ? "bg-success" : "bg-danger";
+
   return `
-        <div class="col-md-6 col-lg-4 mb-4 w-auto-100">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                  <h5 class="card-title card-curso-titulo">${curso.titulo}</h5>
-                  <span class="badge bg-primary me-2">${curso.categoria}</span>
-                  <span class="badge ${curso.preco === "Gratuito" ? "bg-success" : "bg-danger"}">
-                    ${curso.preco}
-                  </span>
-                  <p class="card-text card-curso-descricao mt-3">${curso.descricao}</p>
-                </div>
-                <div class="card-footer text-center bg-white border-0">
-                  <a href="${curso.link}" target="_blank" rel="noreferrer" class="btn btn-sm btn-outline-primary w-100">
-                    Acessar Curso <i class="bi bi-box-arrow-up-right"></i>
-                  </a>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item text-center">${curso.plataforma}</li>
-                </ul>
-            </div>
+    <article class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm card-curso">
+        <div class="card-body d-flex flex-column">
+          <h2 class="card-title h5 fw-bold">
+            ${curso.titulo}
+          </h2>
+          <div class="mb-2">
+            <span class="badge bg-primary">${curso.categoria}</span>
+            <span class="badge ${badgePrecoClass}">
+              ${curso.preco}
+            </span>
+          </div>
+          <p class="card-text text-secondary flex-grow-1">
+            ${curso.descricao}
+          </p>
+          <small class="text-muted mb-3">
+            <i class="bi bi-display me-1"></i>
+            ${curso.plataforma}
+          </small>
+          <a href="${curso.link}" 
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline-primary w-100">
+            Acessar Curso
+            <i class="bi bi-box-arrow-up-right ms-2"></i>
+          </a>
         </div>
-    `;
+      </div>
+    </article>
+  `;
 }
 
 export function renderizarCursos(listaCursos) {
@@ -33,7 +45,7 @@ export function renderizarCursos(listaCursos) {
     return;
   }
 
-  let content = `<div class="row">`;
+  let content = "";
 
   if (listaCursos.length === 0) {
     content += `<div class="col-12"><p class="alert alert-info">Nenhum curso disponível no momento.</p></div>`;
@@ -43,7 +55,6 @@ export function renderizarCursos(listaCursos) {
     });
   }
 
-  content += `</div>`;
   container.innerHTML = content;
 }
 
@@ -63,6 +74,49 @@ export function renderizarCategorias(cursos) {
     );
     containerCategorias.appendChild(checkboxCategoria);
   });
+}
+
+/**
+ * Ao demorar para a resposta ser apresentada, 
+ * carregam-se esqueletos de cards.
+ */
+export function renderizarPlaceholders(qtd = 6) {
+  const container = document.getElementById(LISTA_ID);
+
+  container.innerHTML = Array.from({ length: qtd })
+    .map(() => criarCardPlaceholder())
+    .join("");
+}
+
+export function criarCardPlaceholder() {
+  return `
+    <div class="col-md-6 col-lg-4 mb-4 w-auto-100">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title card-curso-titulo placeholder-glow">
+            <span class="placeholder col-8"></span>
+          </h5>
+          <div class="placeholder-glow">
+            <span class="col-6 placeholder me-2"></span>
+            <span class="col-4 placeholder"></span>
+          </div>
+          <p class="card-text card-curso-descricao mt-3 placeholder-glow">
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-6"></span>
+          </p>
+        </div>
+        <div class="card-footer text-center bg-white border-0 placeholder-glow">
+          <span class="placeholder col-8 btn btn-sm btn-outline-primary w-100"></span>
+        </div>
+        <ul class="list-group list-group-flush ">
+          <li class="list-group-item text-center placeholder-glow">
+            <span class="placeholder col-6"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  `;
 }
 
 /**
