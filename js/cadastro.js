@@ -1,11 +1,9 @@
-document.getElementById("form-cadastro-curso").addEventListener("submit", function (e) {
-  e.preventDefault();
+import CursosFormHandler from "./cursos-form-handler.js";
 
-  const titulo = document.getElementById("titulo").value;
-  const msg = document.getElementById("msg");
-  msg.textContent = `Curso "${titulo}" cadastrado com sucesso!`;
-  msg.classList.remove("d-none");
-  msg.scrollIntoView({ behavior: "smooth", block: "center" });
-
-  this.reset(); // Limpa os campos
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("form-cadastro-curso");
+  if (form) {
+    const handler = new CursosFormHandler();
+    form.addEventListener("submit", (e) => handler.cadastrar(e));
+  }
 });

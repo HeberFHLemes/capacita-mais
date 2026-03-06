@@ -49,24 +49,43 @@ footer {
 }
 
 /* Cards de cursos */
-.card-curso-descricao {
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: darkslategray;
+.card-curso {
+  will-change: transform;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.badge {
-  font-size: 0.8rem;
+.card-curso:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
 }
 
-list-group-item {
-  font-size: 1rem !important;
+.card-curso .card-body {
+  padding: 1.25rem;
 }
 
 .card-curso-titulo {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  min-height: 3rem;
+}
+
+.card-curso-descricao {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.badge {
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.5em 0.8em;
 }
 
 .form-check {
