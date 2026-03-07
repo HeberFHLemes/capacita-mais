@@ -17,7 +17,7 @@ function criarCardCurso(curso) {
               ${curso.preco}
             </span>
           </div>
-          <p class="card-text text-secondary flex-grow-1">
+          <p class="card-text text-secondary flex-grow-1 card-curso-descricao">
             ${curso.descricao}
           </p>
           <small class="text-muted mb-3">
