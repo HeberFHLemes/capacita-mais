@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "titulo": "Curso de HTML5",
+    "titulo": "HTML5",
     "descricao": "Aprender a criar sites do zero nunca foi tão acessível!",
     "plataforma": "Curso em Vídeo",
     "categoria": "Programação Front-End",
@@ -68,5 +68,25 @@
     "nivel": "Iniciante",
     "preco": "Gratuito",
     "link": "https://cursa.app/pt/curso-gratuito/eletronica-basica-bec"
+  },
+  {
+    "id": 8,
+    "titulo": "Desenvolvimento Seguro de Software DevSecOps na Prática",
+    "descricao": "Aprenda do zero o desenvolvimento seguro de software, da introdução ao pipeline seguro, integração contínua para implantação contínua e entrega contínua, modelagem de ameaças e como evoluir o nível de maturidade.",
+    "plataforma": "IBSEC",
+    "categoria": "Segurança da Informação",
+    "nivel": "Iniciante",
+    "preco": "Gratuito",
+    "link": "https://conteudo.ibsec.com.br/curso-desenvolvimento-seguro-de-software-devsecops-na-pratica"
+  },
+  {
+    "id": 9,
+    "titulo": "PHP Básico",
+    "descricao": "Aprender PHP é abrir a porta para o desenvolvimento web de verdade.",
+    "plataforma": "Curso em Vídeo",
+    "categoria": "Programação",
+    "nivel": "Iniciante",
+    "preco": "Gratuito",
+    "link": "https://www.cursoemvideo.com/curso/php-basico/"
   }
 ]
