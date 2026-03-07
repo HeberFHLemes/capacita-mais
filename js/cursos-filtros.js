@@ -55,10 +55,12 @@ export function filtrarCursos(listaCompleta) {
   // filtra por qual radio de custo está selecionado
   const custoSelecionado = document.querySelector('input[name="radioCusto"]:checked');
   if (custoSelecionado && custoSelecionado.value !== "Todos") {
-    const custoFiltro = custoSelecionado.value; // Gratuito || Pago
+    const isGratuito = custoSelecionado.value === "Gratuito"
 
     resultados = resultados.filter(
-      (curso) => curso.preco && curso.preco.toLowerCase() === custoFiltro.toLowerCase()
+      (curso) => (
+        (curso.gratuito && isGratuito) || (!curso.gratuito && !isGratuito)
+      )
     );
   }
 

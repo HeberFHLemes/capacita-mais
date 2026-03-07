@@ -5,8 +5,7 @@
     "descricao": "Aprender a criar sites do zero nunca foi tão acessível!",
     "plataforma": "Curso em Vídeo",
     "categoria": "Programação Front-End",
-    "nivel": "Iniciante",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://www.cursoemvideo.com/curso/html5/"
   },
   {
@@ -15,8 +14,7 @@
     "descricao": "Descubra o caminho para se tornar um(a) profissional qualificado(a) em qualidade de software!",
     "plataforma": "DIO",
     "categoria": "Testes Automatizados",
-    "nivel": "Avançado",
-    "preco": "Pago",
+    "gratuito": false,
     "link": "https://web.dio.me/track/formacao-automacao-testes-cypress"
   },
   {
@@ -25,8 +23,7 @@
     "descricao": "Domine as principais fórmulas e recursos para impulsionar sua produtividade.",
     "plataforma": "Fundação Bradesco",
     "categoria": "Produtividade",
-    "nivel": "Básico ao Avançado",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://www.ev.org.br/trilhas-de-conhecimento/excel-2016-do-basico-ao-avancado"
   },
   {
@@ -35,8 +32,7 @@
     "descricao": "Dominando controle de versão de código.",
     "plataforma": "Alura",
     "categoria": "Ferramentas úteis",
-    "nivel": "Iniciante",
-    "preco": "Pago",
+    "gratuito": false,
     "link": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo"
   },
   {
@@ -45,8 +41,7 @@
     "descricao": "Aprenda a desenvolver apps web usando HTML5, CSS3 e JavaScript com este curso gratuito de programação front-end.",
     "plataforma": "Cursa",
     "categoria": "Programação Front-End",
-    "nivel": "Iniciante",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://cursa.app/pt/curso-gratuito/desenvolvimento-web-com-html-css-e-javascript-eiff"
   },
   {
@@ -55,8 +50,7 @@
     "descricao": "Curso completo para aprender Python do zero.",
     "plataforma": "Coursera",
     "categoria": "Programação",
-    "nivel": "Iniciante",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://www.coursera.org/learn/python"
   },
   {
@@ -65,8 +59,7 @@
     "descricao": "Curso online gratuito de Eletrônica Básica. Aprenda desde medidas práticas até amplificação de sinais e testes com transistores. Ideal para iniciantes e entusiastas.",
     "plataforma": "Cursa",
     "categoria": "Eletrônica",
-    "nivel": "Iniciante",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://cursa.app/pt/curso-gratuito/eletronica-basica-bec"
   },
   {
@@ -75,8 +68,7 @@
     "descricao": "Aprenda do zero o desenvolvimento seguro de software, da introdução ao pipeline seguro, integração contínua para implantação contínua e entrega contínua, modelagem de ameaças e como evoluir o nível de maturidade.",
     "plataforma": "IBSEC",
     "categoria": "Segurança da Informação",
-    "nivel": "Iniciante",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://conteudo.ibsec.com.br/curso-desenvolvimento-seguro-de-software-devsecops-na-pratica"
   },
   {
@@ -85,8 +77,7 @@
     "descricao": "Aprender PHP é abrir a porta para o desenvolvimento web de verdade.",
     "plataforma": "Curso em Vídeo",
     "categoria": "Programação",
-    "nivel": "Iniciante",
-    "preco": "Gratuito",
+    "gratuito": true,
     "link": "https://www.cursoemvideo.com/curso/php-basico/"
   }
 ]
