@@ -1,8 +1,8 @@
 const LISTA_ID = "lista-cursos";
 
 function criarCardCurso(curso) {
-  const isGratuito = curso.preco === "Gratuito";
-  const badgePrecoClass = isGratuito ? "bg-success" : "bg-danger";
+  const custo = curso.gratuito ? "Gratuito" : "Pago";
+  const badgeCustoClass = curso.gratuito ? "bg-success" : "bg-danger";
 
   return `
     <article class="col-12 col-md-6 col-lg-4 mb-4">
@@ -13,10 +13,10 @@ function criarCardCurso(curso) {
           </h2>
           <div class="mb-2">
             <span class="badge bg-primary">${curso.categoria}</span>
-            <span class="badge ${badgePrecoClass}">
-              ${curso.preco}
+            <span class="badge ${badgeCustoClass}">
+              ${custo}
             </span>
-          </div>
+          </div>  
           <p class="card-text text-secondary flex-grow-1 card-curso-descricao">
             ${curso.descricao}
           </p>
@@ -128,8 +128,6 @@ export function criarCardPlaceholder() {
  */
 export async function popularSelectDeCursos(idSelect, cursos, callback) {
   const select = document.getElementById(idSelect);
-
-  // const cursos = await lerDados();
 
   select.innerHTML = "";
   if (cursos.length == 0) {
