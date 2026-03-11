@@ -8,15 +8,18 @@ Versão estática acessível em: [https://heberfhlemes.github.io/capacita-mais](
 
 ## Testando localmente
 
-É possível rodar localmente com `npm` ou `Docker`:
+É possível rodar localmente com `php` ou `Docker`:
 
-#### npm
+### PHP embutido
 ```bash
-npx serve public
-```
-Acesse em: http://localhost:3000
+php -S localhost:8080 -t public
 
-#### Docker (Nginx)
+# Ou via npm
+npm run dev:php
+```
+Acesse em: http://localhost:8080
+
+### Docker (Nginx + PHP)
 ```bash
 docker compose up -d
 ```

@@ -5,3 +5,12 @@ services:
       dockerfile: docker/nginx/Dockerfile
     ports:
       - "8080:80"
+    volumes:
+      - .:/var/www/html
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/var/www/html
