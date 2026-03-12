@@ -24,7 +24,7 @@ function criarCardCurso(curso) {
             <i class="bi bi-display me-1"></i>
             ${curso.plataforma}
           </small>
-          <a href="${curso.link}" 
+          <a href="${curso.url}" 
             target="_blank"
             rel="noopener"
             class="btn btn-outline-primary w-100">
