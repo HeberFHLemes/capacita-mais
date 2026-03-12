@@ -5,11 +5,14 @@
   "scripts": {
     "format": "prettier --write .",
     "check-style": "prettier --check .",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "dev:php": "php -S localhost:8080 -t public/"
   },
   "author": "HeberFHLemes <hfhlemes@gmail.com>",
   "license": "",
   "devDependencies": {
+    "cypress": "^15.11.0",
     "prettier": "^3.6.2"
   }
 }
