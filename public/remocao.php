@@ -1,3 +1,4 @@
+<?php require_once dirname(__DIR__) . '/src/auth/auth_guard.php'; ?>
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -12,7 +13,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body class="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100">
     <div class="container my-5">
@@ -20,13 +21,13 @@
         <div class="col-lg-6">
           <ul class="nav nav-underline justify-content-center">
             <li class="nav-item">
-              <a class="nav-link formulario-link" href="cadastro.html">Cadastrar</a>
+              <a class="nav-link formulario-link" href="/cadastro.php">Cadastrar</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link formulario-link" href="edicao.html">Editar</a>
+              <a class="nav-link formulario-link" href="/edicao.php">Editar</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link formulario-link active" aria-current="page" href="remocao.html">Remover</a>
+              <a class="nav-link formulario-link active" aria-current="page" href="/remocao.php">Remover</a>
             </li>
           </ul>
           <div class="card shadow-sm p-4">
@@ -49,13 +50,13 @@
             <div id="msg-remocao" class="alert alert-success mt-3 d-none" role="alert"></div>
 
             <p class="text-center mt-4">
-              <a href="index.html" class="text-decoration-none">Voltar ao site principal</a>
+              <a href="/index.html" class="text-decoration-none">Voltar ao site principal</a>
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="js/remocao.js" type="module"></script>
+    <script src="/js/remocao.js" type="module"></script>
   </body>
 </html>

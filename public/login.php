@@ -1,3 +1,7 @@
+<?php
+  require_once dirname(__DIR__) . '/src/auth/auth.php';
+  $erro = autenticar();
+?>
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -12,18 +16,25 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body class="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100">
     <main class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
       <h1 class="h4 text-center mb-4">Acesso Administrativo</h1>
 
-      <form id="form-login">
+      <?php if ($erro): ?>
+        <div class="alert alert-danger" role="alert">
+          <?= htmlspecialchars($erro) ?>
+        </div>
+      <?php endif; ?>
+
+      <form id="form-login" method="post" action="/login.php">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail</label>
           <input
             autofocus="on"
             type="email"
+            name="email"
             id="email"
             class="form-control"
             required
@@ -33,17 +44,15 @@
 
         <div class="mb-3">
           <label for="senha" class="form-label">Senha</label>
-          <input type="password" id="senha" class="form-control" required placeholder="••••••••" />
+          <input type="password" id="senha" name="senha" class="form-control" required placeholder="••••••••" />
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Entrar</button>
       </form>
 
       <p class="text-center mt-3">
-        <a href="index.html" class="text-decoration-none">Voltar ao site principal</a>
+        <a href="/index.html" class="text-decoration-none">Voltar ao site principal</a>
       </p>
     </main>
-
-    <script src="js/login.js"></script>
   </body>
 </html>
