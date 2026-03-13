@@ -12,7 +12,17 @@ function buscarCursos()
 // POST
 function cadastrar() 
 {
-    echo "Implementar cadastro de cursos";
+    header('Content-Type: application/json');
+    $requestBody = file_get_contents("php://input");
+
+    $dados = json_decode($requestBody, true);
+    
+    // TODO: Persistir no banco
+    
+    echo json_encode([
+        "success" => true,
+        "received" => $dados
+    ]);
 }
 
 // PUT

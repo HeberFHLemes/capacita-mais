@@ -36,27 +36,27 @@
             <form id="form-cadastro-curso">
               <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
-                <input type="text" id="titulo" class="form-control" required />
+                <input type="text" id="titulo" name="titulo" class="form-control" required />
               </div>
 
               <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
-                <textarea id="descricao" class="form-control" rows="3" required></textarea>
+                <textarea id="descricao" name="descricao" class="form-control" rows="3" required></textarea>
               </div>
 
               <div class="mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
-                <input type="text" id="categoria" class="form-control" required />
+                <input type="text" id="categoria" name="categoria" class="form-control" required />
               </div>
 
               <div class="mb-3">
                 <label for="plataforma" class="form-label">Plataforma</label>
-                <input type="text" id="plataforma" class="form-control" required />
+                <input type="text" id="plataforma" name="plataforma" class="form-control" required />
               </div>
 
               <div class="mb-3">
                 <label for="custo" class="form-label">Custo</label>
-                <select id="custo" class="form-select" required>
+                <select id="custo" name="custo" class="form-select" required>
                   <option value="Gratuito">Gratuito</option>
                   <option value="Pago">Pago</option>
                 </select>
@@ -67,6 +67,7 @@
                 <input
                   type="url"
                   id="link"
+                  name="link"
                   class="form-control"
                   placeholder="https://..."
                   required
