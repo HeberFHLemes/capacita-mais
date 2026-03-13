@@ -22,9 +22,7 @@ function addSelectChangeListener(cursos) {
   select.addEventListener("change", function () {
     if (!this.value) return;
 
-    const cursoSelecionado = cursos.find(
-      (curso) => curso.id == this.value
-    );
+    const cursoSelecionado = cursos.find((curso) => curso.id == this.value);
 
     if (cursoSelecionado) {
       document.getElementById("titulo").value = cursoSelecionado.titulo;

@@ -11,15 +11,13 @@ async function iniciarAplicacao() {
   }, 100);
 
   try {
-  
     const cursos = await carregarCursos();
 
     clearTimeout(timeoutPlaceholders);
 
     renderizarCategorias(cursos);
-    configurarFiltros(cursos); 
+    configurarFiltros(cursos);
     renderizarCursos(cursos);
-
   } catch (e) {
     console.error(e);
     clearTimeout(timeoutPlaceholders);

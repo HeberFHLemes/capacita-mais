@@ -20,5 +20,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
         
     default:
-        echo "Método não suportado";
+        http_response_code(405);
+        echo "Método não suportado - " . $_SERVER['REQUEST_METHOD'];
 }

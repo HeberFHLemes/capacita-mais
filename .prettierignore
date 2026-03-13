@@ -12,3 +12,4 @@ package-lock.json
 .prettierignore
 .prettierrc
 node_modules
+cypress/

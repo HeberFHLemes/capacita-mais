@@ -1,18 +1,13 @@
 /**
  * Classe para centralizar a lógica dos forms de curso.
- * 
- * Preparando para evoluir leitura de arquivo JSON 
+ *
+ * Preparando para evoluir leitura de arquivo JSON
  * para consumo de API ou integração com PHP.
  */
 export default class CursosFormHandler {
+  constructor() {}
 
-  constructor() {}  
-
-  cadastrar(
-    event,
-    mensagemElementId = "msg",
-    mensagemSucesso = "Curso cadastrado com sucesso!"
-  ) {
+  cadastrar(event, mensagemElementId = "msg", mensagemSucesso = "Curso cadastrado com sucesso!") {
     event.preventDefault();
 
     this.mostrarMensagem(mensagemSucesso, mensagemElementId);
@@ -40,7 +35,7 @@ export default class CursosFormHandler {
 
     event.target.reset();
   }
-  
+
   remover(
     event,
     selectElementId = "select-cursos-remocao",
