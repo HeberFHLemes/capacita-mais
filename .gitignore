@@ -3,3 +3,5 @@ node_modules/
 assets/
 cypress/videos/
 cypress/screenshots/
+/vendor/
+.phpunit.result.cache
