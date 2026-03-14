@@ -1,6 +1,8 @@
 <?php
-  require_once dirname(__DIR__) . '/src/auth/auth.php';
-  $erro = autenticar();
+  require_once __DIR__ . '/../vendor/autoload.php';
+  use App\Auth\AuthService;
+  use App\Usuarios\UsuarioService;
+  $erro = new AuthService(new UsuarioService())->autenticar();
 ?>
 <!doctype html>
 <html lang="pt-BR">

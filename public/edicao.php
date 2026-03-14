@@ -1,4 +1,9 @@
-<?php require_once dirname(__DIR__) . '/src/auth/auth_guard.php'; ?>
+<?php
+  require_once __DIR__ . '/../vendor/autoload.php';
+  use App\Auth\AuthService;
+  use App\Usuarios\UsuarioService;
+  new AuthService(new UsuarioService())->exigirLogin();
+?>
 <!doctype html>
 <html lang="pt-BR">
   <head>

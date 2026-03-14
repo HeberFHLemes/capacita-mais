@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-class Usuario {
+namespace App\Usuarios;
+
+class Usuario 
+{
     private int $id;
     private string $email;
     private string $senha;
@@ -17,7 +20,8 @@ class Usuario {
         $this->senha = $senha;
     }
 
-    public function toArray(): array {
+    public function toArray(): array 
+    {
         return [
             "id" => $this->id,
             "email" => $this->email,

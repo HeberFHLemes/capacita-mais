@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-class Curso {
+namespace App\Cursos;
+
+class Curso 
+{
     private int $id;
     private string $titulo;
     private string $descricao;
@@ -29,7 +32,8 @@ class Curso {
         $this->url = $url;
     }
 
-    public function toArray(): array {
+    public function toArray(): array 
+    {
         return [
             "id" => $this->id,
             "titulo" => $this->titulo,
