@@ -8,7 +8,7 @@ class Usuario
 {
     private int $id;
     private string $email;
-    private string $senha;
+    private string $senhaHash;
     
     public function __construct(
         int $id,
@@ -17,15 +17,17 @@ class Usuario
     ) {
         $this->id = $id;    
         $this->email = $email;
-        $this->senha = $senha;
+        $this->senhaHash = $senha;
+    }
+    
+    // Utilizar este método permite manter o atributo senha como private
+    public function verificarSenha(string $senha): bool
+    {
+        return password_verify($senha, $this->senhaHash);
     }
 
-    public function toArray(): array 
+    public function getId(): int
     {
-        return [
-            "id" => $this->id,
-            "email" => $this->email,
-            "senha" => $this->senha
-        ];
+        return $this->id;
     }
 }
