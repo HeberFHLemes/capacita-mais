@@ -29,7 +29,7 @@ class Conexao
                     ]
                 );
             } catch (PDOException $e) {
-                throw new \RuntimeException("Erro ao tentar se conectar ao banco de dados", 0, $e);
+                throw new \RuntimeException("Erro ao tentar se conectar ao banco de dados", previous: $e);
             }
         }
         return self::$instance;

@@ -3,10 +3,18 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Cursos\CursoController;
-use App\Cursos\CursoRepository;
 use App\Cursos\CursoService;
+use App\Cursos\CursoRepository;
 
-$cursoService = new CursoService(new CursoRepository());
+use App\Categorias\CategoriaRepository;
+use App\Plataformas\PlataformaRepository;
+
+$cursoService = new CursoService(
+    new CursoRepository(),
+    new PlataformaRepository(),
+    new CategoriaRepository()
+);
+
 $cursoController = new CursoController($cursoService);
 
 switch ($_SERVER['REQUEST_METHOD']) {

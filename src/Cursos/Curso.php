@@ -7,7 +7,7 @@ namespace App\Cursos;
 class Curso 
 {
     private int $id;
-    private string $titulo;
+    private string $nome;
     private string $descricao;
     private string $categoria;
     private string $plataforma;
@@ -16,7 +16,7 @@ class Curso
     
     public function __construct(
         int $id,
-        string $titulo,
+        string $nome,
         string $descricao,
         string $categoria,
         string $plataforma,
@@ -24,7 +24,7 @@ class Curso
         string $url
     ) {
         $this->id = $id;    
-        $this->titulo = $titulo;
+        $this->nome = $nome;
         $this->descricao = $descricao;
         $this->categoria = $categoria;
         $this->plataforma = $plataforma;
@@ -36,7 +36,7 @@ class Curso
     {
         return [
             "id" => $this->id,
-            "titulo" => $this->titulo,
+            "nome" => $this->nome,
             "descricao" => $this->descricao,
             "categoria" => $this->categoria,
             "plataforma" => $this->plataforma,

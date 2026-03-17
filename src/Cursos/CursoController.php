@@ -26,13 +26,20 @@ class CursoController
         $requestBody = file_get_contents("php://input");
         $dados = json_decode($requestBody, true);
         
-        // TODO: Persistir no banco
+        $curso = $this->cursoService->criar(
+            $dados['nome'],
+            $dados['descricao'],
+            $dados['categoria'],
+            $dados['plataforma'],
+            $dados['url'],
+            $dados['gratuito']
+        );
         
         http_response_code(201);
 
         echo json_encode([
             "success" => true,
-            "received" => $dados
+            "received" => $curso->toArray()
         ]);
 
         exit;
