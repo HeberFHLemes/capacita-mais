@@ -1,8 +1,9 @@
 <?php
   require_once __DIR__ . '/../vendor/autoload.php';
   use App\Auth\AuthService;
-  use App\Usuarios\UsuarioService;
-  new AuthService(new UsuarioService())->exigirLogin();
+  use App\Usuarios\UsuarioRepository;
+  
+  new AuthService(new UsuarioRepository())->exigirLogin();
 ?>
 <!doctype html>
 <html lang="pt-BR">

@@ -9,7 +9,7 @@ function criarCardCurso(curso) {
       <div class="card h-100 shadow-sm card-curso">
         <div class="card-body d-flex flex-column">
           <h2 class="card-title h5 fw-bold">
-            ${curso.titulo}
+            ${curso.nome}
           </h2>
           <div class="mb-2">
             <span class="badge bg-primary">${curso.categoria}</span>
@@ -142,7 +142,7 @@ export async function popularSelectDeCursos(idSelect, cursos, callback) {
     cursos.forEach((curso) => {
       const option = document.createElement("option");
       option.value = curso.id;
-      option.textContent = curso.titulo;
+      option.textContent = curso.nome;
       select.appendChild(option);
     });
   }

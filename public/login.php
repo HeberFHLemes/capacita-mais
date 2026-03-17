@@ -1,8 +1,29 @@
 <?php
   require_once __DIR__ . '/../vendor/autoload.php';
   use App\Auth\AuthService;
-  use App\Usuarios\UsuarioService;
-  $erro = new AuthService(new UsuarioService())->autenticar();
+  use App\Usuarios\UsuarioRepository;
+  
+  $erro = '';
+  
+  $authService = new AuthService(new UsuarioRepository());
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $senha = trim($_POST['senha'] ?? '');
+    
+    $usuario = $authService->autenticar($email, $senha);
+
+    if ($usuario) {
+      session_start();
+      session_regenerate_id(true);
+
+      $_SESSION['admin_id'] = $usuario->getId();
+
+      header('Location: /cadastro.php');
+      exit;
+    }  
+    $erro = "E-mail ou senha inválidos.";
+  }
 ?>
 <!doctype html>
 <html lang="pt-BR">

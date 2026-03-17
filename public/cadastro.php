@@ -1,8 +1,9 @@
 <?php
   require_once __DIR__ . '/../vendor/autoload.php';
   use App\Auth\AuthService;
-  use App\Usuarios\UsuarioService;
-  new AuthService(new UsuarioService())->exigirLogin();
+  use App\Usuarios\UsuarioRepository;
+  
+  new AuthService(new UsuarioRepository())->exigirLogin();
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -40,8 +41,8 @@
 
             <form id="form-cadastro-curso">
               <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" id="titulo" name="titulo" class="form-control" required />
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" name="nome" class="form-control" required />
               </div>
 
               <div class="mb-3">

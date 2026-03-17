@@ -25,7 +25,7 @@ function addSelectChangeListener(cursos) {
     const cursoSelecionado = cursos.find((curso) => curso.id == this.value);
 
     if (cursoSelecionado) {
-      document.getElementById("titulo").value = cursoSelecionado.titulo;
+      document.getElementById("nome").value = cursoSelecionado.nome;
       document.getElementById("descricao").value = cursoSelecionado.descricao;
       document.getElementById("categoria").value = cursoSelecionado.categoria;
       document.getElementById("plataforma").value = cursoSelecionado.plataforma;

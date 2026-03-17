@@ -20,7 +20,7 @@ export default class CursosFormHandler {
     const formData = new FormData(form);
 
     const curso = {
-      titulo: formData.get("titulo"),
+      nome: formData.get("nome"),
       descricao: formData.get("descricao"),
       categoria: formData.get("categoria"),
       plataforma: formData.get("plataforma"),

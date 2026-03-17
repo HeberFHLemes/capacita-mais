@@ -46,7 +46,7 @@ export function filtrarCursos(listaCompleta) {
   if (busca) {
     resultados = resultados.filter(
       (curso) =>
-        curso.titulo.toLowerCase().includes(busca) ||
+        curso.nome.toLowerCase().includes(busca) ||
         curso.descricao.toLowerCase().includes(busca) ||
         (curso.categoria && curso.categoria.toLowerCase().includes(busca))
     );
