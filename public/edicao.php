@@ -1,9 +1,11 @@
 <?php
   require_once __DIR__ . '/../vendor/autoload.php';
   use App\Auth\AuthService;
+  use App\Database\Conexao;
   use App\Usuarios\UsuarioRepository;
   
-  new AuthService(new UsuarioRepository())->exigirLogin();
+  $pdo = Conexao::getInstance();
+  new AuthService(new UsuarioRepository($pdo))->exigirLogin();
 ?>
 <!doctype html>
 <html lang="pt-BR">

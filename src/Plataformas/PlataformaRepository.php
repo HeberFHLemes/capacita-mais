@@ -3,19 +3,13 @@
 namespace App\Plataformas;
 
 use App\Plataformas\Plataforma;
-use App\Database\Conexao;
 use App\Utils\Normalizador;
 
 use PDO;
 
 class PlataformaRepository
 {
-    private PDO $conexao;
-
-    public function __construct()
-    {
-        $this->conexao = Conexao::getInstance();
-    }
+    public function __construct(private PDO $conexao) {}
 
     public function buscarOuCriar(string $nome): Plataforma
     {
@@ -31,7 +25,11 @@ class PlataformaRepository
             return $this->criar($nome, $normalizado);
         } catch (\PDOException $e) {
             // caso já foi inserido (outra requisição/unique)
-            return $this->buscarPorNormalizado($normalizado);
+            $plataforma = $this->buscarPorNormalizado($normalizado);
+            if ($plataforma === null) {
+                throw $e;
+            }
+            return $plataforma;
         }
     }
 

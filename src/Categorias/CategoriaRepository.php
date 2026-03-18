@@ -3,7 +3,6 @@
 namespace App\Categorias;
 
 use App\Categorias\Categoria;
-use App\Database\Conexao;
 use App\Utils\Normalizador;
 
 use PDO;
@@ -11,12 +10,7 @@ use PDO;
 class CategoriaRepository
 {
 
-    private PDO $conexao;
-
-    public function __construct()
-    {
-        $this->conexao = Conexao::getInstance();
-    }
+    public function __construct(private PDO $conexao) {}
 
     public function buscarOuCriar(string $nome): Categoria
     {
@@ -32,7 +26,11 @@ class CategoriaRepository
             return $this->criar($nome, $normalizado);
         } catch (\PDOException $e) {
             // caso já foi inserido (outra requisição/unique)
-            return $this->buscarPorNormalizado($normalizado);
+            $categoria = $this->buscarPorNormalizado($normalizado);
+            if ($categoria === null) {
+                throw $e;
+            }
+            return $categoria;
         }
     }
 

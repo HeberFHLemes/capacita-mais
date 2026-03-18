@@ -2,20 +2,13 @@
 
 namespace App\Cursos;
 
-use App\Database\Conexao;
-
 use PDO;
 
 class CursoRepository
 {
-    private PDO $conexao;
+    public function __construct(private PDO $conexao) {}
 
-    public function __construct()
-    {
-        $this->conexao = Conexao::getInstance();
-    }
-
-    public function buscarTodos(): array
+    public function buscarTodos(): array // array associativo
     {
         $sql = "SELECT c.*, cat.nome AS categoria_nome, p.nome AS plataforma_nome
             FROM cursos c
@@ -45,12 +38,12 @@ class CursoRepository
 
     public function criar(
         string $nome,
-        string $descricao,
+        ?string $descricao,
         int $categoriaId,
         int $plataformaId,
         string $url,
         bool $gratuito
-    ): Curso
+    ): int
     {
         $sql = "INSERT INTO cursos (nome, descricao, categoria_id, plataforma_id, url, gratuito)
                 VALUES (:nome, :descricao, :categoria_id, :plataforma_id, :url, :gratuito)";
@@ -66,16 +59,6 @@ class CursoRepository
             ':gratuito' => $gratuito
         ]);
 
-        $id = $this->conexao->lastInsertId();
-
-        return new Curso(
-            $id,
-            $nome,
-            $descricao,
-            $categoriaId,
-            $plataformaId,
-            $url,
-            $gratuito
-        );
+        return (int) $this->conexao->lastInsertId();
     }
 }

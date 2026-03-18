@@ -7,12 +7,7 @@ use PDO;
 
 class UsuarioRepository
 {
-    private PDO $conexao;
-
-    public function __construct()
-    {
-        $this->conexao = Conexao::getInstance();
-    }
+    public function __construct(private PDO $conexao) {}
 
     public function buscarPorEmail(string $email): ?Usuario
     {

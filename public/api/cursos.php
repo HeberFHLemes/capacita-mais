@@ -5,14 +5,16 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Cursos\CursoController;
 use App\Cursos\CursoService;
 use App\Cursos\CursoRepository;
-
+use App\Database\Conexao;
 use App\Categorias\CategoriaRepository;
 use App\Plataformas\PlataformaRepository;
 
+$pdo = Conexao::getInstance();
+
 $cursoService = new CursoService(
-    new CursoRepository(),
-    new PlataformaRepository(),
-    new CategoriaRepository()
+    new CursoRepository($pdo),
+    new PlataformaRepository($pdo),
+    new CategoriaRepository($pdo)
 );
 
 $cursoController = new CursoController($cursoService);

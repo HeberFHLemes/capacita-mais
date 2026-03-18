@@ -4,9 +4,7 @@ namespace App\Cursos;
 
 use App\Categorias\CategoriaRepository;
 use App\Cursos\Curso;
-use App\Database\Conexao;
 use App\Plataformas\PlataformaRepository;
-use PDO;
 
 class CursoService 
 {
@@ -33,7 +31,7 @@ class CursoService
 
         $plataforma = $this->plataformaRepository->buscarOuCriar($plataformaNome);
 
-        return $this->cursoRepository->criar(
+        $id = $this->cursoRepository->criar(
             $nome,
             $descricao,
             $categoria->id,
@@ -41,5 +39,7 @@ class CursoService
             $url,
             $gratuito
         );
+
+        return new Curso($id, $nome, $descricao, $categoria->nome, $plataforma->nome, $gratuito, $url);
     }
 }
