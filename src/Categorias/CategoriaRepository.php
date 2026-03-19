@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Categorias;
 
@@ -45,7 +45,7 @@ class CategoriaRepository
             ':nome_normalizado' => $nome_normalizado
         ]);
 
-        $id = $this->conexao->lastInsertId();
+        $id = (int) $this->conexao->lastInsertId();
 
         return new Categoria($id, $nome);
     }

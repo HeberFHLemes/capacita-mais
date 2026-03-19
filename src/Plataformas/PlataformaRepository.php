@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Plataformas;
 
@@ -44,7 +44,7 @@ class PlataformaRepository
             ':nome_normalizado' => $nome_normalizado
         ]);
 
-        $id = $this->conexao->lastInsertId();
+        $id = (int) $this->conexao->lastInsertId();
 
         return new Plataforma($id, $nome);
     }

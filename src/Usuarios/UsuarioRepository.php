@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Usuarios;
 
-use App\Database\Conexao;
 use PDO;
 
 class UsuarioRepository
