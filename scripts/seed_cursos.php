@@ -29,7 +29,7 @@ if ($stmt->fetch()) {
 }
 
 // antigo public/data/cursos.json
-$arquivoJson = __DIR__ . '/cursos.json';
+$arquivoJson = __DIR__ . '/data/cursos.json';
 
 $json = file_get_contents($arquivoJson);
 
