@@ -56,7 +56,7 @@ class CursoRepository
             ':categoria_id' => $categoriaId,
             ':plataforma_id' => $plataformaId,
             ':url' => $url,
-            ':gratuito' => $gratuito
+            ':gratuito' => (int) $gratuito // MariaDB trata como int
         ]);
 
         return (int) $this->conexao->lastInsertId();

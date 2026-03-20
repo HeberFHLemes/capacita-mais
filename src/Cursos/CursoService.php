@@ -14,6 +14,15 @@ class CursoService
         private CategoriaRepository $categoriaRepository
     ) {}
 
+    public static function with(\PDO $pdo): self
+    {
+        return new CursoService(
+            new CursoRepository($pdo),
+            new PlataformaRepository($pdo),
+            new CategoriaRepository($pdo)
+        );
+    }
+
     public function listarCursos(): array
     {
         return $this->cursoRepository->buscarTodos();

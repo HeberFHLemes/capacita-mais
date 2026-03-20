@@ -1,21 +1,20 @@
 <?php
-/**
+/*
  * Cadastrar usuário (admin) por script, com variáveis de ambiente.
  * USO (Banco de dados já deve estar funcionando):
  * - docker compose exec [serviço do php] php scripts/seed_usuario.php
  * - php scripts/seed_usuario.php
  */ 
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Database\Conexao;
 
-$conexao = Conexao::getInstance();
+$pdo = Conexao::getInstance();
 
 $email = getenv('USUARIO_EMAIL');
 
 // Verifica se já existe
-$stmt = $conexao->prepare("SELECT id FROM usuarios WHERE email = :email");
+$stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = :email");
 $stmt->execute([':email' => $email]);
 
 if ($stmt->fetch()) {
@@ -25,7 +24,7 @@ if ($stmt->fetch()) {
 
 $senha = password_hash(getenv('USUARIO_SENHA'), PASSWORD_DEFAULT);
 
-$stmt = $conexao->prepare("
+$stmt = $pdo->prepare("
     INSERT INTO usuarios (email, senha)
     VALUES (:email, :senha)
 ");
