@@ -19,7 +19,10 @@
     if ($usuario) {
       session_regenerate_id(true);
 
-      $_SESSION['admin_id'] = $usuario->getId();
+      $_SESSION['usuario'] = [
+        'id' => $usuario->getId(),
+        'role' => 'admin'
+      ];
 
       header('Location: /cadastro.php');
       exit;

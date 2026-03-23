@@ -22,7 +22,10 @@ class AuthService
     {
         $this->iniciarSessao();
 
-        if (empty($_SESSION['admin_id'])) {
+        if (
+            !isset($_SESSION['usuario']) ||
+            !isset($_SESSION['usuario']['id'])
+        ) {
             header('Location: /login.php');
             exit;
         }
