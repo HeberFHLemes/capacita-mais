@@ -7,27 +7,24 @@
   $erro = '';
   
   $pdo = Conexao::getInstance();
+
   $authService = new AuthService(new UsuarioRepository($pdo));
   $authService->iniciarSessao();
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $senha = trim($_POST['senha'] ?? '');
-    
-    $usuario = $authService->autenticar($email, $senha);
 
-    if ($usuario) {
-      session_regenerate_id(true);
+    if ($email && $senha !== '') {
+      $usuario = $authService->autenticar($email, $senha);
 
-      $_SESSION['usuario'] = [
-        'id' => $usuario->getId(),
-        'role' => 'admin'
-      ];
+      if ($usuario) {
+        $authService->login($usuario);
 
-      header('Location: /cadastro.php');
-      exit;
+        header('Location: /cadastro.php');
+        exit;
+      }
     }
-
     $erro = "E-mail ou senha inválidos.";
   }
 ?>

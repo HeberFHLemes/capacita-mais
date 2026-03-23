@@ -7,13 +7,15 @@ use App\Usuarios\Usuario;
 
 class AuthService
 {
+    public const ROLE_ADMIN = 'admin';
+
     public function __construct(
-        private UsuarioRepository $usuarioRepository
+        private ?UsuarioRepository $usuarioRepository = null
     ) {}
 
     public function iniciarSessao(): void 
     {
-        if (session_status() === PHP_SESSION_NONE) {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
     }
@@ -22,10 +24,7 @@ class AuthService
     {
         $this->iniciarSessao();
 
-        if (
-            !isset($_SESSION['usuario']) ||
-            !isset($_SESSION['usuario']['id'])
-        ) {
+        if (!$this->usuarioLogado()) {
             header('Location: /login.php');
             exit;
         }
@@ -33,6 +32,10 @@ class AuthService
     
     public function autenticar(string $email, string $senha): ?Usuario
     {
+        if (!$this->usuarioRepository) {
+            throw new \RuntimeException('UsuarioRepository não configurado.');
+        }
+
         $usuario = $this->usuarioRepository->buscarPorEmail($email);
 
         if ($usuario && $usuario->verificarSenha($senha)) {
@@ -40,5 +43,37 @@ class AuthService
         }
 
         return null;
+    }
+
+    public function login(Usuario $usuario): void
+    {
+        $this->iniciarSessao();
+
+        session_regenerate_id(true);
+
+        $_SESSION['usuario'] = [
+            'id' => $usuario->getId(),
+            'role' => self::ROLE_ADMIN
+        ];
+    }
+
+    public function usuario(): ?array
+    {
+        $this->iniciarSessao();
+        return $_SESSION['usuario'] ?? null;
+    }
+
+    public function usuarioLogado(): bool
+    {
+        $this->iniciarSessao();
+        return isset($_SESSION['usuario']['id']);
+    }
+
+    public function temRole(string $role): bool
+    {
+        $usuario = $this->usuario();
+
+        return $usuario !== null &&  
+            ($usuario['role'] ?? null) === $role;
     }
 }
