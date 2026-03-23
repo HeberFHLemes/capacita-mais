@@ -5,27 +5,32 @@
   use App\Usuarios\UsuarioRepository;
   
   $erro = '';
-  
-  $pdo = Conexao::getInstance();
 
-  $authService = new AuthService(new UsuarioRepository($pdo));
-  $authService->iniciarSessao();
+  try {
+    $pdo = Conexao::getInstance();
+    $authService = new AuthService(new UsuarioRepository($pdo));
+    $authService->iniciarSessao();
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $senha = trim($_POST['senha'] ?? '');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+      $senha = trim($_POST['senha'] ?? '');
 
-    if ($email && $senha !== '') {
-      $usuario = $authService->autenticar($email, $senha);
+      if ($email && $senha !== '') {
+        $usuario = $authService->autenticar($email, $senha);
 
-      if ($usuario) {
-        $authService->login($usuario);
+        if ($usuario) {
+          $authService->login($usuario);
 
-        header('Location: /cadastro.php');
-        exit;
+          header('Location: /cadastro.php');
+          exit;
+        }
       }
+      $erro = "E-mail ou senha inválidos.";
     }
-    $erro = "E-mail ou senha inválidos.";
+  } catch (\Throwable $e) {
+    error_log($e);
+
+    $erro = "Sistema temporariamente indisponível.";
   }
 ?>
 <!doctype html>
