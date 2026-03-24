@@ -39,7 +39,13 @@ try {
             
         default:
             http_response_code(405);
-            echo "Método não suportado - " . $_SERVER['REQUEST_METHOD'];
+            header('Content-Type: application/json');
+            header('Allow: GET, POST, PUT, DELETE');
+
+            echo json_encode([
+                'erro' => 'Método não suportado',
+                'metodo' => $_SERVER['REQUEST_METHOD']
+            ]);
             exit;
     }
 } catch (\Throwable $e) {
