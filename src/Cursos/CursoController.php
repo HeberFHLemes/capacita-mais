@@ -38,8 +38,8 @@ class CursoController
         http_response_code(201);
 
         echo json_encode([
-            "success" => true,
-            "received" => $curso->toArray()
+            "criado" => true,
+            "curso" => $curso->toArray()
         ]);
 
         exit;
@@ -68,34 +68,31 @@ class CursoController
         
         $cursoId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-        if (!$cursoId) {
+        if (!is_int($cursoId)) {
             http_response_code(400);
             echo json_encode([
-                'erro' => 'É necessário informar um ID válido para remover o curso.'
+                'erro' => 'ID inválido'
             ]);
             return;
         }
         
         try {
-            $status = $this->cursoService->remover($cursoId);
+            $removido = $this->cursoService->remover($cursoId);
 
-            if ($status) {
-                http_response_code(200);
-                echo json_encode([
-                    'mensagem' => 'Curso removido com sucesso!'
-                ]);
+            if ($removido) {
+                http_response_code(204);
                 return;
             }
 
             http_response_code(404);
             echo json_encode([
-                'erro' => 'Curso não encontrado ou já removido.'
+                'erro' => 'Curso não encontrado'
             ]);
 
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode([
-                'erro' => 'Erro interno ao remover o curso.'
+                'erro' => 'Erro interno'
             ]);
         }
     }
