@@ -14,7 +14,21 @@ class CursoController
     public function buscarCursos() 
     {
         header('Content-Type: application/json');
-        echo json_encode($this->cursoService->listarCursos());
+
+        try {
+            $cursos = $this->cursoService->listarCursos();
+
+            http_response_code(200);
+            echo json_encode([
+                'cursos' => $cursos
+            ]);
+
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'erro' => 'Erro ao buscar cursos'
+            ]);
+        }
         exit;
     }
 
