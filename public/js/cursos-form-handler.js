@@ -103,7 +103,6 @@ export default class CursosFormHandler {
 
       this.mostrarMensagem(mensagemSucesso, mensagemElementId);
       form.reset();
-
     } catch (erro) {
       this.mostrarMensagem("Erro ao remover curso.", mensagemElementId, "danger");
       console.error(erro);
