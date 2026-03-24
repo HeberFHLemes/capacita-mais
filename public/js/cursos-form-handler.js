@@ -41,7 +41,7 @@ export default class CursosFormHandler {
       this.mostrarMensagem(mensagemSucesso, mensagemElementId);
       form.reset();
     } catch (erro) {
-      this.mostrarMensagem("Erro ao cadastrar curso.", mensagemElementId, true);
+      this.mostrarMensagem("Erro ao cadastrar curso.", mensagemElementId, "danger");
       console.error(erro);
     } finally {
       btn.disabled = false;
@@ -69,7 +69,7 @@ export default class CursosFormHandler {
     event.target.reset();
   }
 
-  remover(
+  async remover(
     event,
     selectElementId = "select-cursos-remocao",
     mensagemElementId = "msg-remocao",
@@ -78,18 +78,38 @@ export default class CursosFormHandler {
   ) {
     event.preventDefault();
 
+    const form = event.target;
     const select = document.getElementById(selectElementId);
 
-    if (!select.value) {
+    const cursoId = select.value;
+
+    if (!cursoId) {
       this.mostrarMensagem(mensagemErro, mensagemElementId, "danger");
       return;
     }
 
-    select.remove(select.selectedIndex);
+    const btn = form.querySelector("button[type='submit']");
+    btn.disabled = true;
 
-    this.mostrarMensagem(mensagemSucesso, mensagemElementId);
+    try {
+      const apiUrl = `${API_PATH}?id=${cursoId}`;
+      const response = await this.enviarRequest("DELETE", null, apiUrl);
 
-    event.target.reset();
+      if (!response || !response.ok) {
+        throw new Error("Erro HTTP: " + response.status);
+      }
+
+      select.remove(select.selectedIndex);
+
+      this.mostrarMensagem(mensagemSucesso, mensagemElementId);
+      form.reset();
+
+    } catch (erro) {
+      this.mostrarMensagem("Erro ao remover curso.", mensagemElementId, "danger");
+      console.error(erro);
+    } finally {
+      btn.disabled = false;
+    }
   }
 
   mostrarMensagem(mensagem, elementId, type = "success") {
@@ -100,9 +120,9 @@ export default class CursosFormHandler {
     msg.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
-  async enviarRequest(method, body) {
+  async enviarRequest(method, body, apiPath = API_PATH) {
     try {
-      const response = await fetch(API_PATH, {
+      const response = await fetch(apiPath, {
         method: method,
         body: JSON.stringify(body),
         headers: {

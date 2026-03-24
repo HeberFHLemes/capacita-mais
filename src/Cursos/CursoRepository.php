@@ -28,7 +28,7 @@ class CursoRepository
                 'descricao' => $row['descricao'],
                 'url' => $row['url'],
                 'gratuito' => (bool) $row['gratuito'],
-                'categoria'=> $row['categoria_nome'],
+                'categoria' => $row['categoria_nome'],
                 'plataforma' => $row['plataforma_nome']
             ];
         }
@@ -60,5 +60,15 @@ class CursoRepository
         ]);
 
         return (int) $this->conexao->lastInsertId();
+    }
+
+    public function remover(int $id): bool
+    {
+        $sql = "DELETE FROM cursos WHERE id = :id";
+        $stmt = $this->conexao->prepare($sql);
+
+        $stmt->execute([':id' => $id]);
+
+        return $stmt->rowCount() > 0;
     }
 }

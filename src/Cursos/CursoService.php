@@ -51,4 +51,9 @@ class CursoService
 
         return new Curso($id, $nome, $descricao, $categoria->nome, $plataforma->nome, $gratuito, $url);
     }
+
+    public function remover(int $id): bool
+    {
+        return $this->cursoRepository->remover($id);
+    }
 }
