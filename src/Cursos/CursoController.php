@@ -50,9 +50,12 @@ class CursoController
     {
         header('Content-Type: application/json');
 
-        // TODO: atualizar registro no banco de dados
-        //       requisição por query params (/api/cursos.php/{id}) ?
-
+        // TODO: 
+        //  1. Pegar o id enviado na requisição (.../cursos.php?id=...)
+        //  2. Tratar falta de id
+        //  3. Receber o corpo da requisição (dados do curso)
+        //  4. Chamar o método de edição do curso no service
+        //  5. Retornar resposta ao usuário.
         echo "Implementar edição de cursos existentes";
         
         exit;

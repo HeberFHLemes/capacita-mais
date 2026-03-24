@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use App\Auth\AuthService;
 use App\Cursos\CursoController;
 use App\Cursos\CursoService;
 use App\Database\Conexao;
@@ -13,20 +14,26 @@ try {
 
     $cursoController = new CursoController($cursoService);
 
+    $authService = new AuthService(null);
+    $authService->iniciarSessao();
+
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             $cursoController->buscarCursos();
             break;
 
         case 'POST':
+            exigirAutenticacao($authService);
             $cursoController->cadastrar();
             break;
 
         case 'PUT':
+            exigirAutenticacao($authService);
             $cursoController->editar();
             break;
 
         case 'DELETE':
+            exigirAutenticacao($authService);
             $cursoController->remover();
             break;
             
@@ -40,4 +47,14 @@ try {
     http_response_code(500);
     echo "Sistema temporariamente indisponível.";
     exit;
+}
+
+function exigirAutenticacao(AuthService $authService)
+{
+    if (!$authService->usuarioLogado()) {
+        header('Content-Type: application/json');
+        http_response_code(401);
+        echo json_encode(['erro' => 'Não autenticado']);
+        exit;
+    }
 }
