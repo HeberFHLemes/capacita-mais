@@ -149,7 +149,7 @@ export default class CursosFormHandler {
   mostrarMensagem(mensagem, elementId, type = "success") {
     const msg = document.getElementById(elementId);
     msg.textContent = mensagem;
-    msg.classList.remove("d-none", "alert-success", "alert-danger");
+    msg.classList.remove("d-none", "alert-success", "alert-danger", "alert-warning");
     msg.classList.add(`alert-${type}`);
     msg.scrollIntoView({ behavior: "smooth", block: "center" });
   }
