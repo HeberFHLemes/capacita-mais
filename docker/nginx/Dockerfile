@@ -1,5 +1,3 @@
-FROM nginx:alpine
+FROM nginx:1.29-alpine
 
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY public /usr/share/nginx/html
-

@@ -9,7 +9,7 @@ function criarCardCurso(curso) {
       <div class="card h-100 shadow-sm card-curso">
         <div class="card-body d-flex flex-column">
           <h2 class="card-title h5 fw-bold">
-            ${curso.titulo}
+            ${curso.nome}
           </h2>
           <div class="mb-2">
             <span class="badge bg-primary">${curso.categoria}</span>
@@ -24,7 +24,7 @@ function criarCardCurso(curso) {
             <i class="bi bi-display me-1"></i>
             ${curso.plataforma}
           </small>
-          <a href="${curso.link}" 
+          <a href="${curso.url}" 
             target="_blank"
             rel="noopener"
             class="btn btn-outline-primary w-100">
@@ -77,7 +77,7 @@ export function renderizarCategorias(cursos) {
 }
 
 /**
- * Ao demorar para a resposta ser apresentada, 
+ * Ao demorar para a resposta ser apresentada,
  * carregam-se esqueletos de cards.
  */
 export function renderizarPlaceholders(qtd = 6) {
@@ -122,7 +122,7 @@ export function criarCardPlaceholder() {
 /**
  * Popula um select com os cursos disponíveis como options.
  * @param {string} idSelect - O ID do elemento select a ser populado.
- * @param {function} [callback] - Função opcional a ser chamada após popular o select, 
+ * @param {function} [callback] - Função opcional a ser chamada após popular o select,
  * que tenha como parametro a lista de cursos.
  * @returns {void}
  */
@@ -142,7 +142,7 @@ export async function popularSelectDeCursos(idSelect, cursos, callback) {
     cursos.forEach((curso) => {
       const option = document.createElement("option");
       option.value = curso.id;
-      option.textContent = curso.titulo;
+      option.textContent = curso.nome;
       select.appendChild(option);
     });
   }

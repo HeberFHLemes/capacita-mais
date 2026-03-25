@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Adaptado de https://backendtea.com/post/phpunit-beyond-basic-config/ -->
+<phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+  colors= "true"
+  executionOrder="random"
+  failOnWarning="true"
+  failOnRisky="true"
+  failOnEmptyTestSuite="true"
+  beStrictAboutOutputDuringTests="true"
+  bootstrap="vendor/autoload.php"
+>
+  <php>
+    <ini name="display_errors" value="On"/>
+    <ini name="error_reporting" value="-1"/>
+  </php>
+
+  <testsuites>
+    <testsuite name="Tests">
+      <directory>tests/php/</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

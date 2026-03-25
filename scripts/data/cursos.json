@@ -3,81 +3,81 @@
     "id": 1,
     "titulo": "HTML5",
     "descricao": "Aprender a criar sites do zero nunca foi tão acessível!",
-    "plataforma": "Curso em Vídeo",
     "categoria": "Programação Front-End",
+    "plataforma": "Curso em Vídeo",
     "gratuito": true,
-    "link": "https://www.cursoemvideo.com/curso/html5/"
+    "url": "https://www.cursoemvideo.com/curso/html5/"
   },
   {
     "id": 2,
     "titulo": "Formação Automação de Testes com Cypress",
     "descricao": "Descubra o caminho para se tornar um(a) profissional qualificado(a) em qualidade de software!",
-    "plataforma": "DIO",
     "categoria": "Testes Automatizados",
+    "plataforma": "DIO",
     "gratuito": false,
-    "link": "https://web.dio.me/track/formacao-automacao-testes-cypress"
+    "url": "https://web.dio.me/track/formacao-automacao-testes-cypress"
   },
   {
     "id": 3,
     "titulo": "Excel 2016 (do básico ao avançado)",
     "descricao": "Domine as principais fórmulas e recursos para impulsionar sua produtividade.",
-    "plataforma": "Fundação Bradesco",
     "categoria": "Produtividade",
+    "plataforma": "Fundação Bradesco",
     "gratuito": true,
-    "link": "https://www.ev.org.br/trilhas-de-conhecimento/excel-2016-do-basico-ao-avancado"
+    "url": "https://www.ev.org.br/trilhas-de-conhecimento/excel-2016-do-basico-ao-avancado"
   },
   {
     "id": 4,
     "titulo": "Git e GitHub",
     "descricao": "Dominando controle de versão de código.",
-    "plataforma": "Alura",
     "categoria": "Ferramentas úteis",
+    "plataforma": "Alura",
     "gratuito": false,
-    "link": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo"
+    "url": "https://www.alura.com.br/curso-online-git-github-dominando-controle-versao-codigo"
   },
   {
     "id": 5,
     "titulo": "Desenvolvimento Web com HTML, CSS e JavaScript",
     "descricao": "Aprenda a desenvolver apps web usando HTML5, CSS3 e JavaScript com este curso gratuito de programação front-end.",
-    "plataforma": "Cursa",
     "categoria": "Programação Front-End",
+    "plataforma": "Cursa",
     "gratuito": true,
-    "link": "https://cursa.app/pt/curso-gratuito/desenvolvimento-web-com-html-css-e-javascript-eiff"
+    "url": "https://cursa.app/pt/curso-gratuito/desenvolvimento-web-com-html-css-e-javascript-eiff"
   },
   {
     "id": 6,
     "titulo": "Programação para todos (Primeiros passos no Python)",
     "descricao": "Curso completo para aprender Python do zero.",
-    "plataforma": "Coursera",
     "categoria": "Programação",
+    "plataforma": "Coursera",
     "gratuito": true,
-    "link": "https://www.coursera.org/learn/python"
+    "url": "https://www.coursera.org/learn/python"
   },
   {
     "id": 7,
     "titulo": "Eletrônica básica",
     "descricao": "Curso online gratuito de Eletrônica Básica. Aprenda desde medidas práticas até amplificação de sinais e testes com transistores. Ideal para iniciantes e entusiastas.",
-    "plataforma": "Cursa",
     "categoria": "Eletrônica",
+    "plataforma": "Cursa",
     "gratuito": true,
-    "link": "https://cursa.app/pt/curso-gratuito/eletronica-basica-bec"
+    "url": "https://cursa.app/pt/curso-gratuito/eletronica-basica-bec"
   },
   {
     "id": 8,
     "titulo": "Desenvolvimento Seguro de Software DevSecOps na Prática",
     "descricao": "Aprenda do zero o desenvolvimento seguro de software, da introdução ao pipeline seguro, integração contínua para implantação contínua e entrega contínua, modelagem de ameaças e como evoluir o nível de maturidade.",
-    "plataforma": "IBSEC",
     "categoria": "Segurança da Informação",
+    "plataforma": "IBSEC",
     "gratuito": true,
-    "link": "https://conteudo.ibsec.com.br/curso-desenvolvimento-seguro-de-software-devsecops-na-pratica"
+    "url": "https://conteudo.ibsec.com.br/curso-desenvolvimento-seguro-de-software-devsecops-na-pratica"
   },
   {
     "id": 9,
     "titulo": "PHP Básico",
     "descricao": "Aprender PHP é abrir a porta para o desenvolvimento web de verdade.",
-    "plataforma": "Curso em Vídeo",
     "categoria": "Programação",
+    "plataforma": "Curso em Vídeo",
     "gratuito": true,
-    "link": "https://www.cursoemvideo.com/curso/php-basico/"
+    "url": "https://www.cursoemvideo.com/curso/php-basico/"
   }
 ]

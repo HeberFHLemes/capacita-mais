@@ -5,3 +5,27 @@ services:
       dockerfile: docker/nginx/Dockerfile
     ports:
       - "8080:80"
+    volumes:
+      - .:/var/www/html
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/var/www/html
+  db:
+    image: mariadb:12-noble
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

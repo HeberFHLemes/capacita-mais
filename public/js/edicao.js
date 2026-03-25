@@ -22,17 +22,15 @@ function addSelectChangeListener(cursos) {
   select.addEventListener("change", function () {
     if (!this.value) return;
 
-    const cursoSelecionado = cursos.find(
-      (curso) => curso.id == this.value
-    );
+    const cursoSelecionado = cursos.find((curso) => curso.id == this.value);
 
     if (cursoSelecionado) {
-      document.getElementById("titulo").value = cursoSelecionado.titulo;
+      document.getElementById("nome").value = cursoSelecionado.nome;
       document.getElementById("descricao").value = cursoSelecionado.descricao;
       document.getElementById("categoria").value = cursoSelecionado.categoria;
       document.getElementById("plataforma").value = cursoSelecionado.plataforma;
       document.getElementById("custo").value = cursoSelecionado.gratuito ? "Gratuito" : "Pago";
-      document.getElementById("link").value = cursoSelecionado.link;
+      document.getElementById("link").value = cursoSelecionado.url;
     }
   });
 }

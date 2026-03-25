@@ -1,4 +1,4 @@
-const DATA_PATH = "data/cursos.json";
+const DATA_PATH = "api/cursos.php";
 
 let cursosEmCache = null;
 
@@ -9,7 +9,7 @@ let cursosEmCache = null;
 export async function carregarCursos() {
   try {
     if (!cursosEmCache) {
-      const response = await fetch(DATA_PATH);
+      const response = await fetch(DATA_PATH, { method: "GET" });
 
       if (!response.ok) {
         throw new Error(`Erro HTTP - Status: ${response.status}`);
