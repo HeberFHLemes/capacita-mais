@@ -8,10 +8,11 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Database\Conexao;
+use App\Utils\Env;
 
 $pdo = Conexao::getInstance();
 
-$email = getenv('USUARIO_EMAIL');
+$email = Env::get('USUARIO_EMAIL');
 
 // Verifica se já existe
 $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE email = :email");
@@ -22,7 +23,7 @@ if ($stmt->fetch()) {
     exit;
 }
 
-$senha = password_hash(getenv('USUARIO_SENHA'), PASSWORD_DEFAULT);
+$senha = password_hash(Env::get('USUARIO_SENHA'), PASSWORD_DEFAULT);
 
 $stmt = $pdo->prepare("
     INSERT INTO usuarios (email, senha)

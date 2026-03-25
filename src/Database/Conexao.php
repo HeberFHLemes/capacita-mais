@@ -2,6 +2,8 @@
 
 namespace App\Database;
 
+use App\Utils\Env;
+
 use PDO;
 use PDOException;
 
@@ -18,11 +20,11 @@ class Conexao
             try {
                 self::$instance = new PDO(
                     'mysql:' . 
-                    'host=' . getenv("DB_HOST") . ';' .
-                    'dbname=' . getenv("DB_DATABASE") . ';' .
+                    'host=' . Env::get('DB_HOST') . ';' .
+                    'dbname=' . Env::get("DB_DATABASE") . ';' .
                     'charset=utf8mb4',
-                    getenv("DB_USER"),
-                    getenv("DB_PASSWORD"),
+                    Env::get("DB_USER"),
+                    Env::get("DB_PASSWORD"),
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
