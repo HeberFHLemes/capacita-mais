@@ -42,4 +42,14 @@ class Curso
             "url" => $this->url
         ];
     }
+
+    public function getCategoria(): string
+    {
+        return $this->categoria;
+    }
+
+    public function getPlataforma(): string
+    {
+        return $this->plataforma;
+    }
 }
