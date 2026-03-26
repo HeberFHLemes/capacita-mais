@@ -4,6 +4,8 @@
  * USO (Banco de dados já deve estar funcionando):
  * - docker compose exec [serviço do php] php scripts/seed_usuario.php
  * - php scripts/seed_usuario.php
+ * 
+ * https://pt.stackoverflow.com/questions/126770/o-que-%C3%A9-e-para-que-serve-um-seeder
  */ 
 require_once __DIR__ . '/../vendor/autoload.php';
 

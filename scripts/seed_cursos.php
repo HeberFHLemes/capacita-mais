@@ -2,7 +2,7 @@
 /*
  * Para criar alguns registros de cursos iniciais,
  * o que é um pouco mais verboso no SQL por conta dos
- * relacionamento, então utiliza-se da lógica já preparada
+ * relacionamentos, então utiliza-se da lógica já preparada
  * da aplicação.
  * 
  * USO (Banco de dados já deve estar funcionando):

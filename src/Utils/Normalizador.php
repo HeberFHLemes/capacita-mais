@@ -15,7 +15,8 @@ class Normalizador
     {
         $texto = mb_strtolower($texto); // lowercase
         
-        // tirar os acentos
+        // converter para ascii (sem acentos, ...)
+        // https://www.php.net/manual/en/function.iconv.php
         $texto = iconv('UTF-8', 'ASCII//TRANSLIT', $texto); 
 
         // regex simples para manter apenas alfanuméricos
