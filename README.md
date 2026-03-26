@@ -23,23 +23,32 @@ Projeto desenvolvido com fins educacionais para praticar:
 - Uso de Docker no desenvolvimento
 - Testes de software (casos de teste e automação)
 
+## Configurando o ambiente local
+
+### 1. Configura as variáveis de ambiente
+Crie um arquivo `.env` na raiz do projeto com base no `.env.example` e defina nele as variáveis de ambiente necessárias
+
+### 2. Instale as dependências necessárias
+
+#### Dependências PHP
+```bash
+composer install
+``` 
+#### Dependências para testes (Cypress)
+```bash
+npm install
+```
 
 ## Executando localmente
 
 Você pode rodar o projeto com um interpretador PHP ou com Docker:
 
-### 1. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto com base no `.env.example`.
-
-### 2. Execute
-
-#### Com interpretador PHP
+### Com interpretador PHP
 ```bash
 php -S localhost:8080 -t public
 ```
 
-#### Com Docker (Nginx + PHP-FPM + MariaDB)
+### Com Docker (Nginx + PHP-FPM + MariaDB)
 ```bash
 docker compose up -d
 ```
