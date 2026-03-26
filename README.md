@@ -25,18 +25,14 @@ Projeto desenvolvido com fins educacionais para praticar:
 
 ## Configurando o ambiente local
 
-### 1. Configura as variáveis de ambiente
+### 1. Configure as variáveis de ambiente
 Crie um arquivo `.env` na raiz do projeto com base no `.env.example` e defina nele as variáveis de ambiente necessárias
 
 ### 2. Instale as dependências necessárias
+```bash
+composer install # dependências do PHP e autoload
 
-#### Dependências PHP
-```bash
-composer install
-``` 
-#### Dependências para testes (Cypress)
-```bash
-npm install
+npm install # dependências do JS, como para testes com Cypress
 ```
 
 ## Executando localmente
