@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Capacita+ | Sobre Nós</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -20,12 +20,12 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
       <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="index.html"> Capacita+ </a>
+        <a class="navbar-brand fw-bold text-primary" href="index.php"> Capacita+ </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -40,13 +40,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link fw-medium" href="index.html">Início</a>
+              <a class="nav-link fw-medium" href="index.php">Início</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium" href="cursos.html">Cursos</a>
+              <a class="nav-link fw-medium" href="cursos.php">Cursos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fw-medium active" aria-current="page" href="sobre.html"
+              <a class="nav-link fw-medium active" aria-current="page" href="sobre.php"
                 >Sobre Nós</a
               >
             </li>
