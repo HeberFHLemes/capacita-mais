@@ -1,53 +1,14 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Capacita+ | Educação Livre</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
+  <?php
+    require __DIR__ . '/components/head.php';
+    gerarHead("Capacita+")
+  ?>
   <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
-      <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="index.html"> Capacita+ </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link fw-medium active" aria-current="page" href="index.html">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="cursos.html">Cursos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="sobre.html">Sobre Nós</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php 
+      require __DIR__ . '/components/nav.php';
+      gerarNav();
+    ?>
 
     <header class="hero-section">
       <div class="container text-center">
@@ -61,7 +22,7 @@
           tecnologia.
         </p>
         <a
-          href="cursos.html"
+          href="cursos.php"
           class="btn btn-lg btn-success mt-4 shadow-lg"
           data-cy="btn-explorar-cursos"
         >
@@ -113,11 +74,7 @@
       </div>
     </section>
 
-    <footer class="bg-dark text-white py-4 mt-auto border-top border-secondary-subtle">
-      <div class="container text-center">
-        <p class="mb-0">&copy; 2026 Capacita+. Todos os direitos reservados.</p>
-      </div>
-    </footer>
+    <?php require __DIR__ . '/components/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>

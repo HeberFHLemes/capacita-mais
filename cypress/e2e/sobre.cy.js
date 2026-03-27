@@ -1,7 +1,7 @@
 describe("Tela Sobre Nós", () => {
 
     beforeEach(() => {
-        cy.visit("/sobre.html")
+        cy.visit("/sobre.php")
     })
     
     it("carrega estrutura principal", () => {

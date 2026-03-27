@@ -24,7 +24,7 @@ describe("Tela inicial", () => {
       .click()
 
     cy.location("pathname")
-      .should("eq", "/cursos.html")
+      .should("eq", "/cursos.php")
 
   })
 

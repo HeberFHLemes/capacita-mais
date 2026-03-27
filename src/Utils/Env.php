@@ -11,7 +11,8 @@ use RuntimeException;
  */
 class Env
 {
-    private static bool $loaded = false; // para dotenv (biblioteca)
+    // para uso da biblioteca dotenv (https://github.com/vlucas/phpdotenv)
+    private static bool $loaded = false; 
 
     /**
      * Carrega o arquivo de variáveis de ambiente (.env)
