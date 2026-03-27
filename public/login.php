@@ -35,24 +35,10 @@
 ?>
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Capacita+</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/assets/favicon/site.webmanifest">
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-    />
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
+  <?php
+    require __DIR__ . '/components/head.php';
+    gerarHead("Login | Capacita+")
+  ?>
   <body class="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100">
     <main class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
       <h1 class="h4 text-center mb-4">Acesso Administrativo</h1>

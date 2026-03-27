@@ -1,59 +1,14 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Capacita+ | Sobre Nós</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/assets/favicon/site.webmanifest">
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-    />
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
+  <?php
+    require __DIR__ . '/components/head.php';
+    gerarHead("Capacita+ | Sobre Nós")
+  ?>
   <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
-      <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="index.php"> Capacita+ </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="index.php">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="cursos.php">Cursos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium active" aria-current="page" href="sobre.php"
-                >Sobre Nós</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php 
+      require __DIR__ . '/components/nav.php';
+      gerarNav();
+    ?>
 
     <section class="py-4" id="sobre-section">
       <div class="container py-5">
@@ -116,11 +71,7 @@
       </div>
     </section>
 
-    <footer class="bg-dark text-white py-4 mt-auto border-top border-secondary-subtle">
-      <div class="container text-center">
-        <p class="mb-0">&copy; 2026 Capacita+. Todos os direitos reservados.</p>
-      </div>
-    </footer>
+    <?php require __DIR__ . '/components/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
