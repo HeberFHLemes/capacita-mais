@@ -5,6 +5,7 @@ namespace App\Cursos;
 use App\Cursos\CursoService;
 use App\Cursos\CursoNaoEncontradoException;
 use App\Cursos\SemAlteracoesException;
+use App\Cursos\CursoValidator;
 
 class CursoController 
 {
@@ -39,6 +40,13 @@ class CursoController
 
         $requestBody = file_get_contents("php://input");
         $dados = json_decode($requestBody, true);
+
+        $erros = CursoValidator::validar($dados);
+        if (!empty($erros)) {
+            http_response_code(400);
+            echo json_encode(['erros' => $erros]);
+            exit;
+        }
         
         $curso = $this->cursoService->criar(
             $dados['nome'],
@@ -76,6 +84,13 @@ class CursoController
 
         $requestBody = file_get_contents("php://input");
         $dados = json_decode($requestBody, true);
+
+        $erros = CursoValidator::validar($dados);
+        if (!empty($erros)) {
+            http_response_code(400);
+            echo json_encode(['erros' => $erros]);
+            exit;
+        }
 
         try {
             $cursoAtualizado = $this->cursoService->editar(

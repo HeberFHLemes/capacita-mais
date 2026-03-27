@@ -58,7 +58,7 @@ class CursoService
     public function editar(
         int $id,
         string $nome,
-        string $descricao,
+        ?string $descricao,
         string $categoriaNome,
         string $plataformaNome,
         string $url,
@@ -84,7 +84,7 @@ class CursoService
         );
 
         if ($semAlteracoes) {
-            // controller mapeia pra 200 (ou 422?)
+            // controller mapeia pra 200
             throw new SemAlteracoesException("Nenhuma alteração detectada."); 
         }
 
