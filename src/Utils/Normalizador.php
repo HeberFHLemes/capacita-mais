@@ -14,6 +14,13 @@ class Normalizador
     public static function normalizarTexto(string $texto): string
     {
         $texto = mb_strtolower($texto); // lowercase
+
+        // Casos específicos (C, C# e C++ são diferentes)
+        $texto = str_replace(
+            ['+', '#'],
+            ['plus', 'sharp'],
+            $texto
+        );
         
         // converter para ascii (sem acentos, ...)
         // https://www.php.net/manual/en/function.iconv.php

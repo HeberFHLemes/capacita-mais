@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Auth;
 
 use App\Auth\AuthService;
 use App\Usuarios\Usuario;
