@@ -7,6 +7,7 @@ class Usuario
     private int $id;
     private string $email;
     private string $senhaHash;
+    private string $role = "ROLE_ADMIN";
     
     public function __construct(
         int $id,
@@ -27,5 +28,10 @@ class Usuario
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getRole(): string
+    {
+        return $this->role;
     }
 }

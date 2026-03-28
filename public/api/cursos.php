@@ -14,7 +14,7 @@ try {
 
     $cursoController = new CursoController($cursoService);
 
-    $authService = new AuthService(null);
+    $authService = new AuthService();
     $authService->iniciarSessao();
 
     switch ($_SERVER['REQUEST_METHOD']) {
