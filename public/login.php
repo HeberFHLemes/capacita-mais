@@ -1,5 +1,7 @@
 <?php
   require_once __DIR__ . '/../vendor/autoload.php';
+
+  use App\Auth\Authenticator;
   use App\Auth\AuthService;
   use App\Database\Conexao;
   use App\Usuarios\UsuarioRepository;
@@ -8,15 +10,25 @@
 
   try {
     $pdo = Conexao::getInstance();
-    $authService = new AuthService(new UsuarioRepository($pdo));
+    
+    $autenticador = new Authenticator(
+      new UsuarioRepository($pdo)
+    );
+
+    $authService = new AuthService();
     $authService->iniciarSessao();
+
+    if ($authService->usuarioLogado()) {
+      header('Location: /cadastro.php');
+      exit;
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
       $senha = trim($_POST['senha'] ?? '');
 
       if ($email && $senha !== '') {
-        $usuario = $authService->autenticar($email, $senha);
+        $usuario = $autenticador->autenticar($email, $senha);
 
         if ($usuario) {
           $authService->login($usuario);

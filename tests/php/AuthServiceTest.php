@@ -20,7 +20,7 @@ final class AuthServiceTest extends TestCase
 
     public function testLoginIniciaSessaoDoUsuario()
     {
-        $auth = new AuthService(null);
+        $auth = new AuthService();
 
         $usuario = new Usuario(1, 'a@a.com', password_hash('123', PASSWORD_DEFAULT));
 
@@ -32,7 +32,7 @@ final class AuthServiceTest extends TestCase
 
     public function testUsuarioLogadoRetornaTrueAposLogin()
     {
-        $auth = new AuthService(null);
+        $auth = new AuthService();
 
         $usuario = new Usuario(1, 'a@a.com', password_hash('123', PASSWORD_DEFAULT));
 
