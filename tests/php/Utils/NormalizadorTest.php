@@ -57,4 +57,31 @@ final class NormalizadorTest extends TestCase
             Normalizador::normalizarTexto('')
         );
     }
+
+    public function testConverteMaisParaPlus()
+    {
+        $this->assertEquals(
+            'cplusplus',
+            Normalizador::normalizarTexto('C++')
+        );
+    }
+
+    public function testConverteHashtagParaSharp()
+    {
+        $this->assertEquals(
+            'csharp',
+            Normalizador::normalizarTexto('C#')
+        );
+    }
+
+    public function testLinguagensDiferentesNaoColidem()
+    {
+        $c = Normalizador::normalizarTexto('C');
+        $cpp = Normalizador::normalizarTexto('C++');
+        $csharp = Normalizador::normalizarTexto('C#');
+
+        $this->assertNotEquals($c, $cpp);
+        $this->assertNotEquals($c, $csharp);
+        $this->assertNotEquals($cpp, $csharp);
+    }
 }
