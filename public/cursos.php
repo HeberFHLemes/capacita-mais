@@ -35,32 +35,32 @@
                     <input
                       class="form-check-input filtro-custo"
                       type="radio"
-                      name="radioCusto"
+                      name="radio-custo"
                       value="Gratuito"
-                      id="radioGratuito"
+                      id="radio-gratuito"
                     />
-                    <label class="form-check-label" for="radioGratuito">Gratuito</label>
+                    <label class="form-check-label" for="radio-gratuito">Gratuito</label>
                   </div>
                   <div class="form-check">
                     <input
                       class="form-check-input filtro-custo"
                       type="radio"
-                      name="radioCusto"
+                      name="radio-custo"
                       value="Pago"
-                      id="radioPago"
+                      id="radio-pago"
                     />
-                    <label class="form-check-label" for="radioPago">Pago</label>
+                    <label class="form-check-label" for="radio-pago">Pago</label>
                   </div>
                   <div class="form-check">
                     <input
                       class="form-check-input filtro-custo"
                       type="radio"
-                      name="radioCusto"
+                      name="radio-custo"
                       value="Todos"
-                      id="radioTodos"
+                      id="radio-todos"
                       checked
                     />
-                    <label class="form-check-label" for="radioTodos">Todos</label>
+                    <label class="form-check-label" for="radio-todos">Todos</label>
                   </div>
                 </fieldset>
               </div>
