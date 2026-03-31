@@ -1,0 +1,10 @@
+{
+  "novo": {
+    "baseNome": "Curso de Cypress",
+    "descricao": "Aprenda testes automatizados com Cypress",
+    "categoria": "Testes Automatizados",
+    "plataforma": "YouTube",
+    "gratuito": true,
+    "url": "https://youtube.com/playlist?list=PLUDwpEzHYYLvA7QFkC1C0y0pDPqYS56iU&si=4nxTvOECuxNjH6I2"
+  }
+}

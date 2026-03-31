@@ -23,3 +23,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// Comando de login a ser utilizado em diferentes testes
+Cypress.Commands.add('login', () => {
+  // https://docs.cypress.io/api/commands/env#Multiple-Variables
+  cy.env(['email', 'senha']).then(({ email, senha }) => {
+    cy.request({
+      method: 'POST',
+      url: '/login.php',
+      form: true,
+      body: {
+        email: email,
+        senha: senha
+      }
+    })
+  })
+})
