@@ -6,8 +6,9 @@ use App\Categorias\CategoriaRepository;
 use App\Plataformas\PlataformaRepository;
 
 use App\Cursos\Curso;
-use App\Cursos\CursoNaoEncontradoException;
-use App\Cursos\SemAlteracoesException;
+
+use App\Cursos\Exceptions\CursoNaoEncontradoException;
+use App\Cursos\Exceptions\SemAlteracoesException;
 
 class CursoService 
 {

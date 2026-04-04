@@ -3,9 +3,11 @@
 namespace App\Cursos;
 
 use App\Cursos\CursoService;
-use App\Cursos\CursoNaoEncontradoException;
-use App\Cursos\SemAlteracoesException;
 use App\Cursos\CursoValidator;
+
+use App\Cursos\Exceptions\CursoDuplicadoException;
+use App\Cursos\Exceptions\CursoNaoEncontradoException;
+use App\Cursos\Exceptions\SemAlteracoesException;
 
 class CursoController 
 {
@@ -47,23 +49,27 @@ class CursoController
             echo json_encode(['erros' => $erros]);
             exit;
         }
-        
-        $curso = $this->cursoService->criar(
+        try {
+            $curso = $this->cursoService->criar(
             $dados['nome'],
             $dados['descricao'],
             $dados['categoria'],
             $dados['plataforma'],
             $dados['url'],
             $dados['gratuito']
-        );
-        
-        http_response_code(201);
+            );
+            
+            http_response_code(201);
+            
+            echo json_encode([
+                'criado' => true,
+                'curso' => $curso->toArray()
+            ]);
 
-        echo json_encode([
-            'criado' => true,
-            'curso' => $curso->toArray()
-        ]);
-
+        } catch (CursoDuplicadoException $e) {
+            http_response_code(409);
+            echo json_encode(['erro' => 'Curso já cadastrado']);
+        }
         exit;
     }
 
@@ -122,7 +128,11 @@ class CursoController
             echo json_encode([
                 'erro' => 'Curso não encontrado'
             ]);
-        
+
+        } catch (CursoDuplicadoException $e) {
+            http_response_code(409);
+            echo json_encode(['erro' => 'Curso já cadastrado']);
+
         } catch (\Exception $e) {
             http_response_code(500);
             echo json_encode([
