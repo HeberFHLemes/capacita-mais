@@ -39,3 +39,24 @@ Cypress.Commands.add('login', () => {
     })
   })
 })
+
+Cypress.Commands.add('preencherFormCurso', (
+  nome,
+  descricao,
+  categoria,
+  plataforma,
+  custo,
+  url
+) => {
+  cy.get('[name=nome]').type(nome)
+  cy.get('[name=descricao]').type(descricao)
+  cy.get('[name=categoria]').type(categoria)
+  cy.get('[name=plataforma]').type(plataforma)
+
+  cy.get('[name=custo]').select(custo)
+  cy.get('select[name="custo"]')
+    .find('option:selected')
+    .should('contain', custo)
+
+  cy.get('[name=link]').type(url)
+})
