@@ -3,6 +3,9 @@
 namespace App\Cursos;
 
 use PDO;
+use PDOException;
+
+use App\Cursos\Exceptions\CursoDuplicadoException;
 
 class CursoRepository
 {
@@ -77,14 +80,24 @@ class CursoRepository
 
         $stmt = $this->conexao->prepare($sql);
 
-        $stmt->execute([
-            ':nome' => $nome,
-            ':descricao' => $descricao,
-            ':categoria_id' => $categoriaId,
-            ':plataforma_id' => $plataformaId,
-            ':url' => $url,
-            ':gratuito' => (int) $gratuito // MariaDB trata como int
-        ]);
+        try {
+            $stmt->execute([
+                ':nome' => $nome,
+                ':descricao' => $descricao,
+                ':categoria_id' => $categoriaId,
+                ':plataforma_id' => $plataformaId,
+                ':url' => $url,
+                ':gratuito' => (int) $gratuito // MariaDB trata como int
+            ]);
+        } catch (PDOException $e) {
+            // tratar erro de campos UNIQUE (nome + plataforma)
+            // erro: 1062; ER_DUP_ENTRY; SQLSTATE: 23000
+            // fonte: https://dev.mysql.com/doc/mysql-errors/9.6/en/server-error-reference.html
+            if ($e->errorInfo[1] === 1062) {
+                throw new CursoDuplicadoException();
+            }
+            throw $e;
+        }
 
         return (int) $this->conexao->lastInsertId();
     }
@@ -108,15 +121,24 @@ class CursoRepository
                 WHERE id = :id";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->execute([
-            ':id' => $id,
-            ':nome' => $nome,
-            ':descricao' => $descricao,
-            ':categoria_id' => $categoriaId,
-            ':plataforma_id' => $plataformaId,
-            ':url' => $url,
-            ':gratuito' => (int) $gratuito
-        ]);
+
+        try {
+            $stmt->execute([
+                ':id' => $id,
+                ':nome' => $nome,
+                ':descricao' => $descricao,
+                ':categoria_id' => $categoriaId,
+                ':plataforma_id' => $plataformaId,
+                ':url' => $url,
+                ':gratuito' => (int) $gratuito
+            ]);
+        } catch (PDOException $e) {
+            // tratar erro de campos UNIQUE (nome + plataforma)
+            if ($e->errorInfo[1] === 1062) {
+                throw new CursoDuplicadoException();
+            }
+            throw $e;
+        }
 
         return $stmt->rowCount() > 0;
     }

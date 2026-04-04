@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cursos;
+namespace App\Cursos\Exceptions;
 
 class SemAlteracoesException extends \RuntimeException 
 {
