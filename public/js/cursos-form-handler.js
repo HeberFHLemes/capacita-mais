@@ -28,7 +28,18 @@ export default class CursosFormHandler {
     try {
       const response = await this.enviarRequest("POST", curso);
 
-      if (!response || !response.ok) {
+      if (!response) {
+        throw new Error("Sem resposta do servidor");
+      }
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 409) {
+          this.mostrarMensagem(data.erro, mensagemElementId, "warning");
+          return;
+        }
+
         throw new Error("Erro HTTP: " + response.status);
       }
 

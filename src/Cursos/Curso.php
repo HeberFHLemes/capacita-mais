@@ -32,6 +32,11 @@ class Curso implements JsonSerializable
         $this->url = $url;
     }
 
+    /**
+     * Para definir como o objeto será serializado.
+     * 
+     * @link https://www.php.net/manual/pt_BR/jsonserializable.jsonserialize.php
+     */ 
     public function jsonSerialize(): mixed
     {
         return [

@@ -68,7 +68,10 @@ class CursoController
 
         } catch (CursoDuplicadoException $e) {
             http_response_code(409);
-            echo json_encode(['erro' => 'Curso já cadastrado']);
+            echo json_encode([
+                'criado' => false,
+                'erro' => 'Curso já cadastrado'
+            ]);
         }
         exit;
     }
