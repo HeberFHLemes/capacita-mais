@@ -16,8 +16,7 @@ export function configurarFiltros(listaCursos) {
   };
 
   // keyup na barra de busca
-  document.getElementById(CAMPO_BUSCA_ID)
-    .addEventListener("keyup", aplicarFiltrosERenderizar);
+  document.getElementById(CAMPO_BUSCA_ID).addEventListener("keyup", aplicarFiltrosERenderizar);
 
   // change para os radios de custo
   document.querySelectorAll('input[type="radio"]').forEach((controle) => {
@@ -46,9 +45,9 @@ function lerFiltrosDoDOM() {
   const custoChecked = document.querySelector('input[type="radio"]:checked');
   const custo = custoChecked?.value ?? null;
 
-  const categorias = Array.from(
-    document.querySelectorAll('input[type="checkbox"]:checked')
-  ).map((cb) => cb.value);
+  const categorias = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(
+    (cb) => cb.value
+  );
 
   return { busca, custo, categorias };
 }
@@ -73,9 +72,7 @@ function filtrarCursos(listaCompleta, { busca, custo, categorias }) {
 
   if (custo && custo !== "Todos") {
     const isGratuito = custo === "Gratuito";
-    resultados = resultados.filter(
-      (curso) => curso.gratuito === isGratuito
-    );
+    resultados = resultados.filter((curso) => curso.gratuito === isGratuito);
   }
 
   if (categorias.length > 0) {

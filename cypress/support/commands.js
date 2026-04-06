@@ -8,21 +8,14 @@ Cypress.Commands.add('login', () => {
       form: true,
       body: {
         email: email,
-        senha: senha
-      }
+        senha: senha,
+      },
     })
   })
 })
 
 // Comando para preencher um formulário com os dados de um curso
-Cypress.Commands.add('preencherFormCurso', (
-  nome,
-  descricao,
-  categoria,
-  plataforma,
-  custo,
-  url
-) => {
+Cypress.Commands.add('preencherFormCurso', (nome, descricao, categoria, plataforma, custo, url) => {
   if (nome !== "") cy.get('[name=nome]').type(nome)
   if (descricao !== "") cy.get('[name=descricao]').type(descricao)
   if (descricao !== "") cy.get('[name=categoria]').type(categoria)
@@ -30,9 +23,7 @@ Cypress.Commands.add('preencherFormCurso', (
 
   if (custo !== "") {
     cy.get('[name=custo]').select(custo)
-    cy.get('select[name="custo"]')
-      .find('option:selected')
-      .should('contain', custo)
+    cy.get('select[name="custo"]').find('option:selected').should('contain', custo)
   }
 
   if (url !== "") cy.get('[name=link]').type(url)
@@ -41,17 +32,19 @@ Cypress.Commands.add('preencherFormCurso', (
 // Comando para selecionar a última opção de um select
 // e retornar seu valor e texto
 Cypress.Commands.add('selecionarEmSelect', (elemento) => {
-  return cy.get(`[name=${elemento}]`)
+  return cy
+    .get(`[name=${elemento}]`)
     .should('be.visible')
     .find('option:enabled:last') // seleciona a última opção
-    .then($option => {
+    .then(($option) => {
       const value = $option.val()
       const textContent = $option.text()
 
       // retorna tanto o valor como o texto apresentado
-      return cy.get(`[name="${elemento}"]`)
+      return cy
+        .get(`[name="${elemento}"]`)
         .select(value)
         .should('have.value', value)
-        .then(() => ({ value, textContent })) 
-    });
-});
+        .then(() => ({ value, textContent }))
+    })
+})

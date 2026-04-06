@@ -2,7 +2,7 @@ const API_PATH = "api/cursos.php";
 
 /**
  * Classe para centralizar a lógica dos forms de curso.
- * 
+ *
  * Cadastro - POST /api/cursos.php
  * Edição   - PUT /api/cursos.php?id=[ID]
  * Remoção  - DELETE /api/curso.php?id=[ID]
@@ -89,7 +89,7 @@ export default class CursosFormHandler {
 
       // Mantendo reload da página manual por enquanto.
       // O usuário terá que recarregar a página para refletir as alterações,
-      // se fizesse via js, teria que passar a mensagem de erro/sucesso 
+      // se fizesse via js, teria que passar a mensagem de erro/sucesso
       // para a página atualizada...
 
       this.mostrarMensagem(mensagemSucesso, mensagemElementId);

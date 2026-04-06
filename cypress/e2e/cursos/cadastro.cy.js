@@ -43,14 +43,13 @@ describe('Cadastro de cursos', () => {
 
   it('não cadastra curso sem nome', () => {
     cy.fixture('cursos').then((curso) => {
-      
       const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
-      
+
       // remove o required (HTML) do campo nome
-      cy.get('[name=nome]').invoke('removeAttr', 'required');
-      
+      cy.get('[name=nome]').invoke('removeAttr', 'required')
+
       cy.preencherFormCurso(
-        "",
+        '',
         curso.novo.descricao,
         curso.novo.categoria,
         curso.novo.plataforma,
@@ -75,7 +74,6 @@ describe('Cadastro de cursos', () => {
 
   it('não cadastra curso em branco', () => {
     cy.fixture('cursos').then((curso) => {
-
       // remove o required (HTML) de todos os campos obrigatórios
       cy.get('[name=nome]').invoke('removeAttr', 'required')
       cy.get('[name=categoria]').invoke('removeAttr', 'required')
@@ -100,7 +98,6 @@ describe('Cadastro de cursos', () => {
 
   it('não cadastra curso duplicado', () => {
     cy.fixture('cursos').then((curso) => {
-
       const nome = `${curso.novo.baseNome} ${Date.now()}`
       const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
 
@@ -115,9 +112,9 @@ describe('Cadastro de cursos', () => {
       )
 
       cy.intercept('POST', '/api/cursos.php').as('postCurso1')
-      
+
       cy.contains('Cadastrar Curso').click()
-      
+
       cy.wait('@postCurso1').its('response.statusCode').should('eq', 201)
 
       cy.get('#msg')
@@ -145,7 +142,6 @@ describe('Cadastro de cursos', () => {
         .should('not.have.class', 'd-none')
         .and('have.class', 'alert-danger')
         .and('not.be.empty')
-
     })
   })
 })
