@@ -63,7 +63,7 @@ class CursoController
             
             echo json_encode([
                 'criado' => true,
-                'curso' => $curso->toArray()
+                'curso' => $curso
             ]);
 
         } catch (CursoDuplicadoException $e) {
@@ -113,7 +113,7 @@ class CursoController
 
             echo json_encode([
                 "editado" => true,
-                "curso" => $cursoAtualizado->toArray()
+                "curso" => $cursoAtualizado
             ]);
 
         } catch (SemAlteracoesException $e) {
