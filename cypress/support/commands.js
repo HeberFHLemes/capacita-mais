@@ -38,17 +38,20 @@ Cypress.Commands.add('preencherFormCurso', (
   if (url !== "") cy.get('[name=link]').type(url)
 })
 
-// Comando para selecionar a última opção de um select e retornar seu valor
+// Comando para selecionar a última opção de um select
+// e retornar seu valor e texto
 Cypress.Commands.add('selecionarEmSelect', (elemento) => {
   return cy.get(`[name=${elemento}]`)
     .should('be.visible')
     .find('option:enabled:last') // seleciona a última opção
     .then($option => {
-      const value = $option.val();
+      const value = $option.val()
+      const textContent = $option.text()
 
+      // retorna tanto o valor como o texto apresentado
       return cy.get(`[name="${elemento}"]`)
         .select(value)
         .should('have.value', value)
-        .then(() => value); // retorna o valor selecionado
+        .then(() => ({ value, textContent })) 
     });
 });

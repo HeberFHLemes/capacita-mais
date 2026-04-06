@@ -36,7 +36,7 @@ describe('Edição de cursos', () => {
 
     it('edita um curso existente', () => {
 
-        cy.selecionarEmSelect(SELECT).then((cursoId) => {
+        cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
 
             cy.intercept('PUT', `/api/cursos.php?id=${cursoId}`).as('putCurso')
 
@@ -56,7 +56,7 @@ describe('Edição de cursos', () => {
 
     it('informa que não houve alterações', () => {
 
-        cy.selecionarEmSelect(SELECT).then((cursoId) => {
+        cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
 
             cy.intercept('PUT', `/api/cursos.php?id=${cursoId}`).as('putCurso')
 
