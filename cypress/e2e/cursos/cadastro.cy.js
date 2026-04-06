@@ -12,17 +12,14 @@ describe('Cadastro de cursos', () => {
 
       const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
 
-      cy.get('[name=nome]').type(nome)
-      cy.get('[name=descricao]').type(curso.novo.descricao)
-      cy.get('[name=categoria]').type(curso.novo.categoria)
-      cy.get('[name=plataforma]').type(curso.novo.plataforma)
-
-      cy.get('[name=custo]').select(custo)
-      cy.get('select[name="custo"]')
-        .find('option:selected')
-        .should('contain', custo)
-
-      cy.get('[name=link]').type(curso.novo.url)
+      cy.preencherFormCurso(
+        nome,
+        curso.novo.descricao,
+        curso.novo.categoria,
+        curso.novo.plataforma,
+        custo,
+        curso.novo.url
+      )
 
       // salva a requisição para obter depois a resposta dela
       cy.intercept('POST', '/api/cursos.php').as('postCurso')
@@ -52,16 +49,14 @@ describe('Cadastro de cursos', () => {
       // remove o required (HTML) do campo nome
       cy.get('[name=nome]').invoke('removeAttr', 'required');
       
-      cy.get('[name=descricao]').type(curso.novo.descricao)
-      cy.get('[name=categoria]').type(curso.novo.categoria)
-      cy.get('[name=plataforma]').type(curso.novo.plataforma)
-
-      cy.get('[name=custo]').select(custo)
-      cy.get('select[name="custo"]')
-        .find('option:selected')
-        .should('contain', custo)
-
-      cy.get('[name=link]').type(curso.novo.url)
+      cy.preencherFormCurso(
+        "",
+        curso.novo.descricao,
+        curso.novo.categoria,
+        curso.novo.plataforma,
+        custo,
+        curso.novo.url
+      )
 
       cy.intercept('POST', '/api/cursos.php').as('postCurso')
 
