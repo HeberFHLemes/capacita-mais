@@ -11,7 +11,7 @@ class CursoRepository
 {
     public function __construct(private PDO $conexao) {}
 
-    public function buscarPorId(int $id): ?array  // array associativo
+    public function buscarPorId(int $id): ?Curso
     {
         $sql = "SELECT c.*, cat.nome AS categoria_nome, p.nome AS plataforma_nome
             FROM cursos c
@@ -27,18 +27,21 @@ class CursoRepository
 
         if (!$row) return null;
 
-        return [
-            'id' => $row['id'],
-            'nome' => $row['nome'],
-            'descricao' => $row['descricao'],
-            'url' => $row['url'],
-            'gratuito' => (bool) $row['gratuito'],
-            'categoria' => $row['categoria_nome'],
-            'plataforma' => $row['plataforma_nome']
-        ];
+        return new Curso(
+            $row['id'],
+            $row['nome'],
+            $row['descricao'],
+            $row['categoria_nome'],
+            $row['plataforma_nome'],
+            (bool) $row['gratuito'],
+            $row['url']
+        );
     }
 
-    public function buscarTodos(): array // array associativo
+    /**
+     * @return Curso[]
+     */
+    public function buscarTodos(): array
     {
         $sql = "SELECT c.*, cat.nome AS categoria_nome, p.nome AS plataforma_nome
             FROM cursos c
@@ -52,15 +55,15 @@ class CursoRepository
         $cursos = [];
 
         foreach ($dados as $row) {
-            $cursos[] = [
-                'id' => $row['id'],
-                'nome' => $row['nome'],
-                'descricao' => $row['descricao'],
-                'url' => $row['url'],
-                'gratuito' => (bool) $row['gratuito'],
-                'categoria' => $row['categoria_nome'],
-                'plataforma' => $row['plataforma_nome']
-            ];
+            $cursos[] = new Curso(
+                $row['id'],
+                $row['nome'],
+                $row['descricao'],
+                $row['categoria_nome'],
+                $row['plataforma_nome'],
+                (bool) $row['gratuito'],
+                $row['url']
+            );
         }
 
         return $cursos;

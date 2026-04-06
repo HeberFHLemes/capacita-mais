@@ -27,6 +27,9 @@ class CursoService
         );
     }
 
+    /**
+     * @return Curso[]
+     */
     public function listarCursos(): array
     {
         return $this->cursoRepository->buscarTodos();
@@ -76,12 +79,12 @@ class CursoService
 
         // verificar se houve alguma alteração
         $semAlteracoes = (
-            $cursoAtual['nome'] === $nome &&
-            $cursoAtual['descricao'] === $descricao &&
-            $cursoAtual['categoria'] === $categoriaNome &&
-            $cursoAtual['plataforma'] === $plataformaNome &&
-            $cursoAtual['url'] === $url &&
-            $cursoAtual['gratuito'] === $gratuito
+            $cursoAtual->getNome() === $nome &&
+            $cursoAtual->getDescricao() === $descricao &&
+            $cursoAtual->getCategoria() === $categoriaNome &&
+            $cursoAtual->getPlataforma() === $plataformaNome &&
+            $cursoAtual->isGratuito() === $gratuito &&
+            $cursoAtual->getUrl() === $url
         );
 
         if ($semAlteracoes) {

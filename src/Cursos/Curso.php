@@ -2,7 +2,9 @@
 
 namespace App\Cursos;
 
-class Curso 
+use JsonSerializable;
+
+class Curso implements JsonSerializable
 {
     private int $id;
     private string $nome;
@@ -30,17 +32,37 @@ class Curso
         $this->url = $url;
     }
 
-    public function toArray(): array 
+    /**
+     * Para definir como o objeto será serializado.
+     * 
+     * @link https://www.php.net/manual/pt_BR/jsonserializable.jsonserialize.php
+     */ 
+    public function jsonSerialize(): mixed
     {
         return [
-            "id" => $this->id,
-            "nome" => $this->nome,
-            "descricao" => $this->descricao,
-            "categoria" => $this->categoria,
-            "plataforma" => $this->plataforma,
-            "gratuito" => $this->gratuito,
-            "url" => $this->url
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'descricao' => $this->descricao,
+            'categoria' => $this->categoria,
+            'plataforma' => $this->plataforma,
+            'gratuito' => $this->gratuito,
+            'url' => $this->url
         ];
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    public function getDescricao(): string
+    {
+        return $this->descricao;
     }
 
     public function getCategoria(): string
@@ -51,5 +73,15 @@ class Curso
     public function getPlataforma(): string
     {
         return $this->plataforma;
+    }
+
+    public function isGratuito(): bool
+    {
+        return $this->gratuito;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
     }
 }

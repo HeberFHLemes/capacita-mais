@@ -63,12 +63,15 @@ class CursoController
             
             echo json_encode([
                 'criado' => true,
-                'curso' => $curso->toArray()
+                'curso' => $curso
             ]);
 
         } catch (CursoDuplicadoException $e) {
             http_response_code(409);
-            echo json_encode(['erro' => 'Curso já cadastrado']);
+            echo json_encode([
+                'criado' => false,
+                'erro' => 'Curso já cadastrado'
+            ]);
         }
         exit;
     }
@@ -113,7 +116,7 @@ class CursoController
 
             echo json_encode([
                 "editado" => true,
-                "curso" => $cursoAtualizado->toArray()
+                "curso" => $cursoAtualizado
             ]);
 
         } catch (SemAlteracoesException $e) {

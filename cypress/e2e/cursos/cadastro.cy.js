@@ -140,7 +140,7 @@ describe('Cadastro de cursos', () => {
       cy.wait('@postCurso2').its('response.statusCode').should('eq', 409)
       cy.get('#msg')
         .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-danger')
+        .and('have.class', 'alert-warning')
         .and('not.be.empty')
     })
   })
