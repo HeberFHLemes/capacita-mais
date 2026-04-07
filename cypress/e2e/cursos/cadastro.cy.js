@@ -41,37 +41,6 @@ describe('Cadastro de cursos', () => {
     })
   })
 
-  it('Não cadastra curso sem nome', () => {
-    cy.fixture('cursos').then((curso) => {
-      const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
-
-      // remove o required (HTML) do campo nome
-      cy.get('[name=nome]').invoke('removeAttr', 'required')
-
-      cy.preencherFormCurso(
-        '',
-        curso.novo.descricao,
-        curso.novo.categoria,
-        curso.novo.plataforma,
-        custo,
-        curso.novo.url
-      )
-
-      cy.intercept('POST', '/api/cursos.php').as('postCurso')
-
-      cy.contains('Cadastrar Curso').click()
-
-      // requisição deve retornar 400 (bad request)
-      cy.wait('@postCurso').its('response.statusCode').should('eq', 400)
-
-      // Confere se há mensagem de erro na tela
-      cy.get('#msg')
-        .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-danger')
-        .and('not.be.empty')
-    })
-  })
-
   it('CT13 - Valida campos obrigatórios no cadastro', () => {
       // remove o required (HTML) de todos os campos obrigatórios
       cy.get('[name=nome]').invoke('removeAttr', 'required')
