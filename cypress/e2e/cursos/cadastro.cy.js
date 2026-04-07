@@ -4,7 +4,7 @@ describe('Cadastro de cursos', () => {
     cy.visit('/cadastro.php')
   })
 
-  it('cadastra novo curso', () => {
+  it('CT12 - Cadastro de novos cursos', () => {
     cy.fixture('cursos').then((curso) => {
       // para garantir a unicidade do curso,
       // concatena o nome com a data atual do teste
@@ -41,7 +41,7 @@ describe('Cadastro de cursos', () => {
     })
   })
 
-  it('não cadastra curso sem nome', () => {
+  it('Não cadastra curso sem nome', () => {
     cy.fixture('cursos').then((curso) => {
       const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
 
@@ -72,8 +72,7 @@ describe('Cadastro de cursos', () => {
     })
   })
 
-  it('não cadastra curso em branco', () => {
-    cy.fixture('cursos').then((curso) => {
+  it('CT13 - Valida campos obrigatórios no cadastro', () => {
       // remove o required (HTML) de todos os campos obrigatórios
       cy.get('[name=nome]').invoke('removeAttr', 'required')
       cy.get('[name=categoria]').invoke('removeAttr', 'required')
@@ -93,10 +92,9 @@ describe('Cadastro de cursos', () => {
         .should('not.have.class', 'd-none')
         .and('have.class', 'alert-danger')
         .and('not.be.empty')
-    })
   })
 
-  it('não cadastra curso duplicado', () => {
+  it('CT14 - Não cadastra curso duplicado', () => {
     cy.fixture('cursos').then((curso) => {
       const nome = `${curso.novo.baseNome} ${Date.now()}`
       const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'

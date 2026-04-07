@@ -16,7 +16,7 @@ describe('Remoção de cursos', () => {
     cy.get(`[name=${SELECT}]`).find('option').should('have.length.greaterThan', 1)
   })
 
-  it('remove um curso existente', () => {
+  it('CT18 - Remoção de um curso existente', () => {
     cy.get(`[name=${SELECT}]`).find('option').should('have.length.greaterThan', 1)
 
     // 'salva' o id e o nome do curso que foi selecionado no select
@@ -41,7 +41,7 @@ describe('Remoção de cursos', () => {
     })
   })
 
-  it('não prossegue com remoção sem seleção', () => {
+  it('CT19 - Remoção sem seleção', () => {
     cy.intercept('DELETE', '/api/cursos.php*').as('deleteCurso')
 
     cy.get(`[name=${SELECT}]`).invoke('removeAttr', 'required')

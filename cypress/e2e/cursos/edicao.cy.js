@@ -15,7 +15,7 @@ describe('Edição de cursos', () => {
     cy.get(`[name=${SELECT}]`).find('option').should('have.length.greaterThan', 1)
   })
 
-  it('popula campos ao selecionar curso', () => {
+  it('CT15 - Seleção de um curso existente para edição', () => {
     cy.selecionarEmSelect(SELECT)
 
     // campos de tipo input obrigatórios devem estar preenchidos
@@ -26,7 +26,7 @@ describe('Edição de cursos', () => {
       })
   })
 
-  it('edita um curso existente', () => {
+  it('CT16 - Edição de um curso existente', () => {
     cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
       cy.intercept('PUT', `/api/cursos.php?id=${cursoId}`).as('putCurso')
 
@@ -41,7 +41,7 @@ describe('Edição de cursos', () => {
     })
   })
 
-  it('informa que não houve alterações', () => {
+  it('CT17 - Edição sem alterações nos dados', () => {
     cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
       cy.intercept('PUT', `/api/cursos.php?id=${cursoId}`).as('putCurso')
 
