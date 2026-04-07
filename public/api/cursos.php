@@ -15,7 +15,6 @@ try {
     $cursoController = new CursoController($cursoService);
 
     $authService = new AuthService();
-    $authService->iniciarSessao();
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
@@ -23,17 +22,17 @@ try {
             break;
 
         case 'POST':
-            exigirAutenticacao($authService);
+            $authService->exigirAutenticacaoApi();
             $cursoController->cadastrar();
             break;
 
         case 'PUT':
-            exigirAutenticacao($authService);
+            $authService->exigirAutenticacaoApi();
             $cursoController->editar();
             break;
 
         case 'DELETE':
-            exigirAutenticacao($authService);
+            $authService->exigirAutenticacaoApi();
             $cursoController->remover();
             break;
             
@@ -51,16 +50,6 @@ try {
 } catch (\Throwable $e) {
     error_log($e);
     http_response_code(500);
-    echo "Sistema temporariamente indisponível.";
+    echo json_encode(['erro' => 'Sistema temporariamente indisponível']);
     exit;
-}
-
-function exigirAutenticacao(AuthService $authService)
-{
-    if (!$authService->usuarioLogado()) {
-        header('Content-Type: application/json');
-        http_response_code(401);
-        echo json_encode(['erro' => 'Não autenticado']);
-        exit;
-    }
 }
