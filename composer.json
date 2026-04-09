@@ -25,6 +25,7 @@
       "email": "hfhlemes@gmail.com"
     }
   ],
+  "license": "MIT",
   "config": {
     "preferred-install": "dist"
   }
