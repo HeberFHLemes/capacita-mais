@@ -3,7 +3,6 @@
   use App\Auth\AuthService;
   
   $authService = new AuthService();
-  $authService->iniciarSessao();
   $authService->exigirLogin();
 ?>
 <!doctype html>

@@ -49,14 +49,15 @@ class CursoController
             echo json_encode(['erros' => $erros]);
             exit;
         }
+        
         try {
             $curso = $this->cursoService->criar(
-            $dados['nome'],
-            $dados['descricao'],
-            $dados['categoria'],
-            $dados['plataforma'],
-            $dados['url'],
-            $dados['gratuito']
+                $dados['nome'],
+                $dados['descricao'],
+                $dados['categoria'],
+                $dados['plataforma'],
+                $dados['url'],
+                $dados['gratuito']
             );
             
             http_response_code(201);

@@ -6,7 +6,7 @@ use App\Usuarios\Usuario;
 
 class AuthService
 {
-    public function iniciarSessao(): void 
+    public function __construct()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
@@ -23,8 +23,6 @@ class AuthService
 
     public function login(Usuario $usuario): void
     {
-        $this->iniciarSessao();
-
         session_regenerate_id(true);
 
         $_SESSION['usuario'] = [
@@ -49,5 +47,15 @@ class AuthService
 
         return $usuario !== null &&  
             ($usuario['role'] ?? null) === $role;
+    }
+
+    public function exigirAutenticacaoApi(): void
+    {
+        if (!$this->usuarioLogado()) {
+            header('Content-Type: application/json');
+            http_response_code(401);
+            echo json_encode(['erro' => 'Não autenticado']);
+            exit;
+        }
     }
 }

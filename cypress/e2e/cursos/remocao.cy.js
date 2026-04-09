@@ -6,7 +6,7 @@ describe('Remoção de cursos', () => {
     cy.visit('/remocao.php')
   })
 
-  // Mesmo lógica do componente select da página de edição
+  // Mesma lógica do componente select da página de edição
   it('carrega o select de cursos', () => {
     // elemento deve estar visível...
     cy.get(`[name=${SELECT}]`).should('be.visible')

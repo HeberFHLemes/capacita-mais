@@ -3,7 +3,7 @@ const DATA_PATH = "api/cursos.php";
 let cursosEmCache = null;
 
 /**
- * Lê os dados do arquivo JSON usando fetch.
+ * Envia uma requisição para o back-end e retorna a lista de cursos obtida.
  * @returns {Promise<Array>} Retorna a lista de cursos ou um array vazio em caso de erro.
  */
 export async function carregarCursos() {
@@ -18,7 +18,7 @@ export async function carregarCursos() {
     }
     return cursosEmCache;
   } catch (error) {
-    console.error("Erro ao processar dados do arquivo JSON:", error);
+    console.error("Erro na requisição: ", error);
     return [];
   }
 }

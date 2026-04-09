@@ -16,7 +16,6 @@
     );
 
     $authService = new AuthService();
-    $authService->iniciarSessao();
 
     if ($authService->usuarioLogado()) {
       header('Location: /cadastro.php');
