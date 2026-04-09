@@ -1,6 +1,6 @@
 {
   "name": "capacita-mais",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Capacita+ é um website que visa indicar conteúdo gratuito e acessível para capacitação.",
   "scripts": {
     "format": "prettier --write .",
@@ -10,10 +10,9 @@
     "dev:php": "php -S localhost:8080 -t public/"
   },
   "author": "HeberFHLemes <hfhlemes@gmail.com>",
-  "license": "",
+  "license": "MIT",
   "devDependencies": {
     "cypress": "^15.11.0",
-    "jest": "^30.3.0",
     "prettier": "^3.6.2"
   }
 }
