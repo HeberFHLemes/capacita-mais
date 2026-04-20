@@ -3,7 +3,7 @@ describe('Remoção de cursos', () => {
 
   beforeEach(() => {
     cy.login()
-    cy.visit('/remocao.php')
+    cy.visit('/remocao')
   })
 
   // Mesma lógica do componente select da página de edição
@@ -21,7 +21,7 @@ describe('Remoção de cursos', () => {
 
     // 'salva' o id e o nome do curso que foi selecionado no select
     cy.selecionarEmSelect(SELECT).then(({ value: cursoId, textContent: cursoNome }) => {
-      cy.intercept('DELETE', `/api/cursos.php?id=${cursoId}`).as('deleteCurso')
+      cy.intercept('DELETE', `/api/cursos?id=${cursoId}`).as('deleteCurso')
 
       cy.get('[type=submit]').click()
 
@@ -42,7 +42,7 @@ describe('Remoção de cursos', () => {
   })
 
   it('CT19 - Remoção sem seleção', () => {
-    cy.intercept('DELETE', '/api/cursos.php*').as('deleteCurso')
+    cy.intercept('DELETE', '/api/cursos*').as('deleteCurso')
 
     cy.get(`[name=${SELECT}]`).invoke('removeAttr', 'required')
 

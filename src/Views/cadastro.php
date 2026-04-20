@@ -1,5 +1,5 @@
 <?php
-  require_once __DIR__ . '/../vendor/autoload.php';
+  require_once __DIR__ . '/../../vendor/autoload.php';
   use App\Auth\AuthService;
   
   $authService = new AuthService();
@@ -9,7 +9,7 @@
 <html lang="pt-BR">
   <?php
     require __DIR__ . '/components/head.php';
-    gerarHead("Editar Curso | Capacita+")
+    gerarHead("Cadastrar Curso | Capacita+")
   ?>
   <body class="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100">
     <div class="container my-5">
@@ -17,19 +17,9 @@
         <div class="col-lg-6">
           <?php require __DIR__ . '/components/form_nav.php'; ?>
           <div class="card shadow-sm p-4 form-card">
-            <h1 class="h4 mb-4 text-center">Editar Curso</h1>
+            <h1 class="h4 mb-4 text-center">Cadastrar Novo Curso</h1>
 
-            <form id="form-edicao-curso">
-              <div class="mb-3">
-                <label for="select-cursos-edicao" class="form-label">Curso</label>
-                <select
-                  class="form-select"
-                  id="select-cursos-edicao"
-                  name="select-cursos-edicao"
-                  aria-placeholder="Curso a ser editado"
-                ></select>
-              </div>
-
+            <form id="form-cadastro-curso">
               <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" id="nome" name="nome" class="form-control" required />
@@ -70,10 +60,10 @@
                 />
               </div>
 
-              <button type="submit" class="btn btn-primary w-100">Editar Curso</button>
+              <button type="submit" class="btn btn-primary w-100">Cadastrar Curso</button>
             </form>
 
-            <div id="msg-edicao" class="alert alert-success mt-3 d-none" role="alert"></div>
+            <div id="msg" class="alert alert-success mt-3 d-none" role="alert"></div>
 
             <p class="text-center mt-4">
               <a href="/" class="text-decoration-none">Voltar ao site principal</a>
@@ -83,6 +73,6 @@
       </div>
     </div>
 
-    <script src="/js/edicao.js" type="module"></script>
+    <script src="/js/cadastro.js" type="module"></script>
   </body>
 </html>

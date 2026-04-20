@@ -1,5 +1,5 @@
 <?php
-  require_once __DIR__ . '/../vendor/autoload.php';
+  require_once __DIR__ . '/../../vendor/autoload.php';
 
   use App\Auth\Authenticator;
   use App\Auth\AuthService;
@@ -60,7 +60,7 @@
         </div>
       <?php endif; ?>
 
-      <form id="form-login" method="post" action="/login.php">
+      <form id="form-login" method="post" action="/login">
         <div class="mb-3">
           <label for="email" class="form-label">E-mail</label>
           <input
@@ -83,7 +83,7 @@
       </form>
 
       <p class="text-center mt-3">
-        <a href="/index.php" class="text-decoration-none">Voltar ao site principal</a>
+        <a href="/" class="text-decoration-none">Voltar ao site principal</a>
       </p>
     </main>
   </body>

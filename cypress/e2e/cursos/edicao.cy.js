@@ -3,7 +3,7 @@ describe('Edição de cursos', () => {
 
   beforeEach(() => {
     cy.login()
-    cy.visit('/edicao.php')
+    cy.visit('/edicao')
   })
 
   it('carrega o select de cursos', () => {
@@ -28,7 +28,7 @@ describe('Edição de cursos', () => {
 
   it('CT16 - Edição de um curso existente', () => {
     cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
-      cy.intercept('PUT', `/api/cursos.php?id=${cursoId}`).as('putCurso')
+      cy.intercept('PUT', `/api/cursos?id=${cursoId}`).as('putCurso')
 
       // editar o nome
       const nome = `Editado ${Date.now()}`
@@ -43,7 +43,7 @@ describe('Edição de cursos', () => {
 
   it('CT17 - Edição sem alterações nos dados', () => {
     cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
-      cy.intercept('PUT', `/api/cursos.php?id=${cursoId}`).as('putCurso')
+      cy.intercept('PUT', `/api/cursos?id=${cursoId}`).as('putCurso')
 
       cy.get('[type=submit]').click()
 

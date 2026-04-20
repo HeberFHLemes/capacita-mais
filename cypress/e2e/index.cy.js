@@ -14,6 +14,6 @@ describe('Tela inicial', () => {
   it('redireciona para cursos', () => {
     cy.get('[data-cy="btn-explorar-cursos"]').should('be.visible').click()
 
-    cy.location('pathname').should('eq', '/cursos.php')
+    cy.location('pathname').should('eq', '/cursos')
   })
 })

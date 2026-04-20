@@ -1,7 +1,7 @@
 describe('Cadastro de cursos', () => {
   beforeEach(() => {
     cy.login()
-    cy.visit('/cadastro.php')
+    cy.visit('/cadastro')
   })
 
   it('CT12 - Cadastro de novos cursos', () => {
@@ -22,7 +22,7 @@ describe('Cadastro de cursos', () => {
       )
 
       // salva a requisição para obter depois a resposta dela
-      cy.intercept('POST', '/api/cursos.php').as('postCurso')
+      cy.intercept('POST', '/api/cursos').as('postCurso')
 
       // submit
       cy.contains('Cadastrar Curso').click()
@@ -49,7 +49,7 @@ describe('Cadastro de cursos', () => {
       cy.get('[name=custo]').invoke('removeAttr', 'required')
       cy.get('[name=link]').invoke('removeAttr', 'required')
 
-      cy.intercept('POST', '/api/cursos.php').as('postCurso')
+      cy.intercept('POST', '/api/cursos').as('postCurso')
 
       cy.contains('Cadastrar Curso').click()
 
@@ -78,7 +78,7 @@ describe('Cadastro de cursos', () => {
         curso.novo.url
       )
 
-      cy.intercept('POST', '/api/cursos.php').as('postCurso1')
+      cy.intercept('POST', '/api/cursos').as('postCurso1')
 
       cy.contains('Cadastrar Curso').click()
 
@@ -99,7 +99,7 @@ describe('Cadastro de cursos', () => {
         'https://google.com/search?q=outro-link'
       )
 
-      cy.intercept('POST', '/api/cursos.php').as('postCurso2')
+      cy.intercept('POST', '/api/cursos').as('postCurso2')
 
       cy.contains('Cadastrar Curso').click()
 

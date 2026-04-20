@@ -38,7 +38,7 @@
 
         <div class="ms-auto">
             <a class="nav-link text-danger fw-semibold mb-2 logout-link"
-                href="/logout.php">
+                href="/logout">
                 <i class="bi bi-box-arrow-right"></i> Sair
             </a>
         </div>
