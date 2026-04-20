@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - .:/var/www/html
+      - ./public:/var/www/html/public
 
   php:
     build:
@@ -15,7 +15,10 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/var/www/html
+      - ./src:/var/www/html/src
+      - ./scripts:/var/www/html/scripts
+      - ./public:/var/www/html/public
+
   db:
     image: mariadb:12-noble
     restart: always

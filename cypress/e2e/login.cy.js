@@ -1,6 +1,6 @@
 describe('Tela de login', () => {
   beforeEach(() => {
-    cy.visit('/login.php')
+    cy.visit('/login')
   })
 
   const preencherLogin = (email, senha) => {
@@ -13,7 +13,7 @@ describe('Tela de login', () => {
     cy.env(['email', 'senha']).then(({ email, senha }) => {
       preencherLogin(email, senha)
 
-      cy.location('pathname').should('eq', '/cadastro.php')
+      cy.location('pathname').should('eq', '/cadastro')
     })
   })
 
@@ -21,7 +21,7 @@ describe('Tela de login', () => {
     cy.env(['email']).then(({ email }) => {
       preencherLogin(email, 'senhaincorreta')
 
-      cy.location('pathname').should('eq', '/login.php')
+      cy.location('pathname').should('eq', '/login')
 
       cy.get('.alert-danger').should('be.visible').and('not.be.empty')
     })
@@ -30,7 +30,7 @@ describe('Tela de login', () => {
   it('CT3 - Não autentica com e-mail incorreto', () => {
     preencherLogin('email@falso.com', 'souadmin')
 
-    cy.location('pathname').should('eq', '/login.php')
+    cy.location('pathname').should('eq', '/login')
 
     cy.get('.alert-danger').should('be.visible').and('not.be.empty')
   })
@@ -40,14 +40,14 @@ describe('Tela de login', () => {
     cy.get('[name=senha]').invoke('removeAttr', 'required')
     cy.get('[type=submit]').click()
 
-    cy.location('pathname').should('eq', '/login.php')
+    cy.location('pathname').should('eq', '/login')
 
     cy.get('.alert-danger').should('be.visible').and('not.be.empty')
   })
 
   it('CT5 - Exige autenticação nos formulários administrativos', () => {
-    cy.visit('/cadastro.php')
+    cy.visit('/cadastro')
 
-    cy.location('pathname').should('eq', '/login.php')
+    cy.location('pathname').should('eq', '/login')
   })
 })

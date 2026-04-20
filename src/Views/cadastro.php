@@ -1,5 +1,5 @@
 <?php
-  require_once __DIR__ . '/../vendor/autoload.php';
+  require_once __DIR__ . '/../../vendor/autoload.php';
   use App\Auth\AuthService;
   
   $authService = new AuthService();
@@ -15,18 +15,8 @@
     <div class="container my-5">
       <div class="row justify-content-center">
         <div class="col-lg-6">
-          <ul class="nav nav-underline justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link formulario-link active" aria-current="page" href="/cadastro.php">Cadastrar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link formulario-link" href="/edicao.php">Editar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link formulario-link" href="/remocao.php">Remover</a>
-            </li>
-          </ul>
-          <div class="card shadow-sm p-4">
+          <?php require __DIR__ . '/components/form_nav.php'; ?>
+          <div class="card shadow-sm p-4 form-card">
             <h1 class="h4 mb-4 text-center">Cadastrar Novo Curso</h1>
 
             <form id="form-cadastro-curso">
@@ -76,7 +66,7 @@
             <div id="msg" class="alert alert-success mt-3 d-none" role="alert"></div>
 
             <p class="text-center mt-4">
-              <a href="/index.php" class="text-decoration-none">Voltar ao site principal</a>
+              <a href="/" class="text-decoration-none">Voltar ao site principal</a>
             </p>
           </div>
         </div>

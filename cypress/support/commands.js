@@ -4,7 +4,7 @@ Cypress.Commands.add('login', () => {
   cy.env(['email', 'senha']).then(({ email, senha }) => {
     cy.request({
       method: 'POST',
-      url: '/login.php',
+      url: '/login',
       form: true,
       body: {
         email: email,
