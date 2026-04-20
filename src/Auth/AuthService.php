@@ -31,6 +31,11 @@ class AuthService
         ];
     }
 
+    public function logout(): void
+    {
+        session_destroy();
+    }
+
     public function usuario(): ?array
     {
         return $_SESSION['usuario'] ?? null;
