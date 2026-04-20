@@ -1,11 +1,11 @@
-const API_PATH = "api/cursos.php";
+const API_PATH = "/api/cursos";
 
 /**
  * Classe para centralizar a lógica dos forms de curso.
  *
- * Cadastro - POST /api/cursos.php
- * Edição   - PUT /api/cursos.php?id=[ID]
- * Remoção  - DELETE /api/curso.php?id=[ID]
+ * Cadastro - POST /api/cursos
+ * Edição   - PUT /api/cursos?id=[ID]
+ * Remoção  - DELETE /api/cursos?id=[ID]
  */
 export default class CursosFormHandler {
   constructor() {}

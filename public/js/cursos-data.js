@@ -1,4 +1,4 @@
-const DATA_PATH = "api/cursos.php";
+const DATA_PATH = "/api/cursos";
 
 let cursosEmCache = null;
 

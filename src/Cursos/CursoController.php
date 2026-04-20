@@ -18,7 +18,6 @@ class CursoController
     // GET
     public function buscarCursos() 
     {
-        header('Content-Type: application/json');
 
         try {
             $cursos = $this->cursoService->listarCursos();
@@ -38,7 +37,6 @@ class CursoController
     // POST
     public function cadastrar() 
     {
-        header('Content-Type: application/json');
 
         $requestBody = file_get_contents("php://input");
         $dados = json_decode($requestBody, true);
@@ -80,7 +78,6 @@ class CursoController
     // PUT
     public function editar()
     {
-        header('Content-Type: application/json');
 
         $cursoId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
@@ -149,7 +146,6 @@ class CursoController
     // DELETE
     public function remover()
     {
-        header('Content-Type: application/json');
         
         $cursoId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 

@@ -16,7 +16,7 @@ class AuthService
     public function exigirLogin(): void 
     {
         if (!$this->usuarioLogado()) {
-            header('Location: /login.php');
+            header('Location: /login');
             exit;
         }
     }
