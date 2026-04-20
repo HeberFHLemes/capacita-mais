@@ -10,9 +10,9 @@
 function gerarNav(?array $paginas=null): void {
     $paginaAtual = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     if ($paginas === null) $paginas = [
-        ['label' => 'Início', 'url' => '/index.php'],
-        ['label' => 'Cursos', 'url' => '/cursos.php'],
-        ['label' => 'Sobre Nós', 'url' => '/sobre.php'],
+        ['label' => 'Início', 'url' => '/'],
+        ['label' => 'Cursos', 'url' => '/cursos'],
+        ['label' => 'Sobre Nós', 'url' => '/sobre'],
     ];
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
