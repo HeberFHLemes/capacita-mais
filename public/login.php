@@ -18,7 +18,7 @@
     $authService = new AuthService();
 
     if ($authService->usuarioLogado()) {
-      header('Location: /cadastro.php');
+      header('Location: /cadastro');
       exit;
     }
 
@@ -32,7 +32,7 @@
         if ($usuario) {
           $authService->login($usuario);
 
-          header('Location: /cadastro.php');
+          header('Location: /cadastro');
           exit;
         }
       }

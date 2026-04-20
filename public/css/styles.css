@@ -185,3 +185,7 @@ footer {
 .formulario-link a:focus {
   color: #0b0080;
 }
+
+.form-card {
+  border-radius: 20px 20px 20px 20px;
+}
