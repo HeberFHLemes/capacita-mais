@@ -1,17 +1,21 @@
-import { renderizarCursos, renderizarCategorias, renderizarPlaceholders } from "./cursos-render.js";
-import { carregarCursos } from "./cursos-data.js";
-import { configurarFiltros } from "./cursos-filtros.js";
+import {
+  renderizarCursos,
+  renderizarCategorias,
+  renderizarPlaceholders,
+} from "../ui/cursos-render.js";
+import { buscarCursos } from "../api/cursos-api-client.js";
+import { configurarFiltros } from "../filters/cursos-filtros.js";
 
 /**
  * Função principal para carregar os dados e configurar a interface.
  */
-async function iniciarAplicacao() {
+async function apresentarCatalogo() {
   let timeoutPlaceholders = setTimeout(() => {
     renderizarPlaceholders();
   }, 100);
 
   try {
-    const cursos = await carregarCursos();
+    const cursos = await buscarCursos();
 
     clearTimeout(timeoutPlaceholders);
 
@@ -25,4 +29,4 @@ async function iniciarAplicacao() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", iniciarAplicacao);
+document.addEventListener("DOMContentLoaded", apresentarCatalogo);
