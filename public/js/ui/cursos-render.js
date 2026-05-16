@@ -88,7 +88,7 @@ export function renderizarPlaceholders(qtd = 6) {
     .join("");
 }
 
-export function criarCardPlaceholder() {
+function criarCardPlaceholder() {
   return `
     <div class="col-md-6 col-lg-4 mb-4 w-auto-100">
       <div class="card shadow-sm h-100">

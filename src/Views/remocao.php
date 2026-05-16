@@ -43,6 +43,6 @@
       </div>
     </div>
 
-    <script src="/js/remocao.js" type="module"></script>
+    <script src="/js/events/remocao.js" type="module"></script>
   </body>
 </html>

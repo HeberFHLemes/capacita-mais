@@ -1,4 +1,4 @@
-import { renderizarCursos } from "./cursos-render.js";
+import { renderizarCursos } from "../ui/cursos-render.js";
 
 const BOTAO_LIMPAR_ID = "btn-limpar-filtros";
 const CAMPO_BUSCA_ID = "campo-busca";

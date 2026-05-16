@@ -83,6 +83,6 @@
       </div>
     </div>
 
-    <script src="/js/edicao.js" type="module"></script>
+    <script src="/js/events/edicao.js" type="module"></script>
   </body>
 </html>

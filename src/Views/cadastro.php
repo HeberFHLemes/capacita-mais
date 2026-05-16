@@ -73,6 +73,6 @@
       </div>
     </div>
 
-    <script src="/js/cadastro.js" type="module"></script>
+    <script src="/js/events/cadastro.js" type="module"></script>
   </body>
 </html>

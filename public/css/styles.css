@@ -67,8 +67,8 @@ footer {
 
 .card-curso-descricao {
   display: -webkit-box;
-  line-clamp: 3;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-size: 0.875rem;
@@ -94,6 +94,7 @@ footer {
 }
 
 .form-check-label {
+  -webkit-user-select: none;
   user-select: none;
 }
 
