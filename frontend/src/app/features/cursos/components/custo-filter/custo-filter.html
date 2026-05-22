@@ -1,0 +1,37 @@
+<div class="card p-3 mb-3 shadow-sm">
+  <fieldset class="border-0 m-0 p-0">
+    <legend class="fw-bold mb-3 h4">Custo</legend>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        [formControl]="custoControl"
+        value="todos"
+        id="radio-todos"
+      />
+      <label class="form-check-label" for="radio-todos">Todos</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        [formControl]="custoControl"
+        value="gratuito"
+        id="radio-gratuito"
+      />
+      <label class="form-check-label" for="radio-gratuito">Gratuito</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        [formControl]="custoControl"
+        value="pago"
+        id="radio-pago"
+      />
+      <label class="form-check-label" for="radio-pago">Pago</label>
+    </div>
+  </fieldset>
+</div>

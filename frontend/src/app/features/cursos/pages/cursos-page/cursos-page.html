@@ -1,0 +1,59 @@
+<header>
+  <h1 id="cursos-header" class="text-center mt-4 text-underline pt-4">
+    Cursos disponíveis
+  </h1>
+</header>
+
+<section id="cursos-section">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3 col-md-4 mb-4">
+        <aside class="sticky-lg-top">
+
+          <app-curso-search-bar (buscaChange)="onBuscaChange($event)" />
+
+          <app-custo-filter (custoChange)="onCustoChange($event)"  />
+
+          <app-categoria-filter
+            [categorias]="categorias"
+            (categoriaChange)="onCategoriaChange()"
+          />
+
+          <button type="button"
+            id="btn-limpar-filtros"
+            class="btn btn-outline-dark btn-sm mt-3 w-100"
+            (click)="limparFiltros()"
+          >
+            Limpar Filtros
+          </button>
+
+
+        </aside>
+      </div>
+
+      <div class="col-lg-9 col-md-8 mt-3 py-3">
+
+        <div id="lista-cursos" class="row align-items-stretch">
+          @if (cursos.length > 0) {
+            @for (curso of cursosExibidos; track curso.id) {
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                <app-curso-card [curso]="curso" />
+              </div>
+            }
+            @empty {
+              <p class="alert alert-info">Nenhum curso encontrado.</p>
+            }
+          } @else {
+            <div class="col-12">
+              <p class="alert alert-info">
+                Nenhum curso disponível no momento.
+              </p>
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

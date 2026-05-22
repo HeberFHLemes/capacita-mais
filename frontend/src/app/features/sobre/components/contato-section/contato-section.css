@@ -1,0 +1,24 @@
+#contato-section ul {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#contato-section li {
+  display: inline-block;
+  margin: 0 25px;
+  transition: transform 0.2s ease;
+}
+
+#contato-section li:hover {
+  transform: scale(1.1);
+}
+
+#contato-section ul li:first-child {
+  margin-left: 0px;
+}
+
+#contato-section a {
+  text-decoration: none;
+  color: inherit;
+}
