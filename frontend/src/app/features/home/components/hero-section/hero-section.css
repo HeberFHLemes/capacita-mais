@@ -1,0 +1,5 @@
+/* Melhor contraste na seção Hero  */
+.hero-section {
+  background: radial-gradient(circle at top left, #f0f7ff 0%, #ffffff 80%);
+  padding: 6rem 0;
+}

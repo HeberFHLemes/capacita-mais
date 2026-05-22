@@ -1,0 +1,19 @@
+<div class="card h-100 shadow-sm card-curso">
+  <div class="card-body d-flex flex-column">
+    <h2 class="card-title h5 fw-bold">
+      {{ curso.nome }}
+    </h2>
+    <div class="mb-2 d-flex gap-2 flex-wrap">
+      <span class="badge bg-primary">{{ curso.categoria }}</span>
+      <span class="badge bg-success">
+        R$ {{ curso.custo }}
+      </span>
+    </div>
+    <p class="card-text text-secondary flex-grow-1 card-curso-descricao">
+      {{ curso.descricao ?? '' }}
+    </p>
+    <button type="button" class="btn btn-outline-primary w-100">
+      Adicionar ao carrinho <i class="bi bi-cart-plus ms-2"></i>
+    </button>
+  </div>
+</div>

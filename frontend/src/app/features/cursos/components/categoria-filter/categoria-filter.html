@@ -1,0 +1,29 @@
+<fieldset class="card p-3 shadow-sm" id="filtros-categorias-div">
+
+  <legend class="fw-bold mb-3 h4">
+    Categoria
+  </legend>
+
+  @for (categoria of categorias; track categoria.id) {
+
+    <div class="form-check">
+      <input
+        title="Categoria"
+        class="form-check-input filtro-categoria"
+        type="checkbox"
+        [id]="categoria.id"
+        [checked]="categoria.selecionada"
+        (change)="categoria.selecionada = !categoria.selecionada; onCheckboxChange()"
+      />
+
+      <label
+        class="form-check-label"
+        [for]="categoria.id"
+      >
+        {{ categoria.nome }}
+      </label>
+
+    </div>
+  }
+
+</fieldset>
