@@ -7,6 +7,8 @@
     "check-style": "prettier --check .",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "dev:backend": "cd backend/ && php -S localhost:8080 -t public/",
+    "dev:frontend": "cd frontend/ && npm run start",
     "dev:php": "php -S localhost:8080 -t public/"
   },
   "author": "HeberFHLemes <hfhlemes@gmail.com>",
