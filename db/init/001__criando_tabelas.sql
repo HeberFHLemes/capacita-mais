@@ -1,7 +1,8 @@
 CREATE TABLE usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(255) NOT NULL UNIQUE,
-  senha VARCHAR(255) NOT NULL
+  senha VARCHAR(255) NOT NULL,
+  perfil VARCHAR(20) NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE plataformas (
@@ -23,7 +24,7 @@ CREATE TABLE cursos (
   categoria_id INT NOT NULL,
   plataforma_id INT NOT NULL,
   url TEXT NOT NULL,
-  gratuito BOOLEAN NOT NULL,
+  custo FLOAT NOT NULL,
 
   UNIQUE (nome, plataforma_id),
 
