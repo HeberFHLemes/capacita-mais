@@ -51,9 +51,10 @@ class CursoController
                 $dados['nome'],
                 $dados['descricao'],
                 $dados['categoria'],
-                $dados['plataforma'],
-                $dados['url'],
-                $dados['gratuito']
+                $dados['nivel'],
+                $dados['preco'],
+                $dados['preco_original'],
+                $dados['em_destaque']
             );
             
             http_response_code(201);
@@ -102,9 +103,10 @@ class CursoController
                 $dados['nome'],
                 $dados['descricao'],
                 $dados['categoria'],
-                $dados['plataforma'],
-                $dados['url'],
-                $dados['gratuito']
+                $dados['nivel'],
+                $dados['preco'],
+                $dados['preco_original'],
+                $dados['em_destaque']
             );
 
             http_response_code(200);

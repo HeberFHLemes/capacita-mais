@@ -3,8 +3,7 @@
 namespace App\Cursos;
 
 use App\Categorias\CategoriaRepository;
-use App\Plataformas\PlataformaRepository;
-
+use App\Categorias\CategoriaService;
 use App\Cursos\Curso;
 
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
@@ -14,16 +13,14 @@ class CursoService
 {
     public function __construct(
         private CursoRepository $cursoRepository,
-        private PlataformaRepository $plataformaRepository,
-        private CategoriaRepository $categoriaRepository
+        private CategoriaService $categoriaService
     ) {}
 
     public static function with(\PDO $pdo): self
     {
         return new CursoService(
             new CursoRepository($pdo),
-            new PlataformaRepository($pdo),
-            new CategoriaRepository($pdo)
+            new CategoriaService(new CategoriaRepository($pdo))
         );
     }
 
@@ -35,30 +32,45 @@ class CursoService
         return $this->cursoRepository->buscarTodos();
     }
 
+    /**
+     * @return Curso[]
+     */
+    public function listarCursosEmDestaque(): array
+    {
+        return $this->cursoRepository->buscarCursosEmDestaque();
+    }
+
     public function criar(
         string $nome,
         ?string $descricao,
         string $categoriaNome,
-        string $plataformaNome,
-        string $url,
-        // bool $gratuito
-        float $custo
+        string $nivel,
+        float $preco,
+        float $precoOriginal,
+        bool $emDestaque
     ): Curso {
-        $categoria = $this->categoriaRepository->buscarOuCriar($categoriaNome);
-
-        $plataforma = $this->plataformaRepository->buscarOuCriar($plataformaNome);
+        $categoria = $this->categoriaService->buscarOuCriar($categoriaNome);
 
         $id = $this->cursoRepository->criar(
             $nome,
             $descricao,
             $categoria->id,
-            $plataforma->id,
-            $url,
-            // $gratuito
-            $custo
+            $nivel,
+            $preco,
+            $precoOriginal,
+            $emDestaque
         );
 
-        return new Curso($id, $nome, $descricao, $categoria->nome, $plataforma->nome, $custo, $url);// $gratuito, $url);
+        return new Curso(
+            $id, 
+            $nome,
+            $descricao,
+            $categoria->nome,
+            $nivel,
+            $preco,
+            $precoOriginal,
+            $emDestaque
+        );
     }
 
     public function editar(
@@ -66,17 +78,16 @@ class CursoService
         string $nome,
         ?string $descricao,
         string $categoriaNome,
-        string $plataformaNome,
-        string $url,
-        // bool $gratuito
-        float $custo
+        string $nivel,
+        float $preco,
+        float $precoOriginal,
+        bool $emDestaque
     ): Curso {
 
         // verificar se o curso existe
         $cursoAtual = $this->cursoRepository->buscarPorId($id);
 
         if (!$cursoAtual) {
-            // controller mapeia pra 404
             throw new CursoNaoEncontradoException("Curso não encontrado.");
         }
 
@@ -85,20 +96,18 @@ class CursoService
             $cursoAtual->getNome() === $nome &&
             $cursoAtual->getDescricao() === $descricao &&
             $cursoAtual->getCategoria() === $categoriaNome &&
-            $cursoAtual->getPlataforma() === $plataformaNome &&
-            //$cursoAtual->isGratuito() === $gratuito &&
-            $cursoAtual->getCusto() === $custo &&
-            $cursoAtual->getUrl() === $url
+            $cursoAtual->getNivel() === $nivel &&
+            $cursoAtual->getPreco() === $preco &&
+            $cursoAtual->getPrecoOriginal() === $precoOriginal &&
+            $cursoAtual->isEmDestaque() === $emDestaque
         );
 
         if ($semAlteracoes) {
-            // controller mapeia pra 200
             throw new SemAlteracoesException("Nenhuma alteração detectada."); 
         }
 
-        // buscar ou criar categoria e plataforma
-        $categoria  = $this->categoriaRepository->buscarOuCriar($categoriaNome);
-        $plataforma = $this->plataformaRepository->buscarOuCriar($plataformaNome);
+        // buscar ou criar categoria
+        $categoria  = $this->categoriaService->buscarOuCriar($categoriaNome);
 
         // só então atualiza
         $this->cursoRepository->atualizar(
@@ -106,13 +115,22 @@ class CursoService
             $nome, 
             $descricao,
             $categoria->id, 
-            $plataforma->id,
-            $url, 
-            //$gratuito
-            $custo
+            $nivel,
+            $preco, 
+            $precoOriginal, 
+            $emDestaque
         );
 
-        return new Curso($id, $nome, $descricao, $categoriaNome, $plataformaNome, $custo, $url); // $gratuito, $url);
+        return new Curso(
+            $id, 
+            $nome, 
+            $descricao,
+            $categoria->nome, 
+            $nivel,
+            $preco, 
+            $precoOriginal, 
+            $emDestaque
+        );
     }
 
     public function remover(int $id): bool
