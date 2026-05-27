@@ -5,12 +5,6 @@ CREATE TABLE usuarios (
   perfil VARCHAR(20) NOT NULL
 ) ENGINE=InnoDB;
 
-CREATE TABLE plataformas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(150) NOT NULL,
-  nome_normalizado VARCHAR(150) NOT NULL UNIQUE
-) ENGINE=InnoDB;
-
 CREATE TABLE categorias (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(100) NOT NULL,
@@ -22,19 +16,15 @@ CREATE TABLE cursos (
   nome VARCHAR(150) NOT NULL,
   descricao TEXT,
   categoria_id INT NOT NULL,
-  plataforma_id INT NOT NULL,
-  url TEXT NOT NULL,
-  custo FLOAT NOT NULL,
+  nivel VARCHAR(50) NOT NULL,
+  preco FLOAT NOT NULL,
+  preco_original FLOAT NOT NULL,
+  em_destaque BOOLEAN NOT NULL DEFAULT 0,
 
-  UNIQUE (nome, plataforma_id),
-
+  UNIQUE (nome, nivel),
+  
   CONSTRAINT fk_cursos_categoria
     FOREIGN KEY (categoria_id)
     REFERENCES categorias(id)
-    ON DELETE RESTRICT,
-
-  CONSTRAINT fk_cursos_plataforma
-    FOREIGN KEY (plataforma_id)
-    REFERENCES plataformas(id)
     ON DELETE RESTRICT
 ) ENGINE=InnoDB;
