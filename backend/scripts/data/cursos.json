@@ -4,62 +4,109 @@
     "nome": "Desenvolvimento Web",
     "descricao": "Aprenda a criar websites do zero!",
     "categoria": "Programação",
-    "custo": 0
+    "nivel": "Iniciante",
+    "preco": 0,
+    "preco_original": 0,
+    "em_destaque": 0
   },
   {
     "id": 2,
     "nome": "Testes Automatizados com Cypress",
     "descricao": "Assegure a qualidade do seu software, automatizando testes com Cypress.",
     "categoria": "Testes",
-    "custo": 49.99
+    "nivel": "Intermediário",
+    "preco": 34.99,
+    "preco_original": 49.99,
+    "em_destaque": 1
   },
   {
     "id": 3,
     "nome": "Intensivo em Excel 2016",
     "descricao": "Aumente sua produtividade com uma ferramenta amplamente utilizada.",
     "categoria": "Ferramentas úteis",
-    "custo": 0
+    "nivel": "Iniciante",
+    "preco": 0,
+    "preco_original": 14.99,
+    "em_destaque": 0
   },
   {
     "id": 4,
     "nome": "Versionamento de código com Git e GitHub",
     "descricao": "Aprenda a versionar, organizar o desenvolvimento e publicar seu código.",
     "categoria": "Programação",
-    "custo": 34.99
+    "nivel": "Iniciante",
+    "preco": 24.99,
+    "preco_original": 34.99,
+    "em_destaque": 0
   },
   {
     "id": 5,
     "nome": "Desenvolvimento Front-End com HTML, CSS e JavaScript",
     "descricao": "Aprenda a desenvolver para a Web usando HTML5, CSS3 e JavaScript sem frameworks!",
     "categoria": "Programação",
-    "custo": 24.99
+    "nivel": "Intermediário",
+    "preco": 24.99,
+    "preco_original": 34.99,
+    "em_destaque": 1
   },
   {
     "id": 6,
     "nome": "Lógica de Progamação",
     "descricao": "Curso completo para aprender e praticar lógica de programação com Python.",
     "categoria": "Programação",
-    "custo": 0
+    "nivel": "Iniciante",
+    "preco": 0,
+    "preco_original": 0,
+    "em_destaque": 0
   },
   {
     "id": 7,
     "nome": "Introdução a Arduino",
     "descricao": "Aprenda o básico e pratique com dois projetos guiados para começar a desenvolver seus próprios projetos com Arduino.",
     "categoria": "Programação",
-    "custo": 0
+    "nivel": "Iniciante",
+    "preco": 0,
+    "preco_original": 0,
+    "em_destaque": 0
   },
   {
     "id": 8,
     "nome": "Desenvolvimento Seguro de Websites",
     "descricao": "Aprenda a garantir segurança ao desenvolver websites, descobrindo quais são os principais alvos de ataques e como os proteger.",
     "categoria": "Segurança da Informação",
-    "custo": 49.99
+    "nivel": "Avançado",
+    "preco": 49.99,
+    "preco_original": 49.99,
+    "em_destaque": 0
   },
   {
     "id": 9,
     "nome": "Introdução a PHP",
     "descricao": "Curso introdutório da linguagem PHP 8.",
     "categoria": "Programação",
-    "custo": 0
+    "nivel": "Iniciante",
+    "preco": 0,
+    "preco_original": 18.99,
+    "em_destaque": 1
+  },
+  {
+    "id": 10,
+    "nome": "Introdução ao J2EE",
+    "descricao": "Curso introdutório da especificação J2EE.",
+    "categoria": "Programação",
+    "nivel": "Iniciante",
+    "preco": 0,
+    "preco_original": 18.99,
+    "em_destaque": 1
+  },
+  {
+    "id": 11,
+    "nome": "Desenvolvimento com Docker",
+    "descricao": "Curso voltado ao ensino do uso de Docker em ambientes de desenvolvimento.",
+    "categoria": "Programação",
+    "nivel": "Intermediário",
+    "preco": 0,
+    "preco_original": 0,
+    "em_destaque": 0
   }
 ]
