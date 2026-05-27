@@ -2,11 +2,11 @@
 
 <br>
 
-![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white) ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
+![PHP](https://img.shields.io/badge/php-777BB3?style=for-the-badge&logo=php&logoColor=white) ![Angular](https://img.shields.io/badge/angular-C3002F.svg?style=for-the-badge&logo=angular&logoColor=EAEAEA) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white) ![Nginx](https://img.shields.io/badge/nginx-009900?style=for-the-badge&logo=nginx&logoColor=white) ![Docker](https://img.shields.io/badge/docker-1d63ed?style=for-the-badge&logo=docker&logoColor=white) ![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
 
 ## Descrição
 
-Um portal aberto para descoberta de cursos de capacitação online.
+Um portal aberto de cursos de capacitação online.
 
 Versão estática acessível em: 
 [https://heberfhlemes.github.io/capacita-mais](https://heberfhlemes.github.io/capacita-mais)
@@ -14,14 +14,16 @@ Versão estática acessível em:
 ## Objetivo
 
 Projeto desenvolvido com fins educacionais para praticar:
-- Tecnologias front-end (HTML, CSS, JavaScript e Bootstrap 5)
+- Tecnologias front-end (HTML, CSS, JavaScript, TypeScript e Bootstrap 5)
+- Frameworks front-end (Angular)
 - Acessibilidade e Responsividade
 - UX/UI
 - Back-end com PHP
 - Integração com banco de dados
-- Arquitetura básica de APIs e projetos web
+- Arquitetura de APIs e projetos web
+- Comunicação assíncrona entre cliente e servidor
 - Uso de Docker no desenvolvimento
-- Testes de software (casos de teste e automação)
+- Testes de software (casos de teste e automação com Cypress)
 
 ## Configurando o ambiente local
 
@@ -30,21 +32,30 @@ Crie um arquivo `.env` na raiz do projeto com base no `.env.example` e defina ne
 
 ### 2. Instale as dependências necessárias
 ```bash
-composer install # dependências do PHP e autoload
+# Para o backend
+cd backend/
+composer install
 
-npm install # dependências do JS, como para testes com Cypress
+# Para o frontend
+cd ../frontend
+npm install
 ```
 
 ## Executando localmente
 
-Você pode rodar o projeto com um interpretador PHP ou com Docker:
+Você pode rodar o projeto com um interpretador PHP + npm ou com Docker:
 
 ### Com interpretador PHP
 ```bash
-php -S localhost:8080 -t public
-```
+cd backend/
+php -S localhost:9000 -t public
 
-### Com Docker (Nginx + PHP-FPM + MariaDB)
+cd ../frontend
+npm run start # ou ng serve
+```
+Acesse em: http://localhost:4200
+
+### Com Docker (Nginx + PHP + MariaDB)
 ```bash
 docker compose up -d
 ```
@@ -55,10 +66,3 @@ Acesse em: http://localhost:8080
 ### Observações
 - Arquivo `.env` deve estar corretamente configurado para se comunicar com o banco de dados
 - O banco de dados deve estar acessível para a aplicação
-
----
-
-### Nota
-> Este é um projeto educacional.
-> Toda menção, imagem ou logotipo de terceiros são utilizados como exemplos, sem nenhum contrato,
-> promoção ou parceria real. O propósito é puramente educacional.
