@@ -28,7 +28,6 @@ if ($stmt->fetch()) {
     exit;
 }
 
-// antigo public/data/cursos.json
 $arquivoJson = __DIR__ . '/data/cursos.json';
 
 $json = file_get_contents($arquivoJson);
@@ -49,9 +48,10 @@ foreach ($cursosDados as $curso) {
         $curso['nome'],
         $curso['descricao'],
         $curso['categoria'],
-        "Capacita+", // plataforma
-        "#", // url
-        $curso['custo']
+        $curso['nivel'],
+        $curso['preco'],
+        $curso['preco_original'],
+        $curso['em_destaque']
     );
 }
 

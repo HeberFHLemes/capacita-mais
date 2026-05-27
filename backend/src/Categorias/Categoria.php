@@ -6,13 +6,15 @@ class Categoria
 {
     public int $id;
     public string $nome;
+    public string $nomeNormalizado;
     
     public function __construct(
         int $id,
-        string $nome
+        string $nome,
+        string $nomeNormalizado
     ) {
         $this->id = $id;    
         $this->nome = $nome;
-    }
-    
+        $this->nomeNormalizado = $nomeNormalizado;
+    }   
 }

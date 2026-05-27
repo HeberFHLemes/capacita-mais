@@ -10,29 +10,29 @@ class Curso implements JsonSerializable
     private string $nome;
     private string $descricao;
     private string $categoria;
-    private string $plataforma;
-    // private bool $gratuito;
-    private float $custo;
-    private string $url;
+    private string $nivel;
+    private float $preco;
+    private float $precoOriginal;
+    private bool $emDestaque;
     
     public function __construct(
         int $id,
         string $nome,
         string $descricao,
         string $categoria,
-        string $plataforma,
-        // bool $gratuito,
-        float $custo,
-        string $url
+        string $nivel,
+        float $preco,
+        float $precoOriginal,
+        bool $emDestaque
     ) {
         $this->id = $id;    
         $this->nome = $nome;
         $this->descricao = $descricao;
         $this->categoria = $categoria;
-        $this->plataforma = $plataforma;
-        // $this->gratuito = $gratuito;
-        $this->custo = $custo;
-        $this->url = $url;
+        $this->nivel = $nivel;
+        $this->preco = $preco;
+        $this->precoOriginal = $precoOriginal;
+        $this->emDestaque = $emDestaque;
     }
 
     /**
@@ -47,50 +47,50 @@ class Curso implements JsonSerializable
             'nome' => $this->nome,
             'descricao' => $this->descricao,
             'categoria' => $this->categoria,
-            'plataforma' => $this->plataforma,
-            // 'gratuito' => $this->gratuito,
-            'custo' => $this->custo,
-            'url' => $this->url
+            'nivel' => $this->nivel,
+            'preco' => $this->preco,
+            'preco_original' => $this->precoOriginal,
+            'em_destaque' => $this->emDestaque
         ];
     }
 
     public function getId(): int
-    {
+    { 
         return $this->id;
     }
-
+    
     public function getNome(): string
     {
-        return $this->nome;
+        return $this->nome; 
     }
 
-    public function getDescricao(): string
-    {
-        return $this->descricao;
+    public function getDescricao(): string|null 
+    { 
+        return $this->descricao; 
     }
 
-    public function getCategoria(): string
-    {
-        return $this->categoria;
+    public function getCategoria(): string 
+    { 
+        return $this->categoria; 
     }
 
-    public function getPlataforma(): string
-    {
-        return $this->plataforma;
+    public function getNivel(): string
+    { 
+        return $this->nivel; 
     }
 
-    /*public function isGratuito(): bool
-    {
-        return $this->gratuito;
-    }*/
-
-    public function getCusto(): float
-    {
-        return $this->custo;
+    public function getPreco(): float 
+    { 
+        return $this->preco; 
     }
-
-    public function getUrl(): string
-    {
-        return $this->url;
+    
+    public function getPrecoOriginal(): float
+    { 
+        return $this->precoOriginal;
+    }
+ 
+    public function isEmDestaque(): bool 
+    { 
+        return $this->emDestaque; 
     }
 }

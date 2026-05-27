@@ -10,7 +10,7 @@ final class CursoValidator
      * Valida se há erros ou campos em branco
      * nos dados enviados de um curso.
      * 
-     * @return $erros array contendo os nomes 
+     * @return array $erros array contendo os nomes 
      * dos campos com erros encontrados e a descrição.
      */
     public static function validar(array $dados): array
@@ -25,16 +25,20 @@ final class CursoValidator
             $erros['categoria'] = 'Categoria é obrigatória';
         }
 
-        if (empty($dados['plataforma'])) {
-            $erros['plataforma'] = 'Plataforma é obrigatória';
+        if (empty($dados['nivel'])) {
+            $erros['nivel'] = 'Nível é obrigatório';
         }
 
-        if (empty($dados['url'])) {
-            $erros['url'] = 'URL é obrigatória';
+        if (empty($dados['em_destaque'])) {
+            $erros['em_destaque'] = 'Em Destaque é obrigatório';
         }
 
-        if (!isset($dados['gratuito'])) {
-            $erros['gratuito'] = 'Custo é obrigatório';
+        if (!isset($dados['preco'])) {
+            $erros['preco'] = 'Preço é obrigatório';
+        }
+        
+        if (!isset($dados['preco_original'])) {
+            $erros['preco_original'] = 'Preço original é obrigatório';
         }
 
         return $erros;
