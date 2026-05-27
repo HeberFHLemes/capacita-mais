@@ -13,10 +13,9 @@ class CursoRepository
 
     public function buscarPorId(int $id): ?Curso
     {
-        $sql = "SELECT c.*, cat.nome AS categoria_nome, p.nome AS plataforma_nome
+        $sql = "SELECT c.*, cat.nome AS categoria_nome
             FROM cursos c
             JOIN categorias cat ON c.categoria_id = cat.id
-            JOIN plataformas p ON c.plataforma_id = p.id
             WHERE c.id = :id
         ";
 
@@ -32,10 +31,10 @@ class CursoRepository
             $row['nome'],
             $row['descricao'],
             $row['categoria_nome'],
-            $row['plataforma_nome'],
-            // (bool) $row['gratuito'],
-            $row['custo'],
-            $row['url']
+            $row['nivel'],
+            $row['preco'],
+            $row['preco_original'],
+            (bool) $row['emDestaque']
         );
     }
 
@@ -44,10 +43,9 @@ class CursoRepository
      */
     public function buscarTodos(): array
     {
-        $sql = "SELECT c.*, cat.nome AS categoria_nome, p.nome AS plataforma_nome
+        $sql = "SELECT c.*, cat.nome AS categoria_nome
             FROM cursos c
             JOIN categorias cat ON c.categoria_id = cat.id
-            JOIN plataformas p ON c.plataforma_id = p.id
         ";
 
         $stmt = $this->conexao->query($sql);
@@ -61,10 +59,39 @@ class CursoRepository
                 $row['nome'],
                 $row['descricao'],
                 $row['categoria_nome'],
-                $row['plataforma_nome'],
-                // (bool) $row['gratuito'],
-                $row['custo'],
-                $row['url']
+                $row['nivel'],
+                $row['preco'],
+                $row['preco_original'],
+                (bool) $row['emDestaque']
+            );
+        }
+
+        return $cursos;
+    }
+
+    public function buscarCursosEmDestaque(): array
+    {
+        $sql = "SELECT c.*, cat.nome AS categoria_nome
+            FROM cursos c
+            JOIN categorias cat ON c.categoria_id = cat.id
+            WHERE c.destaque = 1
+        ";
+
+        $stmt = $this->conexao->query($sql);
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $cursos = [];
+
+        foreach ($dados as $row) {
+            $cursos[] = new Curso(
+                $row['id'],
+                $row['nome'],
+                $row['descricao'],
+                $row['categoria_nome'],
+                $row['nivel'],
+                $row['preco'],
+                $row['preco_original'],
+                (bool) $row['emDestaque']
             );
         }
 
@@ -75,14 +102,14 @@ class CursoRepository
         string $nome,
         ?string $descricao,
         int $categoriaId,
-        int $plataformaId,
-        string $url,
-        // bool $gratuito
-        float $custo
+        string $nivel,
+        float $preco,
+        float $preco_original,
+        bool $emDestaque
     ): int
     {
-        $sql = "INSERT INTO cursos (nome, descricao, categoria_id, plataforma_id, url, custo)
-                VALUES (:nome, :descricao, :categoria_id, :plataforma_id, :url, :gratuito)";
+        $sql = "INSERT INTO cursos (nome, descricao, categoria_id, nivel, preco, preco_original, em_destaque)
+                VALUES (:nome, :descricao, :categoria_id, :nivel, :preco, :preco_original, :em_destaque)";
 
         $stmt = $this->conexao->prepare($sql);
 
@@ -91,12 +118,13 @@ class CursoRepository
                 ':nome' => $nome,
                 ':descricao' => $descricao,
                 ':categoria_id' => $categoriaId,
-                ':plataforma_id' => $plataformaId,
-                ':url' => $url,
-                ':gratuito' => $custo // (int) $gratuito // MariaDB trata como int
+                ':nivel' => $nivel,
+                ':preco' => $preco,
+                ':preco_original' => $preco_original,
+                ':em_destaque' => (int) $emDestaque
             ]);
         } catch (PDOException $e) {
-            // tratar erro de campos UNIQUE (nome + plataforma)
+            // tratar erro de campos UNIQUE. 
             // erro: 1062; ER_DUP_ENTRY; SQLSTATE: 23000
             // fonte: https://dev.mysql.com/doc/mysql-errors/9.6/en/server-error-reference.html
             if ($e->errorInfo[1] === 1062) {
@@ -110,20 +138,22 @@ class CursoRepository
 
     public function atualizar(
         int $id, 
-        string $nome, 
-        ?string $descricao, 
-        int $categoriaId, 
-        int $plataformaId, 
-        string $url, 
-        bool $gratuito
+        string $nome,
+        ?string $descricao,
+        int $categoriaId,
+        string $nivel,
+        float $preco,
+        float $preco_original,
+        bool $emDestaque
     ): bool {
         $sql = "UPDATE cursos 
                 SET nome = :nome,
                     descricao = :descricao,
                     categoria_id = :categoria_id,
-                    plataforma_id = :plataforma_id,
-                    url = :url,
-                    gratuito = :gratuito
+                    nivel = :nivel,
+                    preco = :preco,
+                    preco_original = :preco_original
+                    em_destaque = :em_destaque
                 WHERE id = :id";
 
         $stmt = $this->conexao->prepare($sql);
@@ -134,12 +164,13 @@ class CursoRepository
                 ':nome' => $nome,
                 ':descricao' => $descricao,
                 ':categoria_id' => $categoriaId,
-                ':plataforma_id' => $plataformaId,
-                ':url' => $url,
-                ':gratuito' => (int) $gratuito
+                ':nivel' => $nivel,
+                ':preco' => $preco,
+                ':preco_original' => $preco_original,
+                ':em_destaque' => (int) $emDestaque
             ]);
         } catch (PDOException $e) {
-            // tratar erro de campos UNIQUE (nome + plataforma)
+            // tratar erro de campos UNIQUE
             if ($e->errorInfo[1] === 1062) {
                 throw new CursoDuplicadoException();
             }
