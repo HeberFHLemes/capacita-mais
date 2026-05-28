@@ -1,12 +1,17 @@
 <div class="card h-100 shadow-sm card-curso">
   <div class="card-body d-flex flex-column">
-    <h2 class="card-title h5 fw-bold">
+    <h2 class="card-title fw-bold">
       {{ curso.nome }}
     </h2>
     <div class="mb-2 d-flex gap-2 flex-wrap">
       <span class="badge bg-primary">{{ curso.categoria }}</span>
+      <span class="badge bg-secondary">{{ curso.nivel }}</span>
       <span class="badge bg-success">
-        R$ {{ curso.custo }}
+      @if (emPromocao) {
+        <s>R$ {{ curso.preco_original }}</s> &nbsp; R$ {{ curso.preco }}
+      } @else {
+        R$ {{ curso.preco }}
+      }
       </span>
     </div>
     <p class="card-text text-secondary flex-grow-1 card-curso-descricao">
