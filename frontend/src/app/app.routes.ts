@@ -6,6 +6,7 @@ import { HOME_ROUTES } from './features/home/home.routes';
 import { CURSOS_ROUTES } from './features/cursos/cursos.routes';
 import { ADMIN_ROUTES } from './features/admin/admin.routes';
 import { NotFoundPage } from './shared/pages/not-found-page/not-found-page';
+import { FormLogin } from './features/login/components/form-login/form-login';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
     children: [
       ...HOME_ROUTES,
       ...CURSOS_ROUTES,
+      {
+        path: 'login',
+        component: FormLogin
+      },
       {
         path: '**',
         component: NotFoundPage
