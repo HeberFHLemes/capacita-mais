@@ -80,8 +80,8 @@ export class CursosPage implements OnInit {
 
       const custo =
         this.filtroCusto === 'todos'    ? true :
-        this.filtroCusto === 'gratuito' ? curso.custo === 0 :
-        this.filtroCusto === 'pago'     ? curso.custo > 0 : true;
+        this.filtroCusto === 'gratuito' ? curso.preco === 0 :
+        this.filtroCusto === 'pago'     ? curso.preco > 0 : true;
 
       const categoriasSelecionadas = this.categorias
         .filter(c => c.selecionada)

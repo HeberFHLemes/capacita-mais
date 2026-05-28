@@ -10,11 +10,21 @@
       tecnologia.
     </p>
     <a
-      routerLink="/cursos"
+      href="#cursos-header"
       class="btn btn-lg btn-success mt-4 shadow-lg"
       data-cy="btn-explorar-cursos"
     >
       Explorar cursos &nbsp; <i class="bi bi-search"></i>
     </a>
+    <a
+      routerLink="/cadastrar"
+      class="btn btn-lg btn-primary mx-2 mt-4 shadow-lg"
+      data-cy="btn-cadastrar-conta"
+    >
+      Criar nova conta &nbsp; <i class="bi bi-person-add"></i>
+    </a>
+    <div class="mt-2 text-muted">
+      <small>Já possui uma conta? <a routerLink="/login">Entrar</a></small>
+    </div>
   </div>
 </header>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Curso } from '../../models/curso';
 
 @Component({
@@ -7,9 +7,14 @@ import { Curso } from '../../models/curso';
   templateUrl: './curso-card.html',
   styleUrl: './curso-card.css',
 })
-export class CursoCard {
+export class CursoCard implements OnInit {
+
+  emPromocao: boolean = false;
 
   @Input({ required: true })
   curso!: Curso;
 
+  ngOnInit(): void {
+    this.emPromocao = this.curso.preco_original > this.curso.preco;
+  }
 }

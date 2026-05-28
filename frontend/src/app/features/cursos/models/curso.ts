@@ -2,7 +2,9 @@ export interface Curso {
   id: number;
   nome: string;
   descricao?: string;
-  custo: number;
   categoria: string;
-  url: string | URL;
+  nivel: string;
+  preco: number;
+  preco_original: number;
+  em_destaque: boolean;
 };
