@@ -3,18 +3,10 @@
   "version": "2.2.0",
   "description": "Capacita+ é um website que visa indicar conteúdo gratuito e acessível para capacitação.",
   "scripts": {
-    "format": "prettier --write .",
-    "check-style": "prettier --check .",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
     "dev:backend": "cd backend/ && php -S localhost:9000 -t public/",
     "dev:frontend": "cd frontend/ && npm run start",
     "dev:php": "cd backend/ && php -S localhost:9000 -t public/"
   },
   "author": "HeberFHLemes <hfhlemes@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "cypress": "^15.11.0",
-    "prettier": "^3.6.2"
-  }
+  "license": "MIT"
 }
