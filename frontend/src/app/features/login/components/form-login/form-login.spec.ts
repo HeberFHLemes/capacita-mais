@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SobrePage } from './sobre-page';
+import { FormLogin } from './form-login';
 
-describe('SobrePage', () => {
-  let component: SobrePage;
-  let fixture: ComponentFixture<SobrePage>;
+describe('FormLogin', () => {
+  let component: FormLogin;
+  let fixture: ComponentFixture<FormLogin>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SobrePage]
+      imports: [FormLogin]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SobrePage);
+    fixture = TestBed.createComponent(FormLogin);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
