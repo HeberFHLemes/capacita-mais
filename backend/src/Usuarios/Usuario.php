@@ -2,26 +2,47 @@
 
 namespace App\Usuarios;
 
-class Usuario 
+use DateTime;
+use JsonSerializable;
+use Override;
+
+class Usuario implements JsonSerializable
 {
     private int $id;
+    private string $nome;
     private string $email;
     private string $senhaHash;
-    private string $perfil;
+    private Perfil $perfil;
+    private DateTime $dataCriacao;
     
     public function __construct(
         int $id,
+        string $nome,
         string $email,
         string $senha,
-        string $perfil
+        Perfil $perfil,
+        DateTime $dataCriacao
     ) {
         $this->id = $id;    
+        $this->nome = $nome;
         $this->email = $email;
         $this->senhaHash = $senha;
         $this->perfil = $perfil;
+        $this->dataCriacao = $dataCriacao;
+    }
+
+    #[Override]
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'perfil' => $this->perfil->value,
+            'data_criacao' => $this->dataCriacao
+        ];
     }
     
-    // Utilizar este método permite manter o atributo senha como private
+    // Utilizar este método permite manter o atributo senha como private e sem getter
     public function verificarSenha(string $senha): bool
     {
         return password_verify($senha, $this->senhaHash);
@@ -32,13 +53,23 @@ class Usuario
         return $this->id;
     }
 
+    public function getNome(): string
+    {
+        return $this->email;
+    }
+
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function getPerfil(): string
+    public function getPerfil(): Perfil
     {
         return $this->perfil;
+    }
+    
+    public function getDataCriacao(): DateTime
+    {
+        return $this->dataCriacao;
     }
 }
