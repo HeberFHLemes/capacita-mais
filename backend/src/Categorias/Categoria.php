@@ -2,19 +2,24 @@
 
 namespace App\Categorias;
 
-class Categoria 
+use JsonSerializable;
+use Override;
+
+class Categoria implements JsonSerializable
 {
-    public int $id;
-    public string $nome;
-    public string $nomeNormalizado;
-    
     public function __construct(
-        int $id,
-        string $nome,
-        string $nomeNormalizado
-    ) {
-        $this->id = $id;    
-        $this->nome = $nome;
-        $this->nomeNormalizado = $nomeNormalizado;
-    }   
+        public readonly int $id,
+        public readonly string $nome, 
+        public readonly string $nomeNormalizado
+    ) {}
+
+    #[Override]
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->id,
+            'nome' => $this->nome,
+            'nome_normalizado' => $this->nomeNormalizado,
+        ];
+    }
 }
