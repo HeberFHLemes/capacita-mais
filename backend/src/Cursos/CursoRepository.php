@@ -60,9 +60,9 @@ class CursoRepository
                 $row['descricao'],
                 $row['categoria_nome'],
                 $row['nivel'],
-                $row['preco'],
-                $row['preco_original'],
-                (bool) $row['emDestaque']
+                (float) $row['preco'],
+                (float) $row['preco_original'],
+                (bool) $row['em_destaque']
             );
         }
 

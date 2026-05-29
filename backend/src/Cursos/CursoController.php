@@ -2,18 +2,33 @@
 
 namespace App\Cursos;
 
+use App\Core\RestController;
+use App\Core\HttpMethod;
+use App\Core\Route;
+
 use App\Cursos\CursoService;
 use App\Cursos\CursoValidator;
 
 use App\Cursos\Exceptions\CursoDuplicadoException;
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
 use App\Cursos\Exceptions\SemAlteracoesException;
+use App\Usuarios\Perfil;
 
-class CursoController 
+class CursoController extends RestController
 {
     public function __construct(
         private CursoService $cursoService
     ) {}
+
+    public static function routes(): array
+    {
+        return [
+            new Route(HttpMethod::GET, '/api/cursos', 'buscarCursos'),
+            new Route(HttpMethod::POST, '/api/cursos', 'cadastrar', true, Perfil::ADMIN),
+            new Route(HttpMethod::PUT, '/api/cursos/{id:\d+}', 'editar', true, Perfil::ADMIN),
+            new Route(HttpMethod::DELETE, '/api/cursos/{id:\d+}', 'removerCurso', true, Perfil::ADMIN)
+        ];
+    }
 
     // GET
     public function buscarCursos() 
@@ -21,19 +36,16 @@ class CursoController
         try {
             $cursos = $this->cursoService->listarCursos();
 
-            http_response_code(200);
-            echo json_encode($cursos);
+            $this->jsonResponse($cursos);
 
         } catch (\Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'erro' => 'Erro ao buscar cursos'
-            ]);
+            $this->jsonResponse(['erro' => 'Erro ao buscar cursos'], 500);
         }
         exit;
     }
 
     // POST
+    // TODO: adaptar ao novo jeito (Router)
     public function cadastrar() 
     {
         $requestBody = file_get_contents("php://input");
@@ -41,8 +53,7 @@ class CursoController
 
         $erros = CursoValidator::validar($dados);
         if (!empty($erros)) {
-            http_response_code(400);
-            echo json_encode(['erros' => $erros]);
+            $this->jsonResponse(['erros' => $erros], 400);
             exit;
         }
         
@@ -56,34 +67,26 @@ class CursoController
                 $dados['preco_original'],
                 $dados['em_destaque']
             );
-            
-            http_response_code(201);
-            
-            echo json_encode([
-                'criado' => true,
-                'curso' => $curso
-            ]);
+
+            $this->jsonResponse(['criado' => true, 'curso' => $curso], 201);
 
         } catch (CursoDuplicadoException $e) {
-            http_response_code(409);
-            echo json_encode([
-                'criado' => false,
-                'erro' => 'Curso já cadastrado'
-            ]);
+            $this->jsonResponse(    
+                ['criado' => false, 'erro' => 'Curso já cadastrado'],
+                409
+            );
         }
         exit;
     }
 
     // PUT
+    // TODO: adaptar ao novo jeito (Router)
     public function editar()
     {
         $cursoId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
-            http_response_code(400);
-            echo json_encode([
-                'erro' => 'ID inválido'
-            ]);
+            $this->jsonResponse(['erro' => 'ID inválido'], 400);
             return;
         }
 
@@ -92,8 +95,7 @@ class CursoController
 
         $erros = CursoValidator::validar($dados);
         if (!empty($erros)) {
-            http_response_code(400);
-            echo json_encode(['erros' => $erros]);
+            $this->jsonResponse(['erros' => $erros], 400);
             exit;
         }
 
@@ -109,49 +111,36 @@ class CursoController
                 $dados['em_destaque']
             );
 
-            http_response_code(200);
-
-            echo json_encode([
-                "editado" => true,
-                "curso" => $cursoAtualizado
-            ]);
+            $this->jsonResponse(
+                ["editado" => true, "curso" => $cursoAtualizado],
+                200
+            );
 
         } catch (SemAlteracoesException $e) {
-            http_response_code(200);
-            echo json_encode([
-                'editado' => false, 
-                'mensagem' => "Nenhuma alteração detectada."
-            ]);
+            $this->jsonResponse(
+                ["editado" => false, 'mensagem' => "Nenhuma alteração detectada."],
+                200
+            );
 
         } catch (CursoNaoEncontradoException $e) {
-            http_response_code(404);
-            echo json_encode([
-                'erro' => 'Curso não encontrado'
-            ]);
+            $this->jsonResponse(["erro" => "Curso não encontrado"], 404);
 
         } catch (CursoDuplicadoException $e) {
-            http_response_code(409);
-            echo json_encode(['erro' => 'Curso já cadastrado']);
+            $this->jsonResponse(["erro" => "Curso já cadastrado"], 409);
 
         } catch (\Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'erro' => 'Erro interno'
-            ]);
+            $this->jsonResponse(["erro" => "Erro interno"], 500);
         }
         exit;
     }
 
     // DELETE
-    public function remover()
-    {   
-        $cursoId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    public function removerCurso(int $id): void
+    {        
+        $cursoId = filter_var($id, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
-            http_response_code(400);
-            echo json_encode([
-                'erro' => 'ID inválido'
-            ]);
+            $this->jsonResponse(['erro' => 'ID inválido'], 400);
             return;
         }
         
@@ -159,20 +148,14 @@ class CursoController
             $removido = $this->cursoService->remover($cursoId);
 
             if ($removido) {
-                http_response_code(204);
+                $this->jsonResponse(status: 204);
                 return;
             }
 
-            http_response_code(404);
-            echo json_encode([
-                'erro' => 'Curso não encontrado'
-            ]);
+            $this->jsonResponse(['erro' => 'Curso não encontrado'], 404);
 
         } catch (\Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'erro' => 'Erro interno'
-            ]);
+            $this->jsonResponse(['erro' => 'Erro interno'], 500);
         }
     }
 }
