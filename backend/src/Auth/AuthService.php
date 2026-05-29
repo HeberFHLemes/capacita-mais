@@ -3,7 +3,11 @@
 namespace App\Auth;
 
 use App\Usuarios\Usuario;
+use Deprecated;
 
+/**
+ * TODO: Migrar para JWT
+ */
 class AuthService
 {
     public function __construct()
