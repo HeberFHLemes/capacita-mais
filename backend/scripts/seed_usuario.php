@@ -25,14 +25,15 @@ if ($stmt->fetch()) {
     exit;
 }
 
-$senha = password_hash(Env::get('USUARIO_SENHA'), PASSWORD_DEFAULT);
+$senha = password_hash(Env::get('USUARIO_SENHA'), PASSWORD_BCRYPT);
 
 $stmt = $pdo->prepare("
-    INSERT INTO usuarios (email, senha, perfil)
-    VALUES (:email, :senha, :perfil)
+    INSERT INTO usuarios (nome, email, senha, perfil)
+    VALUES (:nome, :email, :senha, :perfil)
 ");
 
 $sucesso = $stmt->execute([
+    ':nome' => 'Admin',
     ':email' => $email,
     ':senha' => $senha,
     ':perfil' => 'admin'

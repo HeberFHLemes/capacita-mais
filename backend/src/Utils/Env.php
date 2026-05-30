@@ -19,12 +19,17 @@ class Env
      */
     private static function load(): void
     {
-        if (self::$loaded) return;
+        if (self::$loaded) {
+            return;
+        }
+        
+        $envPath = __DIR__ . '/../../';
 
-        if (file_exists(__DIR__ . '/../../.env')) {
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        if (file_exists($envPath . '.env')) {
+            $dotenv = Dotenv::createImmutable($envPath);
             $dotenv->load();
         }
+
         self::$loaded = true;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Cursos;
 
 use JsonSerializable;
+use Override;
 
 class Curso implements JsonSerializable
 {
@@ -39,7 +40,8 @@ class Curso implements JsonSerializable
      * Para definir como o objeto será serializado.
      * 
      * @link https://www.php.net/manual/pt_BR/jsonserializable.jsonserialize.php
-     */ 
+     */
+    #[Override]
     public function jsonSerialize(): mixed
     {
         return [

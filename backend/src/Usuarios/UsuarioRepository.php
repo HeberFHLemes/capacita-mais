@@ -2,6 +2,7 @@
 
 namespace App\Usuarios;
 
+use DateTime;
 use PDO;
 
 class UsuarioRepository
@@ -25,9 +26,11 @@ class UsuarioRepository
 
         return new Usuario(
             $dados['id'],
+            $dados['nome'],
             $dados['email'],
             $dados['senha'],
-            $dados['perfil']
+            Perfil::from($dados['perfil']),
+            new DateTime($dados['data_criacao'])
         );
     }
 }
