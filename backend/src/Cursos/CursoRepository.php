@@ -32,9 +32,9 @@ class CursoRepository
             $row['descricao'],
             $row['categoria_nome'],
             $row['nivel'],
-            $row['preco'],
-            $row['preco_original'],
-            (bool) $row['emDestaque']
+            (float) $row['preco'],
+            (float) $row['preco_original'],
+            (bool) $row['em_destaque']
         );
     }
 
@@ -74,7 +74,7 @@ class CursoRepository
         $sql = "SELECT c.*, cat.nome AS categoria_nome
             FROM cursos c
             JOIN categorias cat ON c.categoria_id = cat.id
-            WHERE c.destaque = 1
+            WHERE c.em_destaque = 1
         ";
 
         $stmt = $this->conexao->query($sql);
@@ -89,9 +89,9 @@ class CursoRepository
                 $row['descricao'],
                 $row['categoria_nome'],
                 $row['nivel'],
-                $row['preco'],
-                $row['preco_original'],
-                (bool) $row['emDestaque']
+                (float) $row['preco'],
+                (float) $row['preco_original'],
+                (bool) $row['em_destaque']
             );
         }
 
@@ -104,7 +104,7 @@ class CursoRepository
         int $categoriaId,
         string $nivel,
         float $preco,
-        float $preco_original,
+        float $precoOriginal,
         bool $emDestaque
     ): int
     {
@@ -120,7 +120,7 @@ class CursoRepository
                 ':categoria_id' => $categoriaId,
                 ':nivel' => $nivel,
                 ':preco' => $preco,
-                ':preco_original' => $preco_original,
+                ':preco_original' => $precoOriginal,
                 ':em_destaque' => (int) $emDestaque
             ]);
         } catch (PDOException $e) {
@@ -143,7 +143,7 @@ class CursoRepository
         int $categoriaId,
         string $nivel,
         float $preco,
-        float $preco_original,
+        float $precoOriginal,
         bool $emDestaque
     ): bool {
         $sql = "UPDATE cursos 
@@ -152,7 +152,7 @@ class CursoRepository
                     categoria_id = :categoria_id,
                     nivel = :nivel,
                     preco = :preco,
-                    preco_original = :preco_original
+                    preco_original = :preco_original,
                     em_destaque = :em_destaque
                 WHERE id = :id";
 
@@ -166,7 +166,7 @@ class CursoRepository
                 ':categoria_id' => $categoriaId,
                 ':nivel' => $nivel,
                 ':preco' => $preco,
-                ':preco_original' => $preco_original,
+                ':preco_original' => $precoOriginal,
                 ':em_destaque' => (int) $emDestaque
             ]);
         } catch (PDOException $e) {

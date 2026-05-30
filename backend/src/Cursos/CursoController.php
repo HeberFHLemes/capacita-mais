@@ -24,9 +24,10 @@ class CursoController extends RestController
     {
         return [
             new Route(HttpMethod::GET, '/api/cursos', 'buscarCursos'),
-            new Route(HttpMethod::POST, '/api/cursos', 'cadastrar', true, Perfil::ADMIN),
-            new Route(HttpMethod::PUT, '/api/cursos/{id:\d+}', 'editar', true, Perfil::ADMIN),
-            new Route(HttpMethod::DELETE, '/api/cursos/{id:\d+}', 'removerCurso', true, Perfil::ADMIN)
+            new Route(HttpMethod::GET, '/api/cursos/destaques', 'buscarCursosEmDestaque'),
+            new Route(HttpMethod::POST, '/api/cursos', 'cadastrarCurso', true, Perfil::ADMIN),
+            new Route(HttpMethod::PUT, '/api/cursos/{cursoId:\d+}', 'editarCurso', true, Perfil::ADMIN),
+            new Route(HttpMethod::DELETE, '/api/cursos/{cursoId:\d+}', 'removerCurso', true, Perfil::ADMIN)
         ];
     }
 
@@ -44,9 +45,22 @@ class CursoController extends RestController
         exit;
     }
 
+    // GET /destaques
+    public function buscarCursosEmDestaque()
+    {
+        try {
+            $cursos = $this->cursoService->listarCursosEmDestaque();
+
+            $this->jsonResponse($cursos);
+
+        } catch (\Exception $e) {
+            $this->jsonResponse(['erro' => 'Erro ao buscar cursos em destaque'], 500);
+        }
+        exit;
+    }
+
     // POST
-    // TODO: adaptar ao novo jeito (Router)
-    public function cadastrar() 
+    public function cadastrarCurso() 
     {
         $requestBody = file_get_contents("php://input");
         $dados = json_decode($requestBody, true);
@@ -80,10 +94,9 @@ class CursoController extends RestController
     }
 
     // PUT
-    // TODO: adaptar ao novo jeito (Router)
-    public function editar()
+    public function editarCurso(int $cursoId)
     {
-        $cursoId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
             $this->jsonResponse(['erro' => 'ID inválido'], 400);
@@ -130,14 +143,15 @@ class CursoController extends RestController
 
         } catch (\Exception $e) {
             $this->jsonResponse(["erro" => "Erro interno"], 500);
+            throw $e;
         }
         exit;
     }
 
     // DELETE
-    public function removerCurso(int $id): void
+    public function removerCurso(int $cursoId): void
     {        
-        $cursoId = filter_var($id, FILTER_VALIDATE_INT);
+        $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
             $this->jsonResponse(['erro' => 'ID inválido'], 400);
