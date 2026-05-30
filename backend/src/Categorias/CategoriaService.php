@@ -22,8 +22,7 @@ class CategoriaService
     {
         $nomeNormalizado = Normalizador::normalizarTexto($nome);
 
-        $categoria = $this->categoriaRepository->
-            buscarPorNormalizado($nomeNormalizado);
+        $categoria = $this->categoriaRepository->buscarPorNormalizado($nomeNormalizado);
         
         if ($categoria) {
             return $categoria;
@@ -39,6 +38,11 @@ class CategoriaService
             }
             return $categoria;
         }
+    }
+
+    public function buscarPorId(int $id): ?Categoria
+    {
+        return $this->categoriaRepository->buscarPorId($id);
     }
 
     public function criar(string $nome): Categoria

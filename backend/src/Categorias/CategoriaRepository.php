@@ -10,6 +10,26 @@ class CategoriaRepository
 {
     public function __construct(private PDO $conexao) {}
 
+    public function buscarPorId(int $id): ?Categoria
+    {
+        $sql = "SELECT * FROM categorias WHERE id = :id";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute([':id' => $id]);
+
+        $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$dados) {
+            return null;
+        }
+
+        return new Categoria(
+            $dados['id'],
+            $dados['nome'],
+            $dados['nome_normalizado']
+        );
+    }
+
     public function buscarTodas(): array
     {
         $sql = "SELECT * FROM categorias";
