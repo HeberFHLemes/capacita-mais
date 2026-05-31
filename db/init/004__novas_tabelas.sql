@@ -1,7 +1,13 @@
 CREATE TABLE compras (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
     valor_total NUMERIC(10, 2) NOT NULL,
-    data_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    data_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_usuario_id
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE itens_compra (
@@ -18,7 +24,7 @@ CREATE TABLE itens_compra (
 
     CONSTRAINT fk_curso_id
         FOREIGN KEY (curso_id) 
-        REFERENCES curso_id(id)
+        REFERENCES cursos(id)
         ON DELETE CASCADE
 );
 
@@ -35,6 +41,6 @@ CREATE TABLE itens_carrinho (
 
     CONSTRAINT fk_curso_id
         FOREIGN KEY (curso_id) 
-        REFERENCES curso_id(id)
+        REFERENCES cursos(id)
         ON DELETE CASCADE
 );

@@ -14,12 +14,15 @@ use App\Cursos\Exceptions\CursoNaoEncontradoException;
 use App\Cursos\Exceptions\SemAlteracoesException;
 use App\Usuarios\Perfil;
 
+use Override;
+
 class CursoController extends RestController
 {
     public function __construct(
         private CursoService $cursoService
     ) {}
 
+    #[Override]
     public static function routes(): array
     {
         return [
