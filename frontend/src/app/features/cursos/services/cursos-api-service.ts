@@ -7,11 +7,15 @@ import { Curso } from '../models/curso';
   providedIn: 'root',
 })
 export class CursosApiService {
-  apiBaseUrl = "/api/cursos";
+  protected readonly apiBaseUrl = "/api/cursos";
 
   constructor(protected httpClient: HttpClient) {}
 
   buscarCursos(): Observable<Curso[]> {
     return this.httpClient.get<Curso[]>(this.apiBaseUrl);
+  }
+
+  buscarCursosEmDestaque(): Observable<Curso[]> {
+    return this.httpClient.get<Curso[]>(`${this.apiBaseUrl}/destaques`);
   }
 }

@@ -20,10 +20,8 @@ export class Destaques implements OnInit {
   }
 
   buscarDestaques() {
-    // migrar para endpoint próprio depois
-    this.apiService.buscarCursos().subscribe((cursos) => {
-      this.cursosDestaques = cursos.slice(0, 6);
+    this.apiService.buscarCursosEmDestaque().subscribe((cursos) => {
+      this.cursosDestaques = cursos;
     });
   }
-
 }
