@@ -2,6 +2,9 @@
 
 namespace App\Core;
 
+use App\Categorias\CategoriaController;
+use App\Categorias\CategoriaRepository;
+use App\Categorias\CategoriaService;
 use App\Cursos\CursoController;
 use App\Cursos\CursoService;
 
@@ -24,6 +27,7 @@ class RestControllerFactory
     {
         return match ($classe) {
             CursoController::class => $this->cursoController(),
+            CategoriaController::class => $this->categoriaController(),
             default => throw new \Exception("Classe desconhecida"),
         };
     }
@@ -33,11 +37,21 @@ class RestControllerFactory
      */
     public function controllers(): array
     {
-        return [CursoController::class];
+        return [
+            CursoController::class,
+            CategoriaController::class
+        ];
     }
 
     private function cursoController(): CursoController
     {
         return new CursoController(CursoService::with($this->pdo));
+    }
+
+    private function categoriaController(): CategoriaController
+    {
+        return new CategoriaController(
+            new CategoriaService(new CategoriaRepository($this->pdo))
+        );
     }
 }

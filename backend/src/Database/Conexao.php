@@ -2,7 +2,7 @@
 
 namespace App\Database;
 
-use App\Utils\Env;
+use App\Core\Env;
 
 use PDO;
 use PDOException;

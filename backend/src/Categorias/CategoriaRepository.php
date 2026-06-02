@@ -24,7 +24,7 @@ class CategoriaRepository
         }
 
         return new Categoria(
-            $dados['id'],
+            (int) $dados['id'],
             $dados['nome'],
             $dados['nome_normalizado']
         );
@@ -32,12 +32,24 @@ class CategoriaRepository
 
     public function buscarTodas(): array
     {
-        $sql = "SELECT * FROM categorias";
+        $sql = "SELECT
+                    cat.id,
+                    cat.nome,
+                    cat.nome_normalizado,
+                    COUNT(c.id) AS quantidade_cursos
+                FROM categorias cat
+                LEFT JOIN cursos c
+                    ON c.categoria_id = cat.id
+                GROUP BY
+                    cat.id,
+                    cat.nome,
+                    cat.nome_normalizado
+                ORDER BY cat.nome"; // ordenadas alfabeticamente
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->execute();
 
-        $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$dados) {
             return [];
@@ -46,11 +58,12 @@ class CategoriaRepository
         $categorias = [];
 
         foreach ($dados as $row) {
-            $categorias[] = new Categoria(
-                $row['id'],
-                $row['nome'],
-                $row['nome_normalizado']
-            );
+            $categorias[] = [
+                'id' => (int) $row['id'],
+                'nome' => $row['nome'],
+                'nome_normalizado' => $row['nome_normalizado'],
+                'quantidade_cursos' => (int) $row['quantidade_cursos']
+            ];
         }
 
         return $categorias;
@@ -86,7 +99,7 @@ class CategoriaRepository
         }
 
         return new Categoria(
-            $dados['id'],
+            (int) $dados['id'],
             $dados['nome'],
             $dados['nome_normalizado']
         );

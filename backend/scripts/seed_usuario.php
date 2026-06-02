@@ -10,7 +10,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Database\Conexao;
-use App\Utils\Env;
+use App\Core\Env;
 
 $pdo = Conexao::getInstance();
 
