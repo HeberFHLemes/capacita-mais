@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,7 +10,8 @@ import { RouterLink } from "@angular/router";
 })
 export class LoginPage {
 
-  erro = false; // implementar login futuramente
-  mensagemErro = "Credenciais inválidas";
-
+  realizarLogin() {
+    // TODO: implementar submit e validação do form,
+    // além de envio da req pra api e manipulação da resposta (salvar o token)
+  }
 }
