@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CursosApiService } from '../../cursos/services/cursos-api-service';
 import { Curso } from '../../cursos/models/curso';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,22 +9,18 @@ import { Curso } from '../../cursos/models/curso';
 export class CrudCursosService extends CursosApiService {
 
   /*
-   * TODO: tratar responses e exceções, comunicação com componentes.
+   * TODO: Revisar tipos.
    */
 
-  // TODO
-  async cadastrarCurso(curso: Curso) {
+  cadastrarCurso(curso: Curso): Observable<any> {
     return this.httpClient.post<any>(this.apiBaseUrl, curso);
   }
 
-  // TODO
-  async editarCurso(cursoId: number, curso: Curso) {
+  editarCurso(cursoId: number, curso: Curso): Observable<any> {
     return this.httpClient.put<any>(`${this.apiBaseUrl}/${cursoId}`, curso);
   }
 
-  // TODO
-  async removerCurso(cursoId: number) {
+  removerCurso(cursoId: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.apiBaseUrl}/${cursoId}`);
   }
-
 }
