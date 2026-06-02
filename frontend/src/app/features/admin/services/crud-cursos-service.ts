@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
-import { CursosApiService } from '../../cursos/services/cursos-api-service';
+import { inject, Injectable } from '@angular/core';
 import { Curso } from '../../cursos/models/curso';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CrudCursosService extends CursosApiService {
+export class AdminCursosApiService {
+
+  private readonly apiBaseUrl: string = "/api/cursos";
+
+  private readonly httpClient: HttpClient = inject(HttpClient);
 
   /*
    * TODO: Revisar tipos.
@@ -16,8 +20,8 @@ export class CrudCursosService extends CursosApiService {
     return this.httpClient.post<any>(this.apiBaseUrl, curso);
   }
 
-  editarCurso(cursoId: number, curso: Curso): Observable<any> {
-    return this.httpClient.put<any>(`${this.apiBaseUrl}/${cursoId}`, curso);
+  editarCurso(curso: Curso): Observable<any> {
+    return this.httpClient.put<any>(`${this.apiBaseUrl}/${curso.id}`, curso);
   }
 
   removerCurso(cursoId: number): Observable<any> {

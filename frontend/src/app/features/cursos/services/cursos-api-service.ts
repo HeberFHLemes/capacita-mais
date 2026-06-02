@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Curso } from '../models/curso';
 
@@ -7,9 +7,10 @@ import { Curso } from '../models/curso';
   providedIn: 'root',
 })
 export class CursosApiService {
-  protected readonly apiBaseUrl = "/api/cursos";
 
-  constructor(protected httpClient: HttpClient) {}
+  private readonly apiBaseUrl = "/api/cursos";
+
+  private readonly httpClient: HttpClient = inject(HttpClient);
 
   buscarCursos(): Observable<Curso[]> {
     return this.httpClient.get<Curso[]>(this.apiBaseUrl);
