@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\RestControllerFactory;
 use App\Core\Router;
-use App\Utils\Env;
+use App\Core\Env;
 
 $frontendUrl = Env::get('FRONTEND_URL');
 
