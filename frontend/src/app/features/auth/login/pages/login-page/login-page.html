@@ -9,27 +9,37 @@
         </div>
 
         <div class="card-body p-4">
-          <form id="form-login"> <!-- TODO: implementar submit e validação-->
+          <form [formGroup]="loginForm" (ngSubmit)="realizarLogin()">
 
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email" />
+
               <label for="email">E-mail</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="senha" placeholder="Senha">
+              <input
+                type="password"
+                class="form-control"
+                id="senha"
+                formControlName="senha" />
+
               <label for="senha">Senha</label>
             </div>
 
             <button
-              id="btn-entrar"
               type="submit"
               class="btn btn-primary w-100 my-3"
-              >
+            >
               Entrar
             </button>
 
             <a id="btn-redirect-cadastrar-conta" routerLink="/cadastro" class="btn btn-dark w-100 mb-3 fw-medium">Criar nova conta</a>
+
           </form>
         </div>
       </div>
