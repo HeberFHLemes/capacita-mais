@@ -2,6 +2,7 @@
 
 namespace App\Cursos;
 
+use App\Categorias\Categoria;
 use PDO;
 use PDOException;
 
@@ -13,7 +14,10 @@ class CursoRepository
 
     public function buscarPorId(int $id): ?Curso
     {
-        $sql = "SELECT c.*, cat.nome AS categoria_nome
+        $sql = "SELECT 
+                c.*, 
+                cat.nome AS categoria_nome, 
+                cat.nome_normalizado AS categoria_nome_normalizado
             FROM cursos c
             JOIN categorias cat ON c.categoria_id = cat.id
             WHERE c.id = :id
@@ -26,16 +30,7 @@ class CursoRepository
 
         if (!$row) return null;
 
-        return new Curso(
-            $row['id'],
-            $row['nome'],
-            $row['descricao'],
-            $row['categoria_nome'],
-            $row['nivel'],
-            (float) $row['preco'],
-            (float) $row['preco_original'],
-            (bool) $row['em_destaque']
-        );
+        return $this->construirCurso($row);
     }
 
     /**
@@ -43,7 +38,10 @@ class CursoRepository
      */
     public function buscarTodos(): array
     {
-        $sql = "SELECT c.*, cat.nome AS categoria_nome
+        $sql = "SELECT 
+                c.*, 
+                cat.nome AS categoria_nome, 
+                cat.nome_normalizado AS categoria_nome_normalizado
             FROM cursos c
             JOIN categorias cat ON c.categoria_id = cat.id
         ";
@@ -54,16 +52,7 @@ class CursoRepository
         $cursos = [];
 
         foreach ($dados as $row) {
-            $cursos[] = new Curso(
-                $row['id'],
-                $row['nome'],
-                $row['descricao'],
-                $row['categoria_nome'],
-                $row['nivel'],
-                (float) $row['preco'],
-                (float) $row['preco_original'],
-                (bool) $row['em_destaque']
-            );
+            $cursos[] = $this->construirCurso($row);
         }
 
         return $cursos;
@@ -71,7 +60,7 @@ class CursoRepository
 
     public function buscarCursosEmDestaque(): array
     {
-        $sql = "SELECT c.*, cat.nome AS categoria_nome
+        $sql = "SELECT c.*, cat.nome AS categoria_nome, cat.nome_normalizado AS categoria_nome_normalizado
             FROM cursos c
             JOIN categorias cat ON c.categoria_id = cat.id
             WHERE c.em_destaque = 1
@@ -83,16 +72,7 @@ class CursoRepository
         $cursos = [];
 
         foreach ($dados as $row) {
-            $cursos[] = new Curso(
-                $row['id'],
-                $row['nome'],
-                $row['descricao'],
-                $row['categoria_nome'],
-                $row['nivel'],
-                (float) $row['preco'],
-                (float) $row['preco_original'],
-                (bool) $row['em_destaque']
-            );
+            $cursos[] = $this->construirCurso($row);
         }
 
         return $cursos;
@@ -188,5 +168,25 @@ class CursoRepository
         $stmt->execute([':id' => $id]);
 
         return $stmt->rowCount() > 0;
+    }
+
+    private function construirCurso(mixed $row): Curso
+    {
+        $categoria = new Categoria(
+            (int) $row['categoria_id'],
+            $row['categoria_nome'],
+            $row['categoria_nome_normalizado']
+        );
+
+        return new Curso(
+            (int) $row['id'],
+            $row['nome'],
+            $row['descricao'],
+            $categoria,
+            $row['nivel'],
+            (float) $row['preco'],
+            (float) $row['preco_original'],
+            (bool) $row['em_destaque']
+        );
     }
 }

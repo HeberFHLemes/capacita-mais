@@ -2,6 +2,8 @@
 
 namespace App\Cursos;
 
+use App\Categorias\Categoria;
+
 use JsonSerializable;
 use Override;
 
@@ -10,7 +12,7 @@ class Curso implements JsonSerializable
     private int $id;
     private string $nome;
     private string $descricao;
-    private string $categoria;
+    private Categoria $categoria;
     private string $nivel;
     private float $preco;
     private float $precoOriginal;
@@ -20,7 +22,7 @@ class Curso implements JsonSerializable
         int $id,
         string $nome,
         string $descricao,
-        string $categoria,
+        Categoria $categoria,
         string $nivel,
         float $preco,
         float $precoOriginal,
@@ -48,7 +50,7 @@ class Curso implements JsonSerializable
             'id' => $this->id,
             'nome' => $this->nome,
             'descricao' => $this->descricao,
-            'categoria' => $this->categoria,
+            'categoria' => $this->categoria->jsonSerialize(),
             'nivel' => $this->nivel,
             'preco' => $this->preco,
             'preco_original' => $this->precoOriginal,
@@ -71,7 +73,7 @@ class Curso implements JsonSerializable
         return $this->descricao; 
     }
 
-    public function getCategoria(): string 
+    public function getCategoria(): Categoria 
     { 
         return $this->categoria; 
     }

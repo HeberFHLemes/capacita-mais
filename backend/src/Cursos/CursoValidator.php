@@ -21,7 +21,7 @@ final class CursoValidator
             $erros['nome'] = 'Nome é obrigatório';
         }
 
-        if (empty($dados['categoria'])) {
+        if (empty($dados['categoria_id'])) {
             $erros['categoria'] = 'Categoria é obrigatória';
         }
 

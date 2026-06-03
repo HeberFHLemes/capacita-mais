@@ -6,12 +6,15 @@ use App\Core\RestController;
 use App\Core\HttpMethod;
 use App\Core\Route;
 
+use App\Categorias\Exceptions\CategoriaNaoEncontradaException;
+
 use App\Cursos\CursoService;
 use App\Cursos\CursoValidator;
 
 use App\Cursos\Exceptions\CursoDuplicadoException;
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
 use App\Cursos\Exceptions\SemAlteracoesException;
+
 use App\Usuarios\Perfil;
 
 use Override;
@@ -78,7 +81,7 @@ class CursoController extends RestController
             $curso = $this->cursoService->criar(
                 $dados['nome'],
                 $dados['descricao'],
-                $dados['categoria'],
+                $dados['categoria_id'],
                 $dados['nivel'],
                 $dados['preco'],
                 $dados['preco_original'],
@@ -86,6 +89,9 @@ class CursoController extends RestController
             );
 
             $this->jsonResponse(['criado' => true, 'curso' => $curso], 201);
+        
+        } catch (CategoriaNaoEncontradaException $e) {
+            $this->jsonResponse(["erro" => "Categoria não encontrada"], 404);
 
         } catch (CursoDuplicadoException $e) {
             $this->jsonResponse(    
@@ -120,7 +126,7 @@ class CursoController extends RestController
                 $cursoId,
                 $dados['nome'],
                 $dados['descricao'],
-                $dados['categoria'],
+                $dados['categoria_id'],
                 $dados['nivel'],
                 $dados['preco'],
                 $dados['preco_original'],
@@ -137,6 +143,8 @@ class CursoController extends RestController
                 ["editado" => false, 'mensagem' => "Nenhuma alteração detectada."],
                 200
             );
+        } catch (CategoriaNaoEncontradaException $e) {
+            $this->jsonResponse(["erro" => "Categoria não encontrada"], 404);
 
         } catch (CursoNaoEncontradoException $e) {
             $this->jsonResponse(["erro" => "Curso não encontrado"], 404);
