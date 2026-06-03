@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+.angular
+.vscode
+.git
+cypress
+.env
+.env.*
