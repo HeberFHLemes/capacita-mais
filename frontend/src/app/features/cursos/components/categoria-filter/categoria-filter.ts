@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CategoriaFiltro } from '../../models/categoria-filtro';
+import { CategoriaFiltro } from '../../../categorias/models/categoria-filtro';
 
 @Component({
   selector: 'app-categoria-filter',
