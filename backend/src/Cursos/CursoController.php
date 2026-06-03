@@ -91,11 +91,14 @@ class CursoController extends RestController
             $this->jsonResponse(['criado' => true, 'curso' => $curso], 201);
         
         } catch (CategoriaNaoEncontradaException $e) {
-            $this->jsonResponse(["erro" => "Categoria não encontrada"], 404);
+            $this->jsonResponse(
+                [ 'criado' => false, 'erros' => ['Categoria não encontrada'] ], 
+                404
+            );
 
         } catch (CursoDuplicadoException $e) {
             $this->jsonResponse(    
-                ['criado' => false, 'erro' => 'Curso já cadastrado'],
+                [ 'criado' => false, 'erros' => ['Curso já cadastrado'] ],
                 409
             );
         }
@@ -108,7 +111,7 @@ class CursoController extends RestController
         $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
-            $this->jsonResponse(['erro' => 'ID inválido'], 400);
+            $this->jsonResponse([ 'erros' => ['ID inválido'] ], 400);
             return;
         }
 
@@ -140,20 +143,23 @@ class CursoController extends RestController
 
         } catch (SemAlteracoesException $e) {
             $this->jsonResponse(
-                ["editado" => false, 'mensagem' => "Nenhuma alteração detectada."],
+                ["editado" => false, "mensagem" => "Nenhuma alteração detectada."],
                 200
             );
         } catch (CategoriaNaoEncontradaException $e) {
-            $this->jsonResponse(["erro" => "Categoria não encontrada"], 404);
+            $this->jsonResponse(
+                [ "editado" => false, "erros" => ["Categoria não encontrada"] ], 
+                404
+            );
 
         } catch (CursoNaoEncontradoException $e) {
-            $this->jsonResponse(["erro" => "Curso não encontrado"], 404);
+            $this->jsonResponse(["erros" => ["Curso não encontrado"] ], 404);
 
         } catch (CursoDuplicadoException $e) {
-            $this->jsonResponse(["erro" => "Curso já cadastrado"], 409);
+            $this->jsonResponse(["erros" => ["Curso já cadastrado"] ], 409);
 
         } catch (\Exception $e) {
-            $this->jsonResponse(["erro" => "Erro interno"], 500);
+            $this->jsonResponse(["erros" => ["Erro interno"] ], 500);
             throw $e;
         }
         exit;
