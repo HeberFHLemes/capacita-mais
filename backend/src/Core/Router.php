@@ -110,6 +110,6 @@ class Router
         // TODO: implementar JWT e tratar aqui.
         http_response_code(401);
         echo json_encode(['mensagem' => 'Ação não permitida']);
-        throw new \RuntimeException("Ação não permitida");
+        exit;
     }
 }
