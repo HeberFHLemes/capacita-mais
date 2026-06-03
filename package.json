@@ -4,8 +4,7 @@
   "description": "Capacita+ é um website que visa indicar conteúdo gratuito e acessível para capacitação.",
   "scripts": {
     "dev:backend": "cd backend/ && php -S localhost:9000 -t public/",
-    "dev:frontend": "cd frontend/ && npm run start",
-    "dev:php": "cd backend/ && php -S localhost:9000 -t public/"
+    "dev:frontend": "cd frontend/ && npm run start"
   },
   "author": "HeberFHLemes <hfhlemes@gmail.com>",
   "license": "MIT"
