@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CursosApiService } from '../../services/cursos-api-service';
 import { Curso } from '../../models/curso';
 import { CursoCard } from '../../components/curso-card/curso-card';
@@ -6,7 +6,8 @@ import { CursoSearchBar } from '../../components/curso-search-bar/curso-search-b
 import { CategoriaFilter } from '../../components/categoria-filter/categoria-filter';
 import { CustoFilter } from '../../components/custo-filter/custo-filter';
 import { normalizarString } from '../../../../shared/utils/string-utils';
-import { CategoriaFiltro } from '../../models/categoria-filtro';
+import { CategoriaFiltro } from '../../../categorias/models/categoria-filtro';
+import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
 
 @Component({
   selector: 'app-cursos-page',
@@ -31,32 +32,29 @@ export class CursosPage implements OnInit {
 
   @ViewChild(CustoFilter) custoFilter!: CustoFilter;
 
-  constructor(private apiService: CursosApiService) {}
+  private readonly cursosApiService: CursosApiService = inject(CursosApiService);
+
+  private readonly categoriasApiService: CategoriaApiService = inject(CategoriaApiService);
 
   ngOnInit(): void {
     this.montarCatalogo();
   }
 
   montarCatalogo() {
-    this.apiService.buscarCursos().subscribe((cursos) => {
+    this.cursosApiService.buscarCursos().subscribe((cursos) => {
       this.cursos = cursos;
       this.cursosExibidos = cursos;
-      this.listarCategorias(cursos);
     });
-  }
 
-  listarCategorias(cursos: Curso[]): void {
-    const categoriasUnicas = [
-      ...new Set(
-        cursos.map(curso => curso.categoria)
-      )
-    ];
-
-    this.categorias = categoriasUnicas.map(categoria => ({
-      nome: categoria,
-      id: `check-${normalizarString(categoria)}`,
-      selecionada: false
-    }));
+    this.categoriasApiService.buscarCategorias().subscribe((categorias) => {
+      categorias.forEach((categoria) => {
+        this.categorias.push({
+          id: categoria.id,
+          nome: categoria.nome,
+          selecionada: false
+        })
+      });
+    });
   }
 
   onBuscaChange(termo: string): void {
@@ -85,10 +83,10 @@ export class CursosPage implements OnInit {
 
       const categoriasSelecionadas = this.categorias
         .filter(c => c.selecionada)
-        .map(c => c.nome);
+        .map(c => c.id);
 
       const categoria = categoriasSelecionadas.length === 0
-        || categoriasSelecionadas.includes(curso.categoria);
+        || categoriasSelecionadas.includes(curso.categoria.id);
 
       return busca && custo && categoria;
     });

@@ -4,8 +4,8 @@
       {{ curso.nome }}
     </h2>
     <div class="mb-2 d-flex gap-2 flex-wrap">
-      <span class="badge bg-primary">{{ curso.categoria }}</span>
-      <span class="badge bg-secondary">{{ curso.nivel }}</span>
+      <span class="badge bg-primary">{{ curso.categoria.nome }}</span>
+      <span class="badge bg-secondary">{{ nivelLabel(curso.nivel) }}</span>
       <span class="badge bg-success">
       @if (emPromocao) {
         <s>R$ {{ curso.preco_original }}</s> &nbsp; R$ {{ curso.preco }}

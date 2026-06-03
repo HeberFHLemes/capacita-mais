@@ -1,5 +1,5 @@
 export interface CategoriaFiltro {
   nome: string;
-  id: string;
+  id: number;
   selecionada: boolean;
 }
