@@ -5,10 +5,14 @@
  * relacionamentos, então utiliza-se da lógica já preparada
  * da aplicação.
  * 
- * USO (Banco de dados já deve estar funcionando):
- * - docker compose exec [serviço do php] php scripts/seed_cursos.php
- * - php scripts/seed_cursos.php
+ * Uso: php [DIR]/seed_cursos.php [--com-categorias]
  */
+$comCategorias = in_array('--com-categorias', $argv);
+
+if ($comCategorias) {
+    include __DIR__ . '/seed_categorias.php';
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Database\Conexao;
@@ -47,12 +51,13 @@ foreach ($cursosDados as $curso) {
     $cursoService->criar(
         $curso['nome'],
         $curso['descricao'],
-        $curso['categoria'],
+        (int) $curso['categoria_id'],
         $curso['nivel'],
-        $curso['preco'],
-        $curso['preco_original'],
-        $curso['em_destaque']
+        (float) $curso['preco'],
+        (float) $curso['preco_original'],
+        (bool) $curso['em_destaque']
     );
 }
 
 echo "Cursos cadastrados com sucesso!\n";
+exit;
