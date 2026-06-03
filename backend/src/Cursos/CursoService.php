@@ -44,13 +44,18 @@ class CursoService
     public function criar(
         string $nome,
         ?string $descricao,
-        string $categoriaNome,
+        int $categoriaId,
         string $nivel,
         float $preco,
         float $precoOriginal,
         bool $emDestaque
     ): Curso {
-        $categoria = $this->categoriaService->buscarOuCriar($categoriaNome);
+        
+        $categoria = $this->categoriaService->buscarPorId($categoriaId);
+
+        if (!$categoria) {
+            throw new CategoriaNaoEncontradaException("Categoria não encontrada.");
+        }
 
         $id = $this->cursoRepository->criar(
             $nome,
@@ -66,7 +71,7 @@ class CursoService
             $id, 
             $nome,
             $descricao,
-            $categoria->nome,
+            $categoria,
             $nivel,
             $preco,
             $precoOriginal,
@@ -78,7 +83,7 @@ class CursoService
         int $id,
         string $nome,
         ?string $descricao,
-        string $categoriaNome,
+        string $categoriaId,
         string $nivel,
         float $preco,
         float $precoOriginal,
@@ -92,11 +97,18 @@ class CursoService
             throw new CursoNaoEncontradoException("Curso não encontrado.");
         }
 
+        // buscar ou criar categoria
+        $categoria = $this->categoriaService->buscarPorId($categoriaId);
+        
+        if (!$categoria) {
+            throw new CategoriaNaoEncontradaException("Categoria não encontrada.");
+        }
+
         // verificar se houve alguma alteração
         $semAlteracoes = (
             $cursoAtual->getNome() === $nome &&
             $cursoAtual->getDescricao() === $descricao &&
-            $cursoAtual->getCategoria() === $categoriaNome &&
+            $cursoAtual->getCategoria()->id === $categoria->id &&
             $cursoAtual->getNivel() === $nivel &&
             $cursoAtual->getPreco() === $preco &&
             $cursoAtual->getPrecoOriginal() === $precoOriginal &&
@@ -107,15 +119,12 @@ class CursoService
             throw new SemAlteracoesException("Nenhuma alteração detectada."); 
         }
 
-        // buscar ou criar categoria
-        $categoria  = $this->categoriaService->buscarOuCriar($categoriaNome);
-
         // só então atualiza
         $this->cursoRepository->atualizar(
             $id, 
             $nome, 
             $descricao,
-            $categoria->id, 
+            $categoriaId, 
             $nivel,
             $preco, 
             $precoOriginal, 
@@ -126,7 +135,7 @@ class CursoService
             $id, 
             $nome, 
             $descricao,
-            $categoria->nome, 
+            $categoria, 
             $nivel,
             $preco, 
             $precoOriginal, 
