@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use JsonException;
+
 /**
  * Semelhante ao @RestController no Spring, 
  * define o padrão de um controller desta API, 
@@ -33,6 +35,32 @@ abstract class RestController
         if ($data !== null)
         {
             echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    /**
+     * Método auxiliar para extrair o corpo da requisição.
+     */
+    protected function obterDadosDaRequisicao(): array
+    {
+        try {
+            $dados = json_decode(
+                file_get_contents('php://input'),
+                true,
+                flags: JSON_THROW_ON_ERROR
+            );
+
+            // Sempre esperamos objeto JSON, por isso se retorna 
+            // ou um array associativo com os dados ou um vazio.
+            return is_array($dados)
+                ? $dados
+                : [];
+        } catch (JsonException $e) {
+            error_log((string) $e);
+
+            $this->jsonResponse([ 'erros' => ['JSON inválido'] ], 400);
+
+            exit;
         }
     }
 }
