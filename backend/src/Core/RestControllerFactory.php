@@ -2,13 +2,22 @@
 
 namespace App\Core;
 
+use App\Auth\AuthController;
+use App\Auth\AuthService;
+use App\Auth\JwtService;
+
 use App\Categorias\CategoriaController;
 use App\Categorias\CategoriaRepository;
 use App\Categorias\CategoriaService;
+
 use App\Cursos\CursoController;
 use App\Cursos\CursoService;
 
 use App\Database\Conexao;
+
+use App\Usuarios\UsuarioRepository;
+use App\Usuarios\UsuarioService;
+
 use PDO;
 
 /**
@@ -28,7 +37,10 @@ class RestControllerFactory
         return match ($classe) {
             CursoController::class => $this->cursoController(),
             CategoriaController::class => $this->categoriaController(),
-            default => throw new \Exception("Classe desconhecida"),
+            AuthController::class => $this->authController(),
+            default => throw new \InvalidArgumentException(
+                "Controller não registrado: {$classe}"
+            )
         };
     }
 
@@ -39,7 +51,8 @@ class RestControllerFactory
     {
         return [
             CursoController::class,
-            CategoriaController::class
+            CategoriaController::class,
+            AuthController::class
         ];
     }
 
@@ -53,5 +66,13 @@ class RestControllerFactory
         return new CategoriaController(
             new CategoriaService(new CategoriaRepository($this->pdo))
         );
+    }
+
+    private function authController(): AuthController
+    {
+        return new AuthController(new AuthService(
+            new UsuarioService(new UsuarioRepository($this->pdo)),
+            new JwtService()
+        ));
     }
 }
