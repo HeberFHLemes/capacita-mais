@@ -25,7 +25,7 @@ if ($stmt->fetch()) {
     exit;
 }
 
-$senha = password_hash(Env::get('USUARIO_SENHA'), PASSWORD_BCRYPT);
+$senha = password_hash(Env::get('USUARIO_SENHA'), PASSWORD_DEFAULT);
 
 $stmt = $pdo->prepare("
     INSERT INTO usuarios (nome, email, senha, perfil)

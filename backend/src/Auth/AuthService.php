@@ -2,69 +2,53 @@
 
 namespace App\Auth;
 
-use App\Usuarios\Usuario;
-use Deprecated;
+use App\Auth\Dto\AuthResponse;
+use App\Auth\Dto\UsuarioAuthResponse;
+use App\Usuarios\UsuarioService;
 
-/**
- * TODO: Migrar para JWT
- */
+use App\Auth\Exceptions\CredenciaisInvalidasException;
+use App\Usuarios\Perfil;
+
 class AuthService
 {
-    public function __construct()
+    public function __construct(
+        private UsuarioService $usuarioService,
+        private JwtService $jwtService
+    ) {}
+
+    public function login(string $email, string $senha): AuthResponse
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+        $usuario = $this->usuarioService->buscarPorEmail($email);
+
+        if (!$usuario || !$usuario->verificarSenha($senha)) {
+            throw new CredenciaisInvalidasException("Credenciais inválidas");
         }
+
+        $dadosUsuario = new UsuarioAuthResponse(
+            $usuario->getId(),
+            $usuario->getNome(),
+            $usuario->getPerfil()->value
+        );
+
+        // TODO: Gerar o token com o JwtService
+        return new AuthResponse(
+            "token-nao-implementado", 
+            $dadosUsuario
+        );
     }
 
-    public function exigirLogin(): void 
+    public function cadastrarUsuario(string $email, string $nome, string $senha): AuthResponse
     {
-        if (!$this->usuarioLogado()) {
-            header('Location: /login');
-            exit;
-        }
-    }
+        $email = filter_var(trim($email), FILTER_VALIDATE_EMAIL);
 
-    public function login(Usuario $usuario): void
-    {
-        session_regenerate_id(true);
+        $id = $this->usuarioService->criar($nome, $email, $senha);
 
-        $_SESSION['usuario'] = [
-            'id' => $usuario->getId(),
-            'perfil' => $usuario->getPerfil()
-        ];
-    }
-
-    public function logout(): void
-    {
-        session_destroy();
-    }
-
-    public function usuario(): ?array
-    {
-        return $_SESSION['usuario'] ?? null;
-    }
-
-    public function usuarioLogado(): bool
-    {
-        return isset($_SESSION['usuario']['id']);
-    }
-
-    public function temRole(string $role): bool
-    {
-        $usuario = $this->usuario();
-
-        return $usuario !== null &&  
-            ($usuario['role'] ?? null) === $role;
-    }
-
-    public function exigirAutenticacaoApi(): void
-    {
-        if (!$this->usuarioLogado()) {
-            header('Content-Type: application/json');
-            http_response_code(401);
-            echo json_encode(['erro' => 'Não autenticado']);
-            exit;
-        }
+        $dadosUsuario = new UsuarioAuthResponse($id, $nome, Perfil::COMUM->value);
+        
+        // TODO: Gerar o token com o JwtService
+        return new AuthResponse(
+            "token-nao-implementado", 
+            $dadosUsuario
+        );
     }
 }
