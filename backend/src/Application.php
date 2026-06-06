@@ -2,7 +2,8 @@
 
 namespace App;
 
-use App\Core\RestControllerFactory;
+use App\Bootstrap\RestControllerFactory;
+
 use App\Core\Router;
 
 final class Application

@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Bootstrap\RestControllerFactory;
+
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 

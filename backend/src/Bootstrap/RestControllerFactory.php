@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace App\Bootstrap;
 
 use App\Auth\AuthController;
 use App\Auth\AuthService;
@@ -9,6 +9,8 @@ use App\Auth\JwtService;
 use App\Categorias\CategoriaController;
 use App\Categorias\CategoriaRepository;
 use App\Categorias\CategoriaService;
+
+use App\Core\RestController;
 
 use App\Cursos\CursoController;
 use App\Cursos\CursoService;
