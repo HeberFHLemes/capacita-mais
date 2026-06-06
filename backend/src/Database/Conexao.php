@@ -7,7 +7,6 @@ use App\Core\Env;
 use PDO;
 use PDOException;
 
-// Adaptado da UA "Padrões de Projeto PHP" - Livro
 class Conexao 
 {
     private static ?PDO $instance = null;
