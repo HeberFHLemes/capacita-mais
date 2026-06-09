@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Auth\Exceptions\CredenciaisInvalidasException;
+use App\Core\ErrorResponse;
 use App\Core\HttpMethod;
 use App\Core\RestController;
 use App\Core\Route;
@@ -11,14 +12,15 @@ use App\Usuarios\Exceptions\EmailJaCadastradoException;
 class AuthController extends RestController
 {
     public function __construct(
-        private AuthService $authService
+        private readonly AuthService $authService
     ) {}
 
     public static function routes(): array
     {
         return [
             new Route(HttpMethod::POST, '/api/auth/login', 'autenticar'),
-            new Route(HttpMethod::POST, '/api/auth/cadastro', 'cadastrarUsuario')
+            new Route(HttpMethod::POST, '/api/auth/cadastro', 'cadastrarUsuario'),
+            new Route(HttpMethod::GET, '/api/auth/me', 'buscarUsuarioAutenticado', true)
         ];
     }
 
@@ -71,5 +73,17 @@ class AuthController extends RestController
             ], 409);
         }
         exit;
+    }
+
+    public function buscarUsuarioAutenticado(): void
+    {
+        $dadosUsuario = AuthContext::getUsuario();
+
+        if (empty($dadosUsuario)) {
+            $this->jsonResponse([ 'erros' => ['Usuário não autenticado'] ], 401);
+            exit;
+        }
+
+        $this->jsonResponse($dadosUsuario);
     }
 }
