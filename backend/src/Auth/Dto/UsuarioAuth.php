@@ -5,7 +5,7 @@ namespace App\Auth\Dto;
 use JsonSerializable;
 use Override;
 
-readonly class UsuarioAuthResponse implements JsonSerializable
+readonly class UsuarioAuth implements JsonSerializable
 {
     public function __construct(
         public readonly int $id,

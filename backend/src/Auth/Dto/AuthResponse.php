@@ -5,15 +5,15 @@ namespace App\Auth\Dto;
 use JsonSerializable;
 use Override;
 
-class AuthResponse implements JsonSerializable
+readonly class AuthResponse implements JsonSerializable
 {
     public function __construct(
         public readonly string $token,
-        public readonly UsuarioAuthResponse $usuario
+        public readonly UsuarioAuth $usuario
     ) {}
 
     #[Override]
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return [
             'token' => $this->token,
