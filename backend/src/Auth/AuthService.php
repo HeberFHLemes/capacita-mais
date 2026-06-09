@@ -3,17 +3,17 @@
 namespace App\Auth;
 
 use App\Auth\Dto\AuthResponse;
-use App\Auth\Dto\UsuarioAuthResponse;
-use App\Usuarios\UsuarioService;
-
+use App\Auth\Dto\UsuarioAuth;
 use App\Auth\Exceptions\CredenciaisInvalidasException;
+
+use App\Usuarios\UsuarioService;
 use App\Usuarios\Perfil;
 
 class AuthService
 {
     public function __construct(
-        private UsuarioService $usuarioService,
-        private JwtService $jwtService
+        private readonly UsuarioService $usuarioService,
+        private readonly JwtService $jwtService
     ) {}
 
     public function login(string $email, string $senha): AuthResponse
@@ -24,17 +24,15 @@ class AuthService
             throw new CredenciaisInvalidasException("Credenciais inválidas");
         }
 
-        $dadosUsuario = new UsuarioAuthResponse(
+        $dadosUsuario = new UsuarioAuth(
             $usuario->getId(),
             $usuario->getNome(),
             $usuario->getPerfil()->value
         );
 
-        // TODO: Gerar o token com o JwtService
-        return new AuthResponse(
-            "token-nao-implementado", 
-            $dadosUsuario
-        );
+        $token = $this->jwtService->gerarToken($dadosUsuario);
+
+        return new AuthResponse($token, $dadosUsuario);
     }
 
     public function cadastrarUsuario(string $email, string $nome, string $senha): AuthResponse
@@ -43,12 +41,10 @@ class AuthService
 
         $id = $this->usuarioService->criar($nome, $email, $senha);
 
-        $dadosUsuario = new UsuarioAuthResponse($id, $nome, Perfil::COMUM->value);
-        
-        // TODO: Gerar o token com o JwtService
-        return new AuthResponse(
-            "token-nao-implementado", 
-            $dadosUsuario
-        );
+        $dadosUsuario = new UsuarioAuth($id, $nome, Perfil::COMUM->value);
+
+        $token = $this->jwtService->gerarToken($dadosUsuario);
+
+        return new AuthResponse($token, $dadosUsuario);
     }
 }
