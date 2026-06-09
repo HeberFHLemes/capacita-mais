@@ -2,6 +2,9 @@
 
 namespace App\Core;
 
+use App\Auth\Exceptions\CredenciaisInvalidasException;
+use App\Auth\JwtMiddleware;
+use App\Auth\JwtService;
 use App\Bootstrap\RestControllerFactory;
 
 use FastRoute\Dispatcher;
@@ -14,12 +17,12 @@ class Router
     private Dispatcher $dispatcher; // FastRoute
 
     public function __construct(
-        private RestControllerFactory $restControllerFactory
+        private readonly RestControllerFactory $restControllerFactory
     ) {
-        $this->configurarFastRoute();
+        $this->registrarRotas();
     }
 
-    private function configurarFastRoute(): void
+    private function registrarRotas(): void
     {
         $controllers = $this->restControllerFactory->controllers();
 
@@ -109,9 +112,15 @@ class Router
             return;
         }
 
-        // TODO: implementar JWT e tratar aqui.
-        http_response_code(401);
-        echo json_encode(['mensagem' => 'Ação não permitida']);
-        exit;
+        $jwtMiddleware = new JwtMiddleware(new JwtService());
+
+        try {
+            $jwtMiddleware->autorizarRequisicao($rota->perfilNecessario);
+
+        } catch (CredenciaisInvalidasException $e) {
+            http_response_code(401);
+            echo json_encode(['mensagem' => 'Usuário não autorizado']);
+            exit;
+        }
     }
 }

@@ -49,7 +49,7 @@ class Env
             if ($default !== null) {
                 return $default;
             }
-            throw new RuntimeException("Variável de ambiente [{$key}] não definida.");
+            throw new RuntimeException("Variável de ambiente [$key] não definida.");
         }
         return $value;
     }

@@ -15,6 +15,6 @@ class Route
         public readonly string $uri,
         public readonly string $action, // nome do método a ser executado
         public readonly bool $requerAuth = false,
-        public readonly ?Perfil $perfilPermitido = null
+        public readonly ?Perfil $perfilNecessario = null
     ) {}
 }

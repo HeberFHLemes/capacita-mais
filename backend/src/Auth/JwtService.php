@@ -2,21 +2,49 @@
 
 namespace App\Auth;
 
+use App\Auth\Dto\UsuarioAuth;
+
+use App\Core\Env;
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 class JwtService
 {   
-    // private readonly string $KEY;
+    private readonly string $key;
 
     public function __construct() {
-        // $this->KEY = Env::get("JWT_SECRET_KEY");
+        $this->key = Env::get("SECRET_KEY");
     }
 
-    // TODO: gerar token com os dados do parâmetro $claims.
-    public function gerarToken(array $claims): string {
-        throw new \RuntimeException("Ainda não implementado");
+    public function gerarToken(UsuarioAuth $dadosUsuario): string
+    {
+        $claims = [];
+
+        $time = time();
+        $claims['iat'] = $time;
+        $claims['nbf'] = $time;
+        $claims['exp'] = $time + 3600;
+        $claims['sub'] = $dadosUsuario->id;
+        $claims['name'] = $dadosUsuario->nome;
+        $claims['role'] = $dadosUsuario->perfil;
+
+        return JWT::encode($claims, $this->key, 'HS256');
     }
 
-    // TODO: validar o token, extrair claims do token e retornar os dados extraidos.
-    public function validarToken(string $token): array {
-        throw new \RuntimeException("Ainda não implementado");
+    public function validarToken(string $token): UsuarioAuth
+    {
+        $payload = JWT::decode(
+            $token,
+            new Key($this->key, 'HS256')
+        );
+
+        $claims = (array) $payload;
+
+        return new UsuarioAuth(
+            (int) $claims['sub'],
+            $claims['name'],
+            $claims['role'],
+        );
     }
 }
