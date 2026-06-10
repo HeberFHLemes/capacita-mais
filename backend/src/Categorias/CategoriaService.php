@@ -2,9 +2,6 @@
 
 namespace App\Categorias;
 
-use App\Categorias\CategoriaRepository;
-use App\Categorias\Categoria;
-
 use App\Utils\Normalizador;
 
 class CategoriaService 

@@ -2,10 +2,14 @@
 
 namespace App\Categorias;
 
+use App\Core\ApiResponse;
 use App\Core\HttpMethod;
 use App\Core\RestController;
 use App\Core\Route;
+
 use App\Usuarios\Perfil;
+
+use Exception;
 use Override;
 
 class CategoriaController extends RestController
@@ -30,29 +34,28 @@ class CategoriaController extends RestController
         try {
             $categorias = $this->categoriaService->buscarTodas();
 
-            $this->jsonResponse($categorias);
+            ApiResponse::json($categorias);
 
-        } catch (\Exception $e) {
-            $this->jsonResponse(['erro' => 'Erro ao buscar cursos'], 500);
+        } catch (Exception $e) {
+            ApiResponse::erro('Erro ao buscar categorias');
         }
-        exit;
     }
 
     public function cadastrarCategoria(): void
     {
         // TODO: implementar POST /api/categorias
-        $this->jsonResponse(['erro' => 'Funcionalidade não implementada'], 501);
+        ApiResponse::erro('Funcionalidade não implementada', 501);
     }
 
     public function editarCategoria(int $categoriaId): void
     {
         // TODO: implementar PUT /api/categorias
-        $this->jsonResponse(['erro' => 'Funcionalidade não implementada'], 501);
+        ApiResponse::erro('Funcionalidade não implementada', 501);
     }
-    
+
     public function removerCategoria(int $categoriaId): void
     {
         // TODO: implementar DELETE /api/categorias
-        $this->jsonResponse(['erro' => 'Funcionalidade não implementada'], 501);
+        ApiResponse::erro('Funcionalidade não implementada', 501);
     }
 }

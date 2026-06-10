@@ -40,35 +40,33 @@ class CursoController extends RestController
     }
 
     // GET
-    public function buscarCursos() 
+    public function buscarCursos(): void
     {
         try {
             $cursos = $this->cursoService->listarCursos();
 
-            $this->jsonResponse($cursos);
+            ApiResponse::json($cursos);
 
         } catch (Exception $e) {
-            $this->jsonResponse(['erro' => 'Erro ao buscar cursos'], 500);
+            ApiResponse::erro('Erro ao buscar cursos');
         }
-        exit;
     }
 
     // GET /destaques
-    public function buscarCursosEmDestaque()
+    public function buscarCursosEmDestaque(): void
     {
         try {
             $cursos = $this->cursoService->listarCursosEmDestaque();
 
-            $this->jsonResponse($cursos);
+            ApiResponse::json($cursos);
 
         } catch (Exception $e) {
-            $this->jsonResponse(['erro' => 'Erro ao buscar cursos em destaque'], 500);
+            ApiResponse::erro('Erro ao buscar cursos em destaque');
         }
-        exit;
     }
 
     // POST
-    public function cadastrarCurso() 
+    public function cadastrarCurso(): void
     {
         $dados = $this->obterDadosDaRequisicao();
 
@@ -107,13 +105,12 @@ class CursoController extends RestController
     }
 
     // PUT
-    public function editarCurso(int $cursoId)
+    public function editarCurso(int $cursoId): void
     {
         $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
-            $this->jsonResponse([ 'erros' => ['ID inválido'] ], 400);
-            return;
+            ApiResponse::erro('ID inválido', 400);
         }
 
         $dados = $this->obterDadosDaRequisicao();

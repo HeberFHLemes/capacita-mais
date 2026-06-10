@@ -20,6 +20,7 @@ use App\Database\Conexao;
 use App\Usuarios\UsuarioRepository;
 use App\Usuarios\UsuarioService;
 
+use InvalidArgumentException;
 use PDO;
 
 /**
@@ -55,7 +56,7 @@ class RestControllerFactory
     public function build(string $classe): RestController
     {
         $factory = $this->controllerFactories[$classe] ??
-            throw new \InvalidArgumentException("Controller não registrado: {$classe}");
+            throw new InvalidArgumentException("Controller não registrado: {$classe}");
 
         return $factory();
     }

@@ -44,7 +44,7 @@ class Curso implements JsonSerializable
      * @link https://www.php.net/manual/pt_BR/jsonserializable.jsonserialize.php
      */
     #[Override]
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,
