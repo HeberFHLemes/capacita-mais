@@ -13,7 +13,7 @@ final class ApiResponse
         exit;
     }
 
-    public static function erro(string $mensagem, int $status = 500, array $erros = []): void
+    public static function erro(string $mensagem, int $status = 500, array $erros = []): never
     {
         self::json(new ErrorResponse($mensagem, $erros), $status);
     }
