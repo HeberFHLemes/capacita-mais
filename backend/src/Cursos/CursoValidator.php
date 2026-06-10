@@ -2,46 +2,45 @@
 
 namespace App\Cursos;
 
-final class CursoValidator
+use App\Core\Validator;
+use Override;
+
+class CursoValidator extends Validator
 {
-    private function __construct() {}
-
-    /**
-     * Valida se há erros ou campos em branco
-     * nos dados enviados de um curso.
-     * 
-     * @return array $erros array contendo os nomes 
-     * dos campos com erros encontrados e a descrição.
-     */
-    public static function validar(array $dados): array
+    #[Override]
+    public function validar(array $dados): void
     {
-        $erros = [];
+        $this->validarCampoNaoVazio($dados, 'nome');
+        $this->validarNivel($dados);
+        $this->validarCampoObrigatorio($dados, 'categoria_id');
+        $this->validarCampoObrigatorio($dados, 'preco');
+        $this->validarCampoObrigatorio($dados, 'preco_original');
+        $this->validarCampoObrigatorio($dados, 'em_destaque');
+    }
 
-        if (!isset($dados['nome']) || trim($dados['nome']) === '') {
-            $erros['nome'] = 'Nome é obrigatório';
-        }
+    private function validarNivel(array $dados): void
+    {
+        $campo = 'nivel';
+        $this->validarCampoNaoVazio($dados, $campo);
 
-        if (!isset($dados['categoria_id']) || !is_int($dados['categoria_id'])) {
-            $erros['categoria'] = 'Categoria é obrigatória';
-        }
+        if (!isset($this->erros[$campo])) {
 
-        // TODO: validar com enum
-        if (!isset($dados['nivel']) || trim($dados['nivel']) === '') {
-            $erros['nivel'] = 'Nível é obrigatório';
-        }
+            $nivel = $dados[$campo];
 
-        if (!isset($dados['em_destaque']) || !is_bool($dados['em_destaque'])) {
-            $erros['em_destaque'] = 'Em Destaque é obrigatório e deve ser booleano';
-        }
+            // Para evitar fazer trim em outros tipos (TypeError por conta do strict_types!)
+            if (is_string($nivel)) { 
+                $nivel = strtolower(trim($nivel));
 
-        if (!isset($dados['preco']) || !is_numeric($dados['preco'])) {
-            $erros['preco'] = 'Preço é obrigatório e deve ser numérico';
-        }
-        
-        if (!isset($dados['preco_original']) || !is_numeric($dados['preco_original'])) {
-            $erros['preco_original'] = 'Preço original é obrigatório e deve ser numérico';
-        }
+                $nivelValido = Nivel::tryFrom($nivel);
 
-        return $erros;
+                if ($nivelValido !== null) {
+                    return;
+                }
+            }
+
+            $valoresValidos = implode(', ', array_column(Nivel::cases(), 'value'));
+
+            $this->erros[$campo] = "O campo $campo deve ser um dos valores: $valoresValidos";
+        }
     }
 }
