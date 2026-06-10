@@ -8,9 +8,9 @@ use Override;
 readonly class UsuarioAuth implements JsonSerializable
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $nome,
-        public readonly string $perfil
+        public int $id,
+        public string $nome,
+        public string $perfil
     ) {}
 
     #[Override]
