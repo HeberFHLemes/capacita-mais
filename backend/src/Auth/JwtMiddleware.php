@@ -2,7 +2,9 @@
 
 namespace App\Auth;
 
-use App\Auth\Exceptions\CredenciaisInvalidasException;
+use App\Auth\Exceptions\AcessoNegadoException;
+use App\Auth\Exceptions\UsuarioNaoAutenticadoException;
+
 use App\Usuarios\Perfil;
 
 class JwtMiddleware
@@ -22,7 +24,7 @@ class JwtMiddleware
             $autorizado = $this->validarPerfil($usuario->perfil, $perfilNecessario);
 
             if (!$autorizado) {
-                throw new CredenciaisInvalidasException();
+                throw new AcessoNegadoException();
             }
         }
 
@@ -43,12 +45,12 @@ class JwtMiddleware
         }
 
         if (empty($header)) {
-            throw new CredenciaisInvalidasException();
+            throw new UsuarioNaoAutenticadoException();
         }
 
         // Regex para remover o 'Bearer ', retornando só o token
         if (!preg_match('/Bearer\s+(\S+)/', $header, $matches)) {
-            throw new CredenciaisInvalidasException();
+            throw new UsuarioNaoAutenticadoException();
         }
 
         return $matches[1]; // 1 é o índice do primeiro 'match' (0 é a string inteira).
@@ -64,10 +66,10 @@ class JwtMiddleware
             return false;
         }
 
-        if ($perfilNecessario === Perfil::ADMIN) {
-            return $perfilUsuario === Perfil::ADMIN;
+        if ($perfilNecessario !== Perfil::ADMIN) {
+            return true;
         }
 
-        return true;
+        return $perfilUsuario === Perfil::ADMIN;
     }
 }

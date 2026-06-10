@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Auth\JwtMiddleware;
+use App\Auth\JwtService;
+
 use App\Bootstrap\RestControllerFactory;
 
 use App\Core\Router;
@@ -21,8 +24,11 @@ final class Application
 
         $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/') ?: '/';
 
-        $router = new Router(new RestControllerFactory());
-        
+        $router = new Router(
+            new RestControllerFactory(),
+            new JwtMiddleware(new JwtService())
+        );
+
         $router->dispatch($method, $uri);
     }
 

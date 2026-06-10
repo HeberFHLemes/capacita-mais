@@ -2,9 +2,10 @@
 
 namespace App\Core;
 
-use App\Auth\Exceptions\CredenciaisInvalidasException;
+use App\Auth\Exceptions\AcessoNegadoException;
+use App\Auth\Exceptions\UsuarioNaoAutenticadoException;
 use App\Auth\JwtMiddleware;
-use App\Auth\JwtService;
+
 use App\Bootstrap\RestControllerFactory;
 
 use FastRoute\Dispatcher;
@@ -17,7 +18,8 @@ class Router
     private Dispatcher $dispatcher; // FastRoute
 
     public function __construct(
-        private readonly RestControllerFactory $restControllerFactory
+        private readonly RestControllerFactory $restControllerFactory,
+        private readonly JwtMiddleware $jwtMiddleware
     ) {
         $this->registrarRotas();
     }
@@ -53,23 +55,10 @@ class Router
         switch ($routeInfo[0])
         {
             case Dispatcher::NOT_FOUND:
-                http_response_code(404);
-
-                echo json_encode([
-                    'erro' => 'Rota não encontrada'
-                ]);
-
-                return;
+                ApiResponse::erro('Rota não encontrada: ' . $uri, 404);
 
             case Dispatcher::METHOD_NOT_ALLOWED:
-                http_response_code(405);
-
-                echo json_encode([
-                    'erro' => 'Método não suportado',
-                    'metodo' => $method
-                ]);
-
-                return;
+                ApiResponse::erro('Método não suportado: ' . $method, 405);
 
             case Dispatcher::FOUND:
                 
@@ -112,15 +101,14 @@ class Router
             return;
         }
 
-        $jwtMiddleware = new JwtMiddleware(new JwtService());
-
         try {
-            $jwtMiddleware->autorizarRequisicao($rota->perfilNecessario);
+            $this->jwtMiddleware->autorizarRequisicao($rota->perfilNecessario);
 
-        } catch (CredenciaisInvalidasException $e) {
-            http_response_code(401);
-            echo json_encode(['mensagem' => 'Usuário não autorizado']);
-            exit;
+        } catch (AcessoNegadoException $e) {
+            ApiResponse::erro('Usuário não autorizado', 403);
+
+        } catch (UsuarioNaoAutenticadoException $e) {
+            ApiResponse::erro('Usuário não autenticado', 401);
         }
     }
 }
