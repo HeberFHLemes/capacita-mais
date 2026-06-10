@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Auth\Dto\UsuarioAuth;
+use App\Auth\Exceptions\UsuarioNaoAutenticadoException;
 
 use App\Core\Env;
 
@@ -34,17 +35,26 @@ class JwtService
 
     public function validarToken(string $token): UsuarioAuth
     {
-        $payload = JWT::decode(
-            $token,
-            new Key($this->key, 'HS256')
-        );
+        try {
+            $payload = JWT::decode(
+                $token,
+                new Key($this->key, 'HS256')
+            );
 
-        $claims = (array) $payload;
+            $claims = (array) $payload;
 
-        return new UsuarioAuth(
-            (int) $claims['sub'],
-            $claims['name'],
-            $claims['role'],
-        );
+            return new UsuarioAuth(
+                (int) $claims['sub'],
+                $claims['name'],
+                $claims['role'],
+            );
+
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+
+            throw new UsuarioNaoAutenticadoException(
+                previous: $e
+            );
+        }
     }
 }

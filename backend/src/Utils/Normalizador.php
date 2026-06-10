@@ -27,8 +27,6 @@ class Normalizador
         $texto = iconv('UTF-8', 'ASCII//TRANSLIT', $texto); 
 
         // regex simples para manter apenas alfanuméricos
-        $texto = preg_replace('/[^a-z0-9]/', '', $texto); 
-
-        return $texto;
+        return preg_replace('/[^a-z0-9]/', '', $texto);
     }
 }

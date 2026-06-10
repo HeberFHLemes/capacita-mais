@@ -55,7 +55,7 @@ class Usuario implements JsonSerializable
 
     public function getNome(): string
     {
-        return $this->email;
+        return $this->nome;
     }
 
     public function getEmail(): string
