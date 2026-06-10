@@ -2,14 +2,12 @@
 
 namespace App\Cursos;
 
+use App\Core\ApiResponse;
 use App\Core\RestController;
 use App\Core\HttpMethod;
 use App\Core\Route;
 
 use App\Categorias\Exceptions\CategoriaNaoEncontradaException;
-
-use App\Cursos\CursoService;
-use App\Cursos\CursoValidator;
 
 use App\Cursos\Exceptions\CursoDuplicadoException;
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
@@ -17,13 +15,17 @@ use App\Cursos\Exceptions\SemAlteracoesException;
 
 use App\Usuarios\Perfil;
 
+use Exception;
 use Override;
 
 class CursoController extends RestController
 {
-    public function __construct(
-        private CursoService $cursoService
-    ) {}
+    private CursoValidator $cursoValidator;
+
+    public function __construct(private CursoService $cursoService)
+    {
+        $this->cursoValidator = new CursoValidator();
+    }
 
     #[Override]
     public static function routes(): array
@@ -38,43 +40,41 @@ class CursoController extends RestController
     }
 
     // GET
-    public function buscarCursos() 
+    public function buscarCursos(): void
     {
         try {
             $cursos = $this->cursoService->listarCursos();
 
-            $this->jsonResponse($cursos);
+            ApiResponse::json($cursos);
 
-        } catch (\Exception $e) {
-            $this->jsonResponse(['erro' => 'Erro ao buscar cursos'], 500);
+        } catch (Exception $e) {
+            ApiResponse::erro('Erro ao buscar cursos');
         }
-        exit;
     }
 
     // GET /destaques
-    public function buscarCursosEmDestaque()
+    public function buscarCursosEmDestaque(): void
     {
         try {
             $cursos = $this->cursoService->listarCursosEmDestaque();
 
-            $this->jsonResponse($cursos);
+            ApiResponse::json($cursos);
 
-        } catch (\Exception $e) {
-            $this->jsonResponse(['erro' => 'Erro ao buscar cursos em destaque'], 500);
+        } catch (Exception $e) {
+            ApiResponse::erro('Erro ao buscar cursos em destaque');
         }
-        exit;
     }
 
     // POST
-    public function cadastrarCurso() 
+    public function cadastrarCurso(): void
     {
-        $requestBody = file_get_contents("php://input");
-        $dados = json_decode($requestBody, true);
+        $dados = $this->obterDadosDaRequisicao();
 
-        $erros = CursoValidator::validar($dados);
-        if (!empty($erros)) {
-            $this->jsonResponse(['erros' => $erros], 400);
-            exit;
+        $this->cursoValidator->validar($dados);
+
+        if ($this->cursoValidator->validacaoFalhou()) {
+            $erros = $this->cursoValidator->getErros();
+            ApiResponse::erro('Existem campos não-preenchidos ou inválidos', 422, $erros);
         }
         
         try {
@@ -88,40 +88,38 @@ class CursoController extends RestController
                 $dados['em_destaque']
             );
 
-            $this->jsonResponse(['criado' => true, 'curso' => $curso], 201);
+            ApiResponse::json(['criado' => true, 'curso' => $curso], 201);
         
         } catch (CategoriaNaoEncontradaException $e) {
-            $this->jsonResponse(
-                [ 'criado' => false, 'erros' => ['Categoria não encontrada'] ], 
+            ApiResponse::json(
+                [ 'criado' => false, 'erros' => ['Categoria não encontrada'] ],
                 404
             );
 
         } catch (CursoDuplicadoException $e) {
-            $this->jsonResponse(    
+            ApiResponse::json(
                 [ 'criado' => false, 'erros' => ['Curso já cadastrado'] ],
                 409
             );
         }
-        exit;
     }
 
     // PUT
-    public function editarCurso(int $cursoId)
+    public function editarCurso(int $cursoId): void
     {
         $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
-            $this->jsonResponse([ 'erros' => ['ID inválido'] ], 400);
-            return;
+            ApiResponse::erro('ID inválido', 400);
         }
 
-        $requestBody = file_get_contents("php://input");
-        $dados = json_decode($requestBody, true);
+        $dados = $this->obterDadosDaRequisicao();
 
-        $erros = CursoValidator::validar($dados);
-        if (!empty($erros)) {
-            $this->jsonResponse(['erros' => $erros], 400);
-            exit;
+        $this->cursoValidator->validar($dados);
+
+        if ($this->cursoValidator->validacaoFalhou()) {
+            $erros = $this->cursoValidator->getErros();
+            ApiResponse::erro('Existem campos não-preenchidos ou inválidos', 422, $erros);
         }
 
         try {
@@ -136,33 +134,27 @@ class CursoController extends RestController
                 $dados['em_destaque']
             );
 
-            $this->jsonResponse(
-                ["editado" => true, "curso" => $cursoAtualizado],
-                200
-            );
+            ApiResponse::json(['editado' => true, "curso" => $cursoAtualizado]);
 
-        } catch (SemAlteracoesException $e) {
-            $this->jsonResponse(
-                ["editado" => false, "mensagem" => "Nenhuma alteração detectada."],
-                200
-            );
+        } catch (SemAlteracoesException $e) { // Também retorna 200 OK
+            ApiResponse::json(["editado" => false, "mensagem" => "Nenhuma alteração detectada."]);
+
         } catch (CategoriaNaoEncontradaException $e) {
-            $this->jsonResponse(
-                [ "editado" => false, "erros" => ["Categoria não encontrada"] ], 
+            ApiResponse::json(
+                [ "editado" => false, "mensagem" => "Categoria não encontrada" ],
                 404
             );
 
         } catch (CursoNaoEncontradoException $e) {
-            $this->jsonResponse(["erros" => ["Curso não encontrado"] ], 404);
+            ApiResponse::erro("Curso não encontrado", 404);
 
         } catch (CursoDuplicadoException $e) {
-            $this->jsonResponse(["erros" => ["Curso já cadastrado"] ], 409);
+            ApiResponse::erro("Curso já cadastrado", 409);
 
-        } catch (\Exception $e) {
-            $this->jsonResponse(["erros" => ["Erro interno"] ], 500);
-            throw $e;
+        } catch (Exception $e) {
+            error_log($e);
+            ApiResponse::erro("Erro interno");
         }
-        exit;
     }
 
     // DELETE
@@ -171,22 +163,21 @@ class CursoController extends RestController
         $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
 
         if (!is_int($cursoId)) {
-            $this->jsonResponse(['erro' => 'ID inválido'], 400);
-            return;
+            ApiResponse::erro('ID inválido', 400);
         }
         
         try {
             $removido = $this->cursoService->remover($cursoId);
 
             if ($removido) {
-                $this->jsonResponse(status: 204);
-                return;
+                http_response_code(204);
+                exit;
             }
 
-            $this->jsonResponse(['erro' => 'Curso não encontrado'], 404);
+            ApiResponse::erro('Curso não encontrado', 404);
 
-        } catch (\Exception $e) {
-            $this->jsonResponse(['erro' => 'Erro interno'], 500);
+        } catch (Exception $e) {
+            ApiResponse::erro('Erro interno');
         }
     }
 }

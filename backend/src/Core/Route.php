@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-use App\Core\HttpMethod;
 use App\Usuarios\Perfil;
 
 /**
@@ -16,5 +15,11 @@ class Route
         public readonly string $action, // nome do método a ser executado
         public readonly bool $requerAuth = false,
         public readonly ?Perfil $perfilNecessario = null
-    ) {}
+    ) {
+        if ($this->perfilNecessario !== null && !$requerAuth) {
+            throw new \InvalidArgumentException(
+                "Rota {$uri}: se a rota exige um perfilNecessario, é necessário definir requerAuth como true"
+            );
+        }
+    }
 }

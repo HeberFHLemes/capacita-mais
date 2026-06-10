@@ -20,6 +20,7 @@ use App\Database\Conexao;
 use App\Usuarios\UsuarioRepository;
 use App\Usuarios\UsuarioService;
 
+use InvalidArgumentException;
 use PDO;
 
 /**
@@ -30,20 +31,34 @@ class RestControllerFactory
 {
     private PDO $pdo;
 
+    private array $controllerFactories;
+
     public function __construct() {
         $this->pdo = Conexao::getInstance();
+
+        $this->registrarControllers();
+    }
+
+    /**
+     * Registra o conjunto de controllers existentes
+     * em um array associativo, com a chave sendo o class do controller,
+     * e o valor sendo a função responsável por o instanciar.
+     */
+    private function registrarControllers(): void
+    {
+        $this->controllerFactories = [
+            CursoController::class => fn() => $this->cursoController(),
+            CategoriaController::class => fn() => $this->categoriaController(),
+            AuthController::class => fn() => $this->authController(),
+        ];
     }
 
     public function build(string $classe): RestController
     {
-        return match ($classe) {
-            CursoController::class => $this->cursoController(),
-            CategoriaController::class => $this->categoriaController(),
-            AuthController::class => $this->authController(),
-            default => throw new \InvalidArgumentException(
-                "Controller não registrado: {$classe}"
-            )
-        };
+        $factory = $this->controllerFactories[$classe] ??
+            throw new InvalidArgumentException("Controller não registrado: {$classe}");
+
+        return $factory();
     }
 
     /**
@@ -51,11 +66,7 @@ class RestControllerFactory
      */
     public function controllers(): array
     {
-        return [
-            CursoController::class,
-            CategoriaController::class,
-            AuthController::class
-        ];
+        return array_keys($this->controllerFactories);
     }
 
     private function cursoController(): CursoController

@@ -2,8 +2,6 @@
 
 namespace App\Categorias;
 
-use App\Categorias\Categoria;
-
 use PDO;
 
 class CategoriaRepository

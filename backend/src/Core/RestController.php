@@ -23,22 +23,6 @@ abstract class RestController
     abstract public static function routes(): array;
 
     /**
-     * Método auxiliar para retornar JSON, definindo o status HTTP
-     * definido no parâmetro $status (default é 200) 
-     * e fazendo o echo do conteúdo do parâmetro $data, 
-     * que é convertido em JSON internamente.
-     */
-    protected function jsonResponse(mixed $data = null, int $status = 200): void
-    {
-        http_response_code($status);
-
-        if ($data !== null)
-        {
-            echo json_encode($data, JSON_UNESCAPED_UNICODE);
-        }
-    }
-
-    /**
      * Método auxiliar para extrair o corpo da requisição.
      */
     protected function obterDadosDaRequisicao(): array
@@ -58,9 +42,7 @@ abstract class RestController
         } catch (JsonException $e) {
             error_log((string) $e);
 
-            $this->jsonResponse([ 'erros' => ['JSON inválido'] ], 400);
-
-            exit;
+            ApiResponse::erro('JSON inválido', 400);
         }
     }
 }
