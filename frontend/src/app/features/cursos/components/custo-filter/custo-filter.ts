@@ -12,15 +12,17 @@ export class CustoFilter implements OnInit {
 
   @Output() custoChange = new EventEmitter<string>();
 
-  custoControl = new FormControl('todos');
+  valorPadrao: string = 'todos';
+
+  custoControl = new FormControl(this.valorPadrao);
 
   ngOnInit(): void {
     this.custoControl.valueChanges.subscribe(valor => {
-      this.custoChange.emit(valor ?? 'todos');
+      this.custoChange.emit(valor ?? this.valorPadrao);
     });
   }
 
   limpar(): void {
-    this.custoControl.setValue('todos');
+    this.custoControl.setValue(this.valorPadrao);
   }
 }
