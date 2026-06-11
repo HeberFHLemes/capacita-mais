@@ -1,8 +1,8 @@
 import { Perfil } from "./perfil";
 
-export interface Usuario {
+export interface UsuarioAuth {
   id: number;
   nome: string;
   perfil: Perfil;
-  dataCriacao: string; // converter no uso
+  dataCriacao: string|null;
 }
