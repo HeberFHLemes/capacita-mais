@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-cadastro-page',
@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './cadastro-page.css',
 })
 export class CadastroPage {
-
   realizarCadastro() {
     // TODO
   }

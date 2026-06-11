@@ -7,6 +7,7 @@ import { CURSOS_ROUTES } from './features/cursos/cursos.routes';
 import { ADMIN_ROUTES } from './features/admin/admin.routes';
 import { NotFoundPage } from './shared/pages/not-found-page/not-found-page';
 import { AUTH_ROUTES } from './features/auth/auth.routes';
+import {adminGuard} from './features/auth/guards/admin-guard';
 
 export const routes: Routes = [
   {
@@ -15,7 +16,8 @@ export const routes: Routes = [
     children: [
       ...ADMIN_ROUTES,
       { path: '**', component: NotFoundPage }
-    ]
+    ],
+    canActivate: [ adminGuard ]
   },
   {
     path: '',

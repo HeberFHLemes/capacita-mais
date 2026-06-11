@@ -19,7 +19,7 @@ export class CursoCard implements OnInit {
     this.emPromocao = this.curso.preco_original > this.curso.preco;
   }
 
-  nivelLabel(nivelCurso: string): string{
+  nivelLabel(nivelCurso: string): string {
     return NIVEL_LABELS[nivelCurso] ?? '';
   }
 }

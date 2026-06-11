@@ -1,6 +1,6 @@
-import { Usuario } from "./usuario";
+import { UsuarioAuth } from "./usuario-auth";
 
 export interface AuthResponse {
   token: string;
-  usuario: Usuario;
+  usuario: UsuarioAuth;
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LoginRequest } from '../models/login-request';
 import { AuthResponse } from '../models/auth-response';
 import { CadastroRequest } from '../models/cadastro-request';
+import { UsuarioAuth } from '../models/usuario-auth';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,14 @@ export class AuthApiService {
 
   cadastrar(dados: CadastroRequest): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(
-      `${this.apiBaseUrl}/register`,
+      `${this.apiBaseUrl}/cadastro`,
       dados
+    );
+  }
+
+  buscarDados(): Observable<UsuarioAuth> {
+    return this.httpClient.get<UsuarioAuth>(
+      `${this.apiBaseUrl}/me`
     );
   }
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminLayout } from './admin-layout';
+import { NivelFilter } from './nivel-filter';
 
-describe('AdminLayout', () => {
-  let component: AdminLayout;
-  let fixture: ComponentFixture<AdminLayout>;
+describe('NivelFilter', () => {
+  let component: NivelFilter;
+  let fixture: ComponentFixture<NivelFilter>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminLayout]
+      imports: [NivelFilter]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminLayout);
+    fixture = TestBed.createComponent(NivelFilter);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

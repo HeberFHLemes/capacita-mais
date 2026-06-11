@@ -8,11 +8,12 @@ import { CustoFilter } from '../../components/custo-filter/custo-filter';
 import { normalizarString } from '../../../../shared/utils/string-utils';
 import { CategoriaFiltro } from '../../../categorias/models/categoria-filtro';
 import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
+import {NivelFilter} from '../../components/nivel-filter/nivel-filter';
 
 @Component({
   selector: 'app-cursos-page',
   standalone: true,
-  imports: [CursoCard, CursoSearchBar, CategoriaFilter, CustoFilter],
+  imports: [CursoCard, CursoSearchBar, CategoriaFilter, CustoFilter, NivelFilter],
   templateUrl: './cursos-page.html',
   styleUrl: './cursos-page.css',
 })
@@ -28,9 +29,13 @@ export class CursosPage implements OnInit {
 
   filtroCusto = 'todos';
 
+  filtroNivel = 'todos';
+
   @ViewChild(CursoSearchBar) searchBar!: CursoSearchBar;
 
   @ViewChild(CustoFilter) custoFilter!: CustoFilter;
+
+  @ViewChild(NivelFilter) nivelFilter!: NivelFilter;
 
   private readonly cursosApiService: CursosApiService = inject(CursosApiService);
 
@@ -67,6 +72,11 @@ export class CursosPage implements OnInit {
     this.aplicarFiltros();
   }
 
+  onNivelChange(nivel: string): void {
+    this.filtroNivel = nivel;
+    this.aplicarFiltros();
+  }
+
   onCategoriaChange(): void {
     this.aplicarFiltros();
   }
@@ -81,6 +91,8 @@ export class CursosPage implements OnInit {
         this.filtroCusto === 'gratuito' ? curso.preco === 0 :
         this.filtroCusto === 'pago'     ? curso.preco > 0 : true;
 
+      const nivel = this.filtroNivel === 'todos' || this.filtroNivel === curso.nivel;
+
       const categoriasSelecionadas = this.categorias
         .filter(c => c.selecionada)
         .map(c => c.id);
@@ -88,18 +100,22 @@ export class CursosPage implements OnInit {
       const categoria = categoriasSelecionadas.length === 0
         || categoriasSelecionadas.includes(curso.categoria.id);
 
-      return busca && custo && categoria;
+      return busca && custo && nivel && categoria;
     });
   }
 
   limparFiltros(): void {
     this.termoBusca = '';
     this.filtroCusto = 'todos';
+    this.filtroNivel = 'todos';
+
     this.categorias.forEach(categoria => {
       categoria.selecionada = false;
     });
+
     this.searchBar.limpar();
     this.custoFilter.limpar();
+    this.nivelFilter.limpar();
     this.cursosExibidos = [...this.cursos];
   }
 }
