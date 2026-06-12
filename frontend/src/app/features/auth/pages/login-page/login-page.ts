@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 
 @Component({
@@ -33,6 +33,7 @@ export class LoginPage {
 
   private readonly authService: AuthService = inject(AuthService);
 
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
 
   realizarLogin() {
@@ -47,11 +48,28 @@ export class LoginPage {
       .login(dados)
       .subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          const returnUrl =
+            this.route.snapshot.queryParamMap.get('returnUrl');
+
+          this.redirecionar(returnUrl);
         },
         error: (err) => {
           console.error(err);
         }
       });
+  }
+
+  private redirecionar(url: string|null): void {
+    if (url?.startsWith('/')) {
+      this.router.navigateByUrl(url);
+      return;
+    }
+
+    if (this.authService.isAdmin()) {
+      this.router.navigate(['/admin']);
+
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }

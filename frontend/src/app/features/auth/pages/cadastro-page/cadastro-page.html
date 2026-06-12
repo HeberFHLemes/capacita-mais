@@ -9,33 +9,47 @@
         </div>
 
         <div class="card-body p-4">
-          <form id="form-login"> <!-- TODO: implementar submit e validação-->
+          <form [formGroup]="cadastroForm" (ngSubmit)="realizarCadastro()">
 
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+              >
               <label for="email">E-mail</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="nome" placeholder="Nome">
+              <input
+                type="text"
+                class="form-control"
+                id="nome"
+                formControlName="nome" />
+
               <label for="nome">Nome</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="senha" placeholder="Senha">
+              <input
+                type="password"
+                class="form-control"
+                id="senha"
+                formControlName="senha" />
               <label for="senha">Senha</label>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="confirmar-senha" placeholder="Confirme sua senha">
+              <input
+                type="password"
+                class="form-control"
+                id="confirmar-senha"
+                formControlName="senhaConfirma" />
               <label for="confirmar-senha">Confirme sua senha</label>
             </div>
 
-            <button
-              id="btn-entrar"
-              type="submit"
-              class="btn btn-primary w-100 my-3"
-            >
+            <button type="submit" class="btn btn-primary w-100 my-3">
               Quero me cadastrar
             </button>
 
