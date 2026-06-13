@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Core;
 
@@ -30,7 +30,7 @@ abstract class Validator
      * @param string $campo
      * @return void
      *
-     * @see Validator::validarCampoNaoVazio Utilizar este método para validar strings em branco
+     * @see Validator::validarCampoNaoVazio
      */
     protected function validarCampoObrigatorio(array $dados, string $campo): void
     {
@@ -80,6 +80,21 @@ abstract class Validator
     {
         if (strlen($dados[$campo] ?? '') < $min) {
             $this->erros[$campo] = "O campo $campo deve ter no mínimo $min caracteres";
+        }
+    }
+
+    protected function validarInteiro(array $dados, string $campo, bool $positivo = true): void
+    {
+        $valor = filter_var($dados[$campo], FILTER_VALIDATE_INT);
+
+        if ($valor === false) {
+            $this->erros[$campo] = "O campo {$campo} deve ser um número inteiro";
+            return;
+        }
+
+        if ($positivo && $valor <= 0) {
+            $this->erros[$campo] =
+                "O campo {$campo} deve ser maior que zero";
         }
     }
 }

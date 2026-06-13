@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Bootstrap;
 
@@ -10,6 +10,7 @@ use App\Carrinhos\CarrinhoController;
 use App\Carrinhos\CarrinhoRepository;
 use App\Carrinhos\CarrinhoService;
 
+use App\Carrinhos\ItemCarrinhoValidator;
 use App\Categorias\CategoriaController;
 use App\Categorias\CategoriaRepository;
 use App\Categorias\CategoriaService;
@@ -99,7 +100,8 @@ class RestControllerFactory
     private function carrinhoController(): CarrinhoController
     {
         return new CarrinhoController(
-            new CarrinhoService(new CarrinhoRepository($this->pdo))
+            new CarrinhoService(new CarrinhoRepository($this->pdo)),
+            new ItemCarrinhoValidator()
         );
     }
 }
