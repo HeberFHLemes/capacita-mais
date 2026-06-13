@@ -13,12 +13,13 @@ use App\Core\HttpMethod;
 use App\Core\RestController;
 use App\Core\Route;
 
-use Exception;
+use App\Cursos\Exceptions\CursoNaoEncontradoException;
 
 class CarrinhoController extends RestController
 {
     public function __construct(
-        private readonly CarrinhoService $carrinhoService
+        private readonly CarrinhoService $carrinhoService,
+        private readonly ItemCarrinhoValidator $itemCarrinhoValidator
     ) {}
 
     public static function routes(): array
@@ -42,7 +43,7 @@ class CarrinhoController extends RestController
     public function inserirItem(): void
     {
         $usuarioId = $this->identificarUsuario();
-        $cursoId = $this->identificarCurso();
+        $cursoId = $this->obterCursoIdDaRequisicao();
 
         try {
             $item = $this->carrinhoService->inserirItem($usuarioId, $cursoId);
@@ -53,6 +54,12 @@ class CarrinhoController extends RestController
                 'Não foi possível adicionar o item ao carrinho',
                 404,
                 ['Item não encontrado']
+            );
+        } catch (CursoNaoEncontradoException $e) {
+            ApiResponse::erro(
+                'Não foi possível adicionar o item ao carrinho',
+                404,
+                ['Curso não encontrado']
             );
         } catch (ItemCarrinhoJaExisteException $e) {
             ApiResponse::erro(
@@ -88,14 +95,20 @@ class CarrinhoController extends RestController
         return $usuario->id;
     }
 
-    private function identificarCurso(): int
+    private function obterCursoIdDaRequisicao(): int
     {
-        try {
-            $dados = $this->obterDadosDaRequisicao();
-            return (int) $dados['curso_id'];
+        $dados = $this->obterDadosDaRequisicao();
 
-        } catch (Exception $e) {
-            ApiResponse::erro('curso_id é obrigatório', 400);
+        $this->itemCarrinhoValidator->validar($dados);
+
+        if ($this->itemCarrinhoValidator->validacaoFalhou()) {
+            ApiResponse::erro(
+                'Dados inválidos',
+                422,
+                $this->itemCarrinhoValidator->getErros()
+            );
         }
+
+        return (int) $dados['curso_id'];
     }
 }

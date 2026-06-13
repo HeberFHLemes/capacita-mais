@@ -2,10 +2,10 @@
 
 namespace App\Carrinhos;
 
-class CarrinhoService
+readonly class CarrinhoService
 {
     public function __construct(
-        private readonly CarrinhoRepository $carrinhoRepository
+        private CarrinhoRepository $carrinhoRepository
     ) {}
 
     public function buscarCarrinho(int $usuarioId): Carrinho

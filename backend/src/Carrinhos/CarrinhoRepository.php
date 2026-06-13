@@ -5,6 +5,7 @@ namespace App\Carrinhos;
 use App\Carrinhos\Exceptions\ItemCarrinhoJaExisteException;
 use App\Carrinhos\Exceptions\ItemCarrinhoNaoEncontradoException;
 
+use App\Cursos\Exceptions\CursoNaoEncontradoException;
 use PDO;
 use PDOException;
 
@@ -116,12 +117,21 @@ readonly class CarrinhoRepository
                 ':cursoId' => $cursoId
             ]);
         } catch (PDOException $e) {
-            // tratar erro de campos UNIQUE.
-            if ($e->errorInfo[1] === 1062) {
+
+            $errorInfo = $e->errorInfo[1] ?? null;
+            if ($errorInfo === 1062) {
+                // Violação de UNIQUE
                 throw new ItemCarrinhoJaExisteException();
+
+            } else if ($errorInfo === 1452) {
+                // Violação de chave estrangeira (usuario_id ou curso_id)
+                // Como o usuario_id vem do JWT (autenticado),
+                // assume-se que o problema esteja no curso.
+                throw new CursoNaoEncontradoException();
             }
             throw $e;
         }
+
         // diferente dos outros repositories da aplicação,
         // por ser chave conjunta não se retorna o lastInsertId aqui
         // (já se conhece os ids para busca).
