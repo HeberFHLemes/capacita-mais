@@ -16,31 +16,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a
-            class="nav-link fw-medium"
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            Início
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link fw-medium"
-          >
-            Meu carrinho
-          </a>
-        </li>
-        <li class="nav-item">
-            <a
-              class="ms-2 nav-link fw-medium btn btn-light shadow-sm bg-white"
-              routerLink="/login"
-            >
-              Entrar <i class="bi bi-person-circle ms-1"></i>
-            </a>
-        </li>
+        @for (item of itensNavbar(); track item.label) {
+          <li class="my-1 ms-2">
+            @if (item.rota) {
+              <a
+                class="btn btn-sm btn-outline-dark shadow-sm w-100"
+                [routerLink]="item.rota"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <i [class]="item.icone"></i> {{ item.label }}
+              </a>
+            } @else if (item.acao) {
+              <button
+                class="btn btn-sm btn-outline-dark shadow-sm w-100"
+                (click)="executarAcao(item.acao)"
+              >
+                <i [class]="item.icone"></i> {{ item.label }}
+              </button>
+            }
+          </li>
+        }
       </ul>
     </div>
   </div>

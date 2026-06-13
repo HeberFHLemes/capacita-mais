@@ -19,6 +19,20 @@ export class AuthService {
     this.iniciarSessao();
   }
 
+  private usuarioSignal =
+    signal<UsuarioAuth | null>(null);
+
+  readonly usuario =
+    this.usuarioSignal.asReadonly();
+
+  readonly isUsuarioAutenticado =
+    computed(() => this.usuario() !== null);
+
+  readonly isAdmin =
+    computed(() =>
+      this.usuario()?.perfil === Perfil.ADMIN
+    );
+
   iniciarSessao(): void {
     const token = this.getToken();
 
@@ -37,20 +51,6 @@ export class AuthService {
     // ...e depois, se busca na API os dados "atualizados" dele, de forma assíncrona.
     this.atualizarDadosDaSessao();
   }
-
-  private usuarioSignal =
-    signal<UsuarioAuth | null>(null);
-
-  readonly usuario =
-    this.usuarioSignal.asReadonly();
-
-  readonly isUsuarioAutenticado =
-    computed(() => this.usuario() !== null);
-
-  readonly isAdmin =
-    computed(() =>
-      this.usuario()?.perfil === Perfil.ADMIN
-    );
 
   login(request: LoginRequest): Observable<void> {
     return this.apiService.autenticar(request)
