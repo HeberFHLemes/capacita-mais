@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Cursos;
 
 use App\Categorias\CategoriaRepository;
 use App\Categorias\CategoriaService;
 use App\Categorias\Exceptions\CategoriaNaoEncontradaException;
-use App\Cursos\Curso;
 
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
 use App\Cursos\Exceptions\SemAlteracoesException;

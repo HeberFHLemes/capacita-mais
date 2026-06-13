@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Bootstrap;
 
@@ -6,6 +6,11 @@ use App\Auth\AuthController;
 use App\Auth\AuthService;
 use App\Auth\JwtService;
 
+use App\Carrinhos\CarrinhoController;
+use App\Carrinhos\CarrinhoRepository;
+use App\Carrinhos\CarrinhoService;
+
+use App\Carrinhos\ItemCarrinhoValidator;
 use App\Categorias\CategoriaController;
 use App\Categorias\CategoriaRepository;
 use App\Categorias\CategoriaService;
@@ -47,9 +52,10 @@ class RestControllerFactory
     private function registrarControllers(): void
     {
         $this->controllerFactories = [
-            CursoController::class => fn() => $this->cursoController(),
-            CategoriaController::class => fn() => $this->categoriaController(),
             AuthController::class => fn() => $this->authController(),
+            CarrinhoController::class => fn() => $this->carrinhoController(),
+            CategoriaController::class => fn() => $this->categoriaController(),
+            CursoController::class => fn() => $this->cursoController()
         ];
     }
 
@@ -83,9 +89,19 @@ class RestControllerFactory
 
     private function authController(): AuthController
     {
-        return new AuthController(new AuthService(
-            new UsuarioService(new UsuarioRepository($this->pdo)),
-            new JwtService()
-        ));
+        return new AuthController(
+            new AuthService(
+                new UsuarioService(new UsuarioRepository($this->pdo)),
+                new JwtService()
+            )
+        );
+    }
+
+    private function carrinhoController(): CarrinhoController
+    {
+        return new CarrinhoController(
+            new CarrinhoService(new CarrinhoRepository($this->pdo)),
+            new ItemCarrinhoValidator()
+        );
     }
 }
