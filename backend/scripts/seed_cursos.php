@@ -29,7 +29,7 @@ $stmt->execute();
 
 if ($stmt->fetch()) {
     echo "Já existem cursos cadastrados.\n";
-    exit;
+    return;
 }
 
 $arquivoJson = __DIR__ . '/data/cursos.json';
@@ -60,4 +60,3 @@ foreach ($cursosDados as $curso) {
 }
 
 echo "Cursos cadastrados com sucesso!\n";
-exit;

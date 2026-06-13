@@ -22,7 +22,7 @@ $stmt->execute([':email' => $email]);
 
 if ($stmt->fetch()) {
     echo "Usuário já existe.\n";
-    exit;
+    return;
 }
 
 $senha = password_hash(Env::get('USUARIO_SENHA'), PASSWORD_DEFAULT);
