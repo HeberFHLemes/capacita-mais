@@ -2,15 +2,12 @@
 
 namespace App;
 
-use App\Auth\JwtMiddleware;
-use App\Auth\JwtService;
-
-use App\Bootstrap\RestControllerFactory;
-
 use App\Core\Router;
 
-final class Application
+final readonly class Application
 {
+    public function __construct(private Router $router) {}
+
     public function run(): void
     {
         $this->configurarHeaders();
@@ -24,12 +21,7 @@ final class Application
 
         $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/') ?: '/';
 
-        $router = new Router(
-            new RestControllerFactory(),
-            new JwtMiddleware(new JwtService())
-        );
-
-        $router->dispatch($method, $uri);
+        $this->router->dispatch($method, $uri);
     }
 
     private function configurarHeaders(): void
@@ -38,11 +30,8 @@ final class Application
         /*
         * Usando o reverse proxy no frontend, seja com a config do Angular,
         * ou com o Nginx no Docker, não precisa configurar o CORS.
-        * 
-        * use App\Core\Env;
-        * 
-        * $frontendUrl = Env::get('FRONTEND_URL');
         *
+        * $frontendUrl = Env::get('FRONTEND_URL');
         * header("Access-Control-Allow-Origin: $frontendUrl");
         */
         header("Access-Control-Allow-Headers: Content-Type, Authorization");
