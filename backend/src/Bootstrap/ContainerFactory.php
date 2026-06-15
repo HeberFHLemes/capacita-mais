@@ -24,7 +24,7 @@ final class ContainerFactory
         $builder = new ContainerBuilder();
 
         $builder->addDefinitions([
-            PDO::class => factory(fn() => Conexao::getInstance())
+            PDO::class => factory(fn() => Conexao::criarPDO())
         ]);
 
         return $builder->build();
