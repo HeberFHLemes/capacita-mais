@@ -1,0 +1,11 @@
+.offcanvas {
+  visibility: hidden;
+  min-height: 60%;
+  max-height: 80%;
+  top: auto !important;
+  bottom: 0;
+}
+
+.offcanvas.show {
+  visibility: visible;
+}
