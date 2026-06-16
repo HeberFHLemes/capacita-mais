@@ -3,6 +3,9 @@
 namespace App\Compras;
 
 use App\Auth\AuthContext;
+use App\Carrinhos\Exceptions\CarrinhoVazioException;
+use App\Compras\Exceptions\CompraNaoRealizadaException;
+use App\Compras\Exceptions\PrecosDiferentesException;
 use App\Core\ApiResponse;
 use App\Core\HttpMethod;
 use App\Core\RestController;
@@ -14,8 +17,7 @@ class CompraController extends RestController
     {
         return [
             new Route(HttpMethod::GET, '/compras', 'buscarCompras', true),
-            new Route(HttpMethod::POST, '/compras', 'realizarCompra', true),
-
+            new Route(HttpMethod::POST, '/compras', 'realizarCompra', true)
         ];
     }
 
@@ -37,9 +39,25 @@ class CompraController extends RestController
         $dados = $this->obterDadosDaRequisicao();
 
         $totalEsperado = $dados['total'];
+        if (!$totalEsperado) {
+            ApiResponse::erro('É necessário informar o valor total a ser pago.', 400);
+        }
 
-        $compra = $this->compraService->realizarCompra($usuarioId, $totalEsperado);
+        try {
+            $compra = $this->compraService->realizarCompra($usuarioId, $totalEsperado);
+            ApiResponse::json($compra);
 
-        ApiResponse::json($compra);
+        } catch (CarrinhoVazioException) {
+            ApiResponse::erro('O carrinho do usuário está vazio.', 404);
+
+        } catch (CompraNaoRealizadaException) {
+            ApiResponse::erro('Não foi possível concluir a compra.');
+
+        } catch (PrecosDiferentesException) {
+            ApiResponse::erro(
+                'Houve uma atualização nos preços dos cursos. Atualize o carrinho e tente novamente.',
+                409
+            );
+        }
     }
 }
