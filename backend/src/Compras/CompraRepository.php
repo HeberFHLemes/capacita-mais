@@ -16,7 +16,6 @@ class CompraRepository
      *
      * @param int $idCompra
      * @return Compra
-     * @throws \DateMalformedStringException
      */
     public function buscarCompraPorId(int $idCompra): Compra
     {
@@ -62,7 +61,15 @@ class CompraRepository
             );
         }
 
-        $dataCompra = new DateTime($dadosCompra["data_compra"]);
+        try {
+            $dataCompra = new DateTime($dadosCompra["data_compra"]);
+
+        } catch (\DateMalformedStringException $e) {
+            throw new \RuntimeException(
+                "Data da compra inválida: compra " . $idCompra,
+                previous: $e
+            );
+        }
 
         return new Compra(
             (int) $dadosCompra['id'],
@@ -70,6 +77,27 @@ class CompraRepository
             $dataCompra,
             $itens
         );
+    }
+
+    /**
+     * Retorna os IDs dos cursos já comprados pelo usuário.
+     *
+     * @param int $usuarioId
+     * @return int[]
+     */
+    public function buscarItensCompradosPeloUsuario(int $usuarioId): array
+    {
+        $sql = "SELECT i.curso_id FROM itens_compra i
+                JOIN compras co ON co.id = i.compra_id
+                WHERE usuario_id = :usuario_id
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            "usuario_id" => $usuarioId
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
