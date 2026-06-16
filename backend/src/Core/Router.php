@@ -72,7 +72,7 @@ class Router
                 // Autorização (rotas privadas/restritas)
                 $this->autorizar($route);
 
-                $controller = $this->restControllerFactory->build(
+                $controller = $this->restControllerFactory->create(
                     $controllerClass
                 );
 
