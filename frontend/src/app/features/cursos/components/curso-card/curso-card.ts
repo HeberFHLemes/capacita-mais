@@ -1,12 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Curso } from '../../models/curso';
 import { NIVEL_LABELS } from '../../models/nivel-labels';
+import {
+  BotaoAdicionarAoCarrinho
+} from '../../../carrinhos/components/botao-adicionar-ao-carrinho/botao-adicionar-ao-carrinho';
 
 @Component({
   selector: 'app-curso-card',
   standalone: true,
   templateUrl: './curso-card.html',
   styleUrl: './curso-card.css',
+  imports: [BotaoAdicionarAoCarrinho]
 })
 export class CursoCard implements OnInit {
 

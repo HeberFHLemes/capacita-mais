@@ -1,0 +1,14 @@
+@if (isUsuarioAutenticado) {
+  <button
+    type="button"
+    class="btn btn-outline-primary w-100"
+    (click)="adicionarAoCarrinho()"
+  >
+    Adicionar ao carrinho <i class="bi bi-cart-plus ms-2"></i>
+  </button>
+} @else {
+  <a routerLink="/login" class="btn btn-outline-primary w-100">
+    Adicionar ao carrinho <i class="bi bi-cart-plus ms-2"></i>
+  </a>
+}
+

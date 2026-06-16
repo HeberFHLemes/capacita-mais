@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../features/auth/services/auth-service';
+import { CarrinhoService } from '../../../features/carrinhos/services/carrinho-service';
 
 interface NavItem {
   label: string;
@@ -28,6 +29,7 @@ enum IconeNavbar {
 export class Navbar {
 
   readonly authService: AuthService = inject(AuthService);
+  readonly carrinhoService: CarrinhoService = inject(CarrinhoService);
   readonly router: Router = inject(Router);
 
   logout(): void {
@@ -44,7 +46,7 @@ export class Navbar {
   }
 
   abrirCarrinho(): void {
-    // TODO: abrir aside do carrinho de compras do usuário
+    this.carrinhoService.abrir();
   }
 
   readonly itensNavbar = computed<NavItem[]>(() => {
