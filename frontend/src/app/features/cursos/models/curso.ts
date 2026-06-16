@@ -9,4 +9,4 @@ export interface Curso {
   preco: number;
   preco_original: number;
   em_destaque: boolean;
-};
+}

@@ -8,7 +8,7 @@ import { CustoFilter } from '../../components/custo-filter/custo-filter';
 import { normalizarString } from '../../../../shared/utils/string-utils';
 import { CategoriaFiltro } from '../../../categorias/models/categoria-filtro';
 import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
-import {NivelFilter} from '../../components/nivel-filter/nivel-filter';
+import { NivelFilter } from '../../components/nivel-filter/nivel-filter';
 
 @Component({
   selector: 'app-cursos-page',
@@ -56,6 +56,7 @@ export class CursosPage implements OnInit {
         this.categorias.push({
           id: categoria.id,
           nome: categoria.nome,
+          quantidadeCursos: categoria.quantidade_cursos,
           selecionada: false
         })
       });
