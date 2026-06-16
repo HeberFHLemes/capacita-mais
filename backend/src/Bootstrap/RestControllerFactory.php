@@ -5,6 +5,7 @@ namespace App\Bootstrap;
 use App\Auth\AuthController;
 use App\Carrinhos\CarrinhoController;
 use App\Categorias\CategoriaController;
+use App\Compras\CompraController;
 use App\Core\RestController;
 use App\Cursos\CursoController;
 
@@ -25,7 +26,8 @@ final readonly class RestControllerFactory
         AuthController::class,
         CarrinhoController::class,
         CategoriaController::class,
-        CursoController::class
+        CursoController::class,
+        CompraController::class
     ];
 
     public function __construct(private ContainerInterface $container) {}
