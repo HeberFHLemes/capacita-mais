@@ -8,6 +8,7 @@ use App\Categorias\CategoriaController;
 use App\Compras\CompraController;
 use App\Core\RestController;
 use App\Cursos\CursoController;
+use App\Matriculas\MatriculaController;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -27,7 +28,8 @@ final readonly class RestControllerFactory
         CarrinhoController::class,
         CategoriaController::class,
         CursoController::class,
-        CompraController::class
+        CompraController::class,
+        MatriculaController::class
     ];
 
     public function __construct(private ContainerInterface $container) {}
