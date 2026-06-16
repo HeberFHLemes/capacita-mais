@@ -150,4 +150,20 @@ class CarrinhoRepository
 
         return $stmt->rowCount() > 0;
     }
+
+    /**
+     * Remove todos os registros da tabela itens_carrinho de um usuário específico
+     *
+     * @param int $usuarioId
+     * @return void
+     */
+    public function limparCarrinho(int $usuarioId): void
+    {
+        $sql = "DELETE FROM itens_carrinho WHERE usuario_id = :usuario_id";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute([
+            ':usuario_id' => $usuarioId
+        ]);
+    }
 }
