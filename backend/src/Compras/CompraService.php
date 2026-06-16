@@ -6,6 +6,7 @@ use App\Carrinhos\CarrinhoRepository;
 use App\Carrinhos\ItemCarrinho;
 use App\Carrinhos\Exceptions\CarrinhoVazioException;
 use App\Compras\Exceptions\CompraNaoRealizadaException;
+use App\Compras\Exceptions\PrecosDiferentesException;
 use App\Database\TransactionManager;
 
 use Throwable;
@@ -18,18 +19,13 @@ readonly class CompraService
         private TransactionManager $transactionManager
     ) {}
 
-    public function buscarCompraPorId(int $compraId): Compra
-    {
-        return $this->compraRepository->buscarCompraPorId($compraId);
-    }
-
     /**
      * @param int $usuarioId
      * @return Compra[]
      */
     public function buscarComprasPorUsuarioId(int $usuarioId): array
     {
-        return $this->buscarComprasPorUsuarioId($usuarioId);
+        return $this->compraRepository->buscarComprasPorUsuarioId($usuarioId);
     }
 
     /**
@@ -60,7 +56,7 @@ readonly class CompraService
 
         // uso das duas casas decimais apenas
         if ((round($totalEsperado, 2) !== round($total, 2))) {
-            throw new CompraNaoRealizadaException(
+            throw new PrecosDiferentesException(
                 'Os preços dos cursos foram alterados. Atualize o carrinho e tente novamente'
             );
         }
