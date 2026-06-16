@@ -4,7 +4,7 @@ namespace App\Categorias;
 
 use App\Utils\Normalizador;
 
-class CategoriaService 
+readonly class CategoriaService
 {
     public function __construct(
         private CategoriaRepository $categoriaRepository

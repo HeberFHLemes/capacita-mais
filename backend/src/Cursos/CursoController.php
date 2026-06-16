@@ -15,54 +15,39 @@ use App\Cursos\Exceptions\SemAlteracoesException;
 
 use App\Usuarios\Perfil;
 
-use Exception;
 use Override;
 
 class CursoController extends RestController
 {
-    private CursoValidator $cursoValidator;
-
-    public function __construct(private CursoService $cursoService)
-    {
-        $this->cursoValidator = new CursoValidator();
-    }
+    public function __construct(
+        private readonly CursoService $cursoService,
+        private readonly CursoValidator $cursoValidator
+    ) {}
 
     #[Override]
     public static function routes(): array
     {
         return [
-            new Route(HttpMethod::GET, '/api/cursos', 'buscarCursos'),
-            new Route(HttpMethod::GET, '/api/cursos/destaques', 'buscarCursosEmDestaque'),
-            new Route(HttpMethod::POST, '/api/cursos', 'cadastrarCurso', true, Perfil::ADMIN),
-            new Route(HttpMethod::PUT, '/api/cursos/{cursoId:\d+}', 'editarCurso', true, Perfil::ADMIN),
-            new Route(HttpMethod::DELETE, '/api/cursos/{cursoId:\d+}', 'removerCurso', true, Perfil::ADMIN)
+            new Route(HttpMethod::GET, '/cursos', 'buscarCursos'),
+            new Route(HttpMethod::GET, '/cursos/destaques', 'buscarCursosEmDestaque'),
+            new Route(HttpMethod::POST, '/cursos', 'cadastrarCurso', true, Perfil::ADMIN),
+            new Route(HttpMethod::PUT, '/cursos/{cursoId:\d+}', 'editarCurso', true, Perfil::ADMIN),
+            new Route(HttpMethod::DELETE, '/cursos/{cursoId:\d+}', 'removerCurso', true, Perfil::ADMIN)
         ];
     }
 
     // GET
     public function buscarCursos(): void
     {
-        try {
-            $cursos = $this->cursoService->listarCursos();
-
-            ApiResponse::json($cursos);
-
-        } catch (Exception $e) {
-            ApiResponse::erro('Erro ao buscar cursos');
-        }
+        $cursos = $this->cursoService->listarCursos();
+        ApiResponse::json($cursos);
     }
 
     // GET /destaques
     public function buscarCursosEmDestaque(): void
     {
-        try {
-            $cursos = $this->cursoService->listarCursosEmDestaque();
-
-            ApiResponse::json($cursos);
-
-        } catch (Exception $e) {
-            ApiResponse::erro('Erro ao buscar cursos em destaque');
-        }
+        $cursos = $this->cursoService->listarCursosEmDestaque();
+        ApiResponse::json($cursos);
     }
 
     // POST
@@ -151,9 +136,6 @@ class CursoController extends RestController
         } catch (CursoDuplicadoException $e) {
             ApiResponse::erro("Curso já cadastrado", 409);
 
-        } catch (Exception $e) {
-            error_log($e);
-            ApiResponse::erro("Erro interno");
         }
     }
 
@@ -165,19 +147,14 @@ class CursoController extends RestController
         if (!is_int($cursoId)) {
             ApiResponse::erro('ID inválido', 400);
         }
-        
-        try {
-            $removido = $this->cursoService->remover($cursoId);
 
-            if ($removido) {
-                http_response_code(204);
-                exit;
-            }
+        $removido = $this->cursoService->remover($cursoId);
 
-            ApiResponse::erro('Curso não encontrado', 404);
-
-        } catch (Exception $e) {
-            ApiResponse::erro('Erro interno');
+        if ($removido) {
+            http_response_code(204);
+            exit;
         }
+
+        ApiResponse::erro('Curso não encontrado', 404);
     }
 }

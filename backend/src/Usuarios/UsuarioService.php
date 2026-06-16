@@ -5,7 +5,7 @@ namespace App\Usuarios;
 use App\Usuarios\Exceptions\EmailJaCadastradoException;
 use RuntimeException;
 
-class UsuarioService
+readonly class UsuarioService
 {
     public function __construct(
         private UsuarioRepository $usuarioRepository

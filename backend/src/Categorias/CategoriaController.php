@@ -9,36 +9,29 @@ use App\Core\Route;
 
 use App\Usuarios\Perfil;
 
-use Exception;
 use Override;
 
 class CategoriaController extends RestController
 {
     public function __construct(
-        private CategoriaService $categoriaService
+        private readonly CategoriaService $categoriaService
     ) {}
 
     #[Override]
     public static function routes(): array
     {
         return [
-            new Route(HttpMethod::GET, '/api/categorias', 'buscarCategorias'),
-            new Route(HttpMethod::POST, '/api/categorias', 'cadastrarCategoria', true, Perfil::ADMIN),
-            new Route(HttpMethod::PUT, '/api/categorias/{categoriaId:\d+}', 'editarCategoria', true, Perfil::ADMIN),
-            new Route(HttpMethod::DELETE, '/api/categorias/{categoriaId:\d+}', 'removerCategoria', true, Perfil::ADMIN)
+            new Route(HttpMethod::GET, '/categorias', 'buscarCategorias'),
+            new Route(HttpMethod::POST, '/categorias', 'cadastrarCategoria', true, Perfil::ADMIN),
+            new Route(HttpMethod::PUT, '/categorias/{categoriaId:\d+}', 'editarCategoria', true, Perfil::ADMIN),
+            new Route(HttpMethod::DELETE, '/categorias/{categoriaId:\d+}', 'removerCategoria', true, Perfil::ADMIN)
         ];
     }
 
     public function buscarCategorias(): void
     {
-        try {
-            $categorias = $this->categoriaService->buscarTodas();
-
-            ApiResponse::json($categorias);
-
-        } catch (Exception $e) {
-            ApiResponse::erro('Erro ao buscar categorias');
-        }
+        $categorias = $this->categoriaService->buscarTodas();
+        ApiResponse::json($categorias);
     }
 
     public function cadastrarCategoria(): void

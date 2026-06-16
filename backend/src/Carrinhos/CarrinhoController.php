@@ -25,9 +25,9 @@ class CarrinhoController extends RestController
     public static function routes(): array
     {
         return [
-            new Route(HttpMethod::GET, '/api/carrinho', 'buscarCarrinho', true),
-            new Route(HttpMethod::POST, '/api/carrinho/itens', 'inserirItem', true),
-            new Route(HttpMethod::DELETE, '/api/carrinho/itens/{cursoId:\d+}', 'removerItem', true)
+            new Route(HttpMethod::GET, '/carrinho', 'buscarCarrinho', true),
+            new Route(HttpMethod::POST, '/carrinho/itens', 'inserirItem', true),
+            new Route(HttpMethod::DELETE, '/carrinho/itens/{cursoId:\d+}', 'removerItem', true)
         ];
     }
 

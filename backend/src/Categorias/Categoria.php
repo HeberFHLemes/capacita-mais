@@ -5,12 +5,12 @@ namespace App\Categorias;
 use JsonSerializable;
 use Override;
 
-class Categoria implements JsonSerializable
+readonly class Categoria implements JsonSerializable
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $nome, 
-        public readonly string $nomeNormalizado
+        public int $id,
+        public string $nome,
+        public string $nomeNormalizado
     ) {}
 
     #[Override]
