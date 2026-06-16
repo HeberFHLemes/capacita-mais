@@ -12,7 +12,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Database\Conexao;
 use App\Core\Env;
 
-$pdo = Conexao::getInstance();
+$pdo = Conexao::criarPDO();
 
 $email = Env::get('USUARIO_EMAIL');
 

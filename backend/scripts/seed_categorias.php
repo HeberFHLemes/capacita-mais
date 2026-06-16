@@ -2,13 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Categorias\CategoriaRepository;
-use App\Database\Conexao;
+use App\Bootstrap\ContainerFactory;
 use App\Categorias\CategoriaService;
-
-$categoriaService = new CategoriaService(
-    new CategoriaRepository(Conexao::getInstance())
-);
 
 $arquivoJson = __DIR__ . '/data/categorias.json';
 $json = file_get_contents($arquivoJson);
@@ -23,8 +18,15 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     die("Erro no JSON: " . json_last_error_msg() . "\n");
 }
 
-foreach ($categorias as $nomeCategoria) {
-    $categoriaService->criar($nomeCategoria);
+try {
+    $container = ContainerFactory::create();
+    $categoriaService = $container->get(CategoriaService::class);
+
+    foreach ($categorias as $nomeCategoria) {
+        $categoriaService->criar($nomeCategoria);
+    }
+} catch (Throwable $e) {
+    die($e->getMessage());
 }
 
 echo "Categorias cadastradas com sucesso!\n";
