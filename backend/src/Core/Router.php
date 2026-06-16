@@ -26,23 +26,19 @@ class Router
 
     private function registrarRotas(): void
     {
-        $controllers = $this->restControllerFactory->controllers();
-
-        $this->dispatcher = simpleDispatcher(
-            function(RouteCollector $r) use ($controllers) {
-                foreach ($controllers as $controller)
-                {
-                    foreach ($controller::routes() as $route)
-                    {
-                        $r->addRoute(
+        $this->dispatcher = simpleDispatcher(function(RouteCollector $r) {
+            $r->addGroup('/api', function (RouteCollector $api) {
+                foreach ($this->restControllerFactory->controllers() as $controller) {
+                    foreach ($controller::routes() as $route) {
+                        $api->addRoute(
                             $route->httpMethod->value,
                             $route->uri,
                             [$controller, $route]
                         );
                     }
                 }
-            }
-        );
+            });
+        });
     }
 
     public function dispatch(string $method, string $uri): void

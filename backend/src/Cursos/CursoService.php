@@ -9,10 +9,10 @@ use App\Categorias\Exceptions\CategoriaNaoEncontradaException;
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
 use App\Cursos\Exceptions\SemAlteracoesException;
 
-class CursoService 
+readonly class CursoService
 {
     public function __construct(
-        private CursoRepository $cursoRepository,
+        private CursoRepository  $cursoRepository,
         private CategoriaService $categoriaService
     ) {}
 

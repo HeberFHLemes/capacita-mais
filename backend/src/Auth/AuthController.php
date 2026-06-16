@@ -22,9 +22,9 @@ class AuthController extends RestController
     public static function routes(): array
     {
         return [
-            new Route(HttpMethod::POST, '/api/auth/login', 'autenticar'),
-            new Route(HttpMethod::POST, '/api/auth/cadastro', 'cadastrarUsuario'),
-            new Route(HttpMethod::GET, '/api/auth/me', 'buscarUsuarioAutenticado', true)
+            new Route(HttpMethod::POST, '/auth/login', 'autenticar'),
+            new Route(HttpMethod::POST, '/auth/cadastro', 'cadastrarUsuario'),
+            new Route(HttpMethod::GET, '/auth/me', 'buscarUsuarioAutenticado', true)
         ];
     }
 

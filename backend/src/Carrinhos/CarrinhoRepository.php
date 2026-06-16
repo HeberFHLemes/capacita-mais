@@ -6,10 +6,11 @@ use App\Carrinhos\Exceptions\ItemCarrinhoJaExisteException;
 use App\Carrinhos\Exceptions\ItemCarrinhoNaoEncontradoException;
 
 use App\Cursos\Exceptions\CursoNaoEncontradoException;
+
 use PDO;
 use PDOException;
 
-readonly class CarrinhoRepository
+class CarrinhoRepository
 {
     public function __construct(private PDO $conexao) {}
 
