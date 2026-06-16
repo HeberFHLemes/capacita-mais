@@ -3,105 +3,64 @@
 namespace App\Bootstrap;
 
 use App\Auth\AuthController;
-use App\Auth\AuthService;
-use App\Auth\JwtService;
-
 use App\Carrinhos\CarrinhoController;
-use App\Carrinhos\CarrinhoRepository;
-use App\Carrinhos\CarrinhoService;
-
-use App\Carrinhos\ItemCarrinhoValidator;
 use App\Categorias\CategoriaController;
-use App\Categorias\CategoriaRepository;
-use App\Categorias\CategoriaService;
-
 use App\Core\RestController;
-
 use App\Cursos\CursoController;
-use App\Cursos\CursoService;
 
-use App\Database\Conexao;
-
-use App\Usuarios\UsuarioRepository;
-use App\Usuarios\UsuarioService;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 use InvalidArgumentException;
-use PDO;
+use RuntimeException;
 
 /**
- * Abstrai a instanciação dos controllers, utilizando métodos privados
- * que se assemelham ao princípio da Injeção de Dependências.
+ * Abstrai a instanciação dos controllers, utilizando
+ * o container de injeção de dependências (do PHP-DI) internamente.
  */
-class RestControllerFactory
+final readonly class RestControllerFactory
 {
-    private PDO $pdo;
+    private const array CONTROLLERS = [
+        AuthController::class,
+        CarrinhoController::class,
+        CategoriaController::class,
+        CursoController::class
+    ];
 
-    private array $controllerFactories;
-
-    public function __construct() {
-        $this->pdo = Conexao::getInstance();
-
-        $this->registrarControllers();
-    }
+    public function __construct(private ContainerInterface $container) {}
 
     /**
-     * Registra o conjunto de controllers existentes
-     * em um array associativo, com a chave sendo o class do controller,
-     * e o valor sendo a função responsável por o instanciar.
+     * Cria ou obtém um objeto de uma classe que
+     * implementa a classe abstrata {@link RestController},
+     * se ela existe e já está registrada internamente.
+     *
+     * @param class-string<RestController> $classe
+     * @return RestController o controller requisitado
      */
-    private function registrarControllers(): void
+    public function create(string $classe): RestController
     {
-        $this->controllerFactories = [
-            AuthController::class => fn() => $this->authController(),
-            CarrinhoController::class => fn() => $this->carrinhoController(),
-            CategoriaController::class => fn() => $this->categoriaController(),
-            CursoController::class => fn() => $this->cursoController()
-        ];
-    }
+        if (!in_array($classe, self::CONTROLLERS, true)) {
+            throw new InvalidArgumentException(
+                "Controller não registrado: $classe"
+            );
+        }
 
-    public function build(string $classe): RestController
-    {
-        $factory = $this->controllerFactories[$classe] ??
-            throw new InvalidArgumentException("Controller não registrado: {$classe}");
+        try {
+            return $this->container->get($classe);
 
-        return $factory();
+        } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
+            // Mapeia para RuntimeException para não ter de conhecer
+            // as exceções do PHP-DI onde não se deveria conhecê-las.
+            throw new RuntimeException("Erro ao obter o controller", previous: $e);
+        }
     }
 
     /**
-     * Retorna um array contendo o class de todos os controllers registrados.
+     * @return class-string<RestController>[]
      */
     public function controllers(): array
     {
-        return array_keys($this->controllerFactories);
-    }
-
-    private function cursoController(): CursoController
-    {
-        return new CursoController(CursoService::with($this->pdo));
-    }
-
-    private function categoriaController(): CategoriaController
-    {
-        return new CategoriaController(
-            new CategoriaService(new CategoriaRepository($this->pdo))
-        );
-    }
-
-    private function authController(): AuthController
-    {
-        return new AuthController(
-            new AuthService(
-                new UsuarioService(new UsuarioRepository($this->pdo)),
-                new JwtService()
-            )
-        );
-    }
-
-    private function carrinhoController(): CarrinhoController
-    {
-        return new CarrinhoController(
-            new CarrinhoService(new CarrinhoRepository($this->pdo)),
-            new ItemCarrinhoValidator()
-        );
+        return self::CONTROLLERS;
     }
 }

@@ -3,10 +3,13 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\Application;
+use App\Bootstrap\ContainerFactory;
 use App\Core\ApiResponse;
 
 try {
-    $app = new Application();
+    $container = ContainerFactory::create();
+
+    $app = $container->get(Application::class);
     $app->run();
 
 } catch (Throwable $e) { // para não retornar stacktrace
