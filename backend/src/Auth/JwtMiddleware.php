@@ -35,14 +35,10 @@ class JwtMiddleware
 
     private function extrairToken(): string
     {
-        $header = null;
-
-        if (isset($_SERVER['Authorization'])) {
-            $header = $_SERVER['Authorization'];
-
-        } else if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
-            $header = $_SERVER['HTTP_AUTHORIZATION'];
-        }
+        $header = $_SERVER['Authorization']
+           ?? $_SERVER['HTTP_AUTHORIZATION']
+           ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION']
+           ?? null;
 
         if (empty($header)) {
             throw new UsuarioNaoAutenticadoException();
