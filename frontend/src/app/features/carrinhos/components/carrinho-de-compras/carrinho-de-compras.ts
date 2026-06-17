@@ -4,6 +4,7 @@ import { Carrinho } from '../../models/carrinho';
 import { CarrinhoApiService } from '../../services/carrinho-api-service';
 import { CurrencyPipe } from '@angular/common';
 import { Alerta } from '../../../../shared/components/alerta/alerta';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-carrinho-de-compras',
@@ -76,9 +77,21 @@ export class CarrinhoDeCompras implements OnInit {
           this.tipoMensagem = 'success';
           this.mensagem = 'Compra realizada com sucesso!';
         },
-        error: () => {
+        error: (erro: HttpErrorResponse) => {
+
+          switch (erro.status) {
+            case 409:
+              this.mensagem = 'Alguns cursos já foram adquiridos.';
+              break;
+
+            case 422:
+              this.mensagem = 'Dados inválidos';
+              break;
+
+            default:
+              this.mensagem = 'Não foi possível concluir a compra.';
+          }
           this.tipoMensagem = 'danger';
-          this.mensagem = 'Não foi possível concluir a compra.';
         }
       });
   }
