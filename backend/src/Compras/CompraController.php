@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Compras;
 
 use App\Auth\AuthContext;
 use App\Carrinhos\Exceptions\CarrinhoVazioException;
-use App\Compras\Exceptions\CompraNaoRealizadaException;
+use App\Compras\Exceptions\CursoJaCompradoException;
 use App\Compras\Exceptions\PrecosDiferentesException;
 use App\Core\ApiResponse;
 use App\Core\HttpMethod;
@@ -38,20 +38,28 @@ class CompraController extends RestController
 
         $dados = $this->obterDadosDaRequisicao();
 
-        $totalEsperado = $dados['total'];
-        if (!$totalEsperado) {
-            ApiResponse::erro('É necessário informar o valor total a ser pago.', 400);
+        // Recebe o total "conhecido" do front-end, para evitar que o usuário pague um
+        // valor diferente daquilo que ele está sendo informado.
+        $totalEsperado = $dados['total'] ?? null;
+
+        if (!is_numeric($totalEsperado)) {
+            ApiResponse::erro(
+                'É necessário informar um valor total válido.',
+                400
+            );
         }
+
+        $totalEsperado = (float) $totalEsperado;
 
         try {
             $compra = $this->compraService->realizarCompra($usuarioId, $totalEsperado);
             ApiResponse::json($compra);
 
         } catch (CarrinhoVazioException) {
-            ApiResponse::erro('O carrinho do usuário está vazio.', 404);
+            ApiResponse::erro('O carrinho do usuário está vazio.', 422);
 
-        } catch (CompraNaoRealizadaException) {
-            ApiResponse::erro('Não foi possível concluir a compra.');
+        } catch (CursoJaCompradoException) {
+            ApiResponse::erro('Existem cursos no carrinho que já foram adquiridos.', 409);
 
         } catch (PrecosDiferentesException) {
             ApiResponse::erro(

@@ -6,7 +6,6 @@ use App\Auth\AuthContext;
 use App\Auth\Exceptions\UsuarioNaoAutenticadoException;
 
 use App\Carrinhos\Exceptions\ItemCarrinhoJaExisteException;
-use App\Carrinhos\Exceptions\ItemCarrinhoNaoEncontradoException;
 
 use App\Core\ApiResponse;
 use App\Core\HttpMethod;
@@ -49,12 +48,6 @@ class CarrinhoController extends RestController
             $item = $this->carrinhoService->inserirItem($usuarioId, $cursoId);
             ApiResponse::json($item, 201);
 
-        } catch (ItemCarrinhoNaoEncontradoException $e) {
-            ApiResponse::erro(
-                'Não foi possível adicionar o item ao carrinho',
-                404,
-                ['Item não encontrado']
-            );
         } catch (CursoNaoEncontradoException $e) {
             ApiResponse::erro(
                 'Não foi possível adicionar o item ao carrinho',
