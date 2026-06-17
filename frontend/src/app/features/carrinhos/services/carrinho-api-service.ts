@@ -29,8 +29,7 @@ export class CarrinhoApiService {
     )
   }
 
-  // TODO: enviar pedido de compra ao back-end
-  confirmarCompra(carrinho: Carrinho): Observable<void> {
-    return this.httpClient.post<void>(`/api/compras`, carrinho);
+  confirmarCompra(total: number): Observable<void> {
+    return this.httpClient.post<void>(`/api/compras`, { total: total });
   }
 }

@@ -6,6 +6,7 @@ use App\Carrinhos\CarrinhoRepository;
 use App\Carrinhos\ItemCarrinho;
 use App\Carrinhos\Exceptions\CarrinhoVazioException;
 use App\Compras\Exceptions\CompraNaoRealizadaException;
+use App\Compras\Exceptions\CursoJaCompradoException;
 use App\Compras\Exceptions\PrecosDiferentesException;
 use App\Database\TransactionManager;
 
@@ -72,7 +73,7 @@ readonly class CompraService
         $idsDuplicados = array_intersect($idsComprados, $idsCarrinho);
 
         if ($idsDuplicados !== []) {
-            throw new CompraNaoRealizadaException(
+            throw new CursoJaCompradoException(
                 'Existem cursos no carrinho que já foram adquiridos.'
             );
         }
@@ -97,7 +98,10 @@ readonly class CompraService
                 }
             );
         } catch (Throwable $e) {
-            throw new CompraNaoRealizadaException();
+            throw new CompraNaoRealizadaException(
+                'Falha ao realizar a compra',
+                previous: $e
+            );
         }
 
         return $this->compraRepository->buscarCompraPorId($compraId);

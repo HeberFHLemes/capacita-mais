@@ -24,9 +24,10 @@ export class BotaoAdicionarAoCarrinho {
   readonly carrinhoService: CarrinhoService = inject(CarrinhoService);
 
   adicionarAoCarrinho(): void {
-    this.carrinhoApiService.inserirItemNoCarrinho(this.cursoId).subscribe(
-      ()=>{
-        this.carrinhoService.abrir();
+    this.carrinhoApiService.inserirItemNoCarrinho(this.cursoId)
+      .subscribe({
+        next: () => this.carrinhoService.abrir(),
+        error: () => this.carrinhoService.abrir()
       }
     );
   }

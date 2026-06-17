@@ -21,6 +21,10 @@
     </button>
   </div>
   <div class="offcanvas-body">
+
+    <!-- Feedback ao usuário -->
+    <app-alerta [tipo]="tipoMensagem" [texto]="mensagem" />
+
     @if (carrinho.cursos.length === 0) {
       <div class="text-center text-muted mt-4">
         Seu carrinho está vazio.
