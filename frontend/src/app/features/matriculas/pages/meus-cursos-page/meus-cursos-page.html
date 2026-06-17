@@ -1,0 +1,35 @@
+<div class="container mx-auto my-5">
+  <h1>
+    Olá, {{ nomeUsuario }}!
+  </h1>
+
+  <div class="mt-5">
+    <header class="text-center mt-4 pt-4">
+      <h2 class="h1 text-underline">
+        Meus cursos
+      </h2>
+    </header>
+
+    @if (meusCursos.length > 0) {
+        <div id="lista-meus-cursos" class="row align-items-stretch mt-3 pt-3">
+
+          @for (curso of meusCursos; track curso.id) {
+            <div class="col-12 col-md-6 col-lg-4 mb-4">
+              <app-curso-matriculado-card [curso]="curso" />
+            </div>
+          }
+
+          @empty {
+            <p class="alert alert-info">Nenhum curso encontrado.</p>
+          }
+        </div>
+    } @else {
+      <div class="col-12 col-lg-8 col-md-10 col-sm-12 my-4 mx-auto">
+        <p class="alert alert-info">
+          Você ainda não está matriculado em nenhum curso.
+          <a routerLink="/" >Explorar cursos?</a>
+        </p>
+      </div>
+    }
+  </div>
+</div>
