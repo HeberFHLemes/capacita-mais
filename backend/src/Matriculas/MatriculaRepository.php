@@ -2,8 +2,6 @@
 
 namespace App\Matriculas;
 
-use App\Compras\CompraRepository;
-use DateTime;
 use PDO;
 
 class MatriculaRepository
@@ -43,7 +41,7 @@ class MatriculaRepository
 
         foreach ($dados as $dado) {
             try {
-                $dataCompra = new DateTime($dado["data_compra"]);
+                $dataCompra = new \DateTimeImmutable($dado["data_compra"]);
 
             } catch (\DateMalformedStringException $e) {
                 throw new \RuntimeException(

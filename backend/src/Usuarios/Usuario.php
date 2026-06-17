@@ -2,7 +2,7 @@
 
 namespace App\Usuarios;
 
-use DateTime;
+use DateTimeInterface;
 use JsonSerializable;
 use Override;
 
@@ -13,7 +13,7 @@ class Usuario implements JsonSerializable
     private string $email;
     private string $senhaHash;
     private Perfil $perfil;
-    private DateTime $dataCriacao;
+    private DateTimeInterface $dataCriacao;
     
     public function __construct(
         int $id,
@@ -21,7 +21,7 @@ class Usuario implements JsonSerializable
         string $email,
         string $senha,
         Perfil $perfil,
-        DateTime $dataCriacao
+        DateTimeInterface $dataCriacao
     ) {
         $this->id = $id;    
         $this->nome = $nome;
@@ -38,7 +38,7 @@ class Usuario implements JsonSerializable
             'id' => $this->id,
             'nome' => $this->nome,
             'perfil' => $this->perfil->value,
-            'data_criacao' => $this->dataCriacao
+            'data_criacao' => $this->dataCriacao->format(DateTimeInterface::ATOM)
         ];
     }
     
@@ -68,7 +68,7 @@ class Usuario implements JsonSerializable
         return $this->perfil;
     }
     
-    public function getDataCriacao(): DateTime
+    public function getDataCriacao(): DateTimeInterface
     {
         return $this->dataCriacao;
     }

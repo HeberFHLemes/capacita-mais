@@ -1,0 +1,17 @@
+<div class="card h-100 shadow-sm card-hover mx-1">
+  <div class="card-body d-flex flex-column">
+    <h2 class="card-title fw-bold flex-grow-1">
+      {{ curso.nome }}
+    </h2>
+    <p class="card-text ">
+      Comprado em {{ curso.dataCompra | date:"dd/MM/yyyy" }}
+    </p>
+    <button
+      type="button"
+      class="btn btn-dark w-100"
+      disabled
+    >
+      Acessar <i class="bi bi-calendar-week ms-2"></i>
+    </button>
+  </div>
+</div>

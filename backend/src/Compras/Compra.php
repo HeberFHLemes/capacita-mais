@@ -2,7 +2,7 @@
 
 namespace App\Compras;
 
-use DateTime;
+use DateTimeInterface;
 use JsonSerializable;
 use Override;
 
@@ -11,13 +11,13 @@ class Compra implements JsonSerializable
     /**
      * @param int $id
      * @param float $valorTotal
-     * @param DateTime $dataCompra
+     * @param DateTimeInterface $dataCompra
      * @param ItemCompra[] $itens
      */
     public function __construct(
         public int $id,
         public float $valorTotal,
-        public DateTime $dataCompra,
+        public DateTimeInterface $dataCompra,
         public array $itens
     ) {}
 
@@ -27,7 +27,7 @@ class Compra implements JsonSerializable
       return [
           'id' => $this->id,
           'valor_total' => $this->valorTotal,
-          'data_compra' => $this->dataCompra,
+          'data_compra' => $this->dataCompra->format(DateTimeInterface::ATOM),
           'itens' => $this->itens
       ];
     }

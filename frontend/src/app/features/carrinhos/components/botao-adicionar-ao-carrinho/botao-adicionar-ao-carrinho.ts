@@ -2,14 +2,12 @@ import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CarrinhoApiService } from '../../services/carrinho-api-service';
 import { AuthService } from '../../../auth/services/auth-service';
-import {CarrinhoService } from '../../services/carrinho-service';
+import { CarrinhoService } from '../../services/carrinho-service';
 
 @Component({
   selector: 'app-botao-adicionar-ao-carrinho',
   standalone: true,
-  imports: [
-    RouterLink
-  ],
+  imports: [RouterLink],
   templateUrl: './botao-adicionar-ao-carrinho.html',
   styleUrl: './botao-adicionar-ao-carrinho.css',
 })
