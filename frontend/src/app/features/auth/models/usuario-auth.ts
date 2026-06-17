@@ -4,5 +4,4 @@ export interface UsuarioAuth {
   id: number;
   nome: string;
   perfil: Perfil;
-  dataCriacao: string|null;
 }

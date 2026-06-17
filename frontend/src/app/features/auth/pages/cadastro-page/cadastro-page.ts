@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
 import {
   AbstractControl,
   FormControl,

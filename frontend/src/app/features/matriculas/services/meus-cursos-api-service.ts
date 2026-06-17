@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CursoMatriculado } from '../models/curso-matriculado';
 
 interface CursoMatriculadoResponse {
