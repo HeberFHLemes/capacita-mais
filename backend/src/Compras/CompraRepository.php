@@ -4,7 +4,6 @@ namespace App\Compras;
 
 use App\Compras\Exceptions\CompraNaoEncontrada;
 
-use DateTime;
 use PDO;
 
 class CompraRepository
@@ -218,7 +217,7 @@ class CompraRepository
     private function montarCompra(array $dados, array $itensPorCompra): Compra
     {
         try {
-            $dataCompra = new DateTime($dados["data_compra"]);
+            $dataCompra = new \DateTimeImmutable($dados["data_compra"]);
 
         } catch (\DateMalformedStringException $e) {
             throw new \RuntimeException(

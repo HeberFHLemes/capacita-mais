@@ -4,7 +4,6 @@ namespace App\Usuarios;
 
 use App\Usuarios\Exceptions\EmailJaCadastradoException;
 
-use DateTime;
 use PDO;
 use PDOException;
 
@@ -55,14 +54,7 @@ class UsuarioRepository
             return null;
         }
 
-        return new Usuario(
-            $dados['id'],
-            $dados['nome'],
-            $dados['email'],
-            $dados['senha'],
-            Perfil::from($dados['perfil']),
-            new DateTime($dados['data_criacao'])
-        );
+        return $this->montarUsuario($dados);
     }
 
     public function buscarPorEmail(string $email): ?Usuario
@@ -80,14 +72,7 @@ class UsuarioRepository
             return null;
         }
 
-        return new Usuario(
-            $dados['id'],
-            $dados['nome'],
-            $dados['email'],
-            $dados['senha'],
-            Perfil::from($dados['perfil']),
-            new DateTime($dados['data_criacao'])
-        );
+        return $this->montarUsuario($dados);
     }
 
     public function emailExiste(string $email): bool
@@ -100,5 +85,27 @@ class UsuarioRepository
         ]);
 
         return $stmt->fetchColumn() !== false;
+    }
+
+    private function montarUsuario(array $dados): Usuario
+    {
+        try {
+            $dataCriacao = new \DateTimeImmutable($dados["data_criacao"]);
+
+        } catch (\DateMalformedStringException $e) {
+            throw new \RuntimeException(
+                "Erro ao converter data de criação da conta do usuário",
+                previous: $e
+            );
+        }
+
+        return new Usuario(
+            $dados['id'],
+            $dados['nome'],
+            $dados['email'],
+            $dados['senha'],
+            Perfil::from($dados['perfil']),
+            $dataCriacao
+        );
     }
 }

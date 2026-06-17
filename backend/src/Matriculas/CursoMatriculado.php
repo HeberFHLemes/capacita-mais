@@ -2,7 +2,7 @@
 
 namespace App\Matriculas;
 
-use DateTime;
+use DateTimeInterface;
 use JsonSerializable;
 use Override;
 
@@ -11,7 +11,7 @@ readonly class CursoMatriculado implements JsonSerializable
     public function __construct(
         public int $id,
         public string $nome,
-        public DateTime $dataCompra
+        public DateTimeInterface $dataCompra
     ) {}
 
     #[Override]
@@ -20,7 +20,7 @@ readonly class CursoMatriculado implements JsonSerializable
         return [
             'id' => $this->id,
             'nome' => $this->nome,
-            'data_compra' => $this->dataCompra
+            'data_compra' => $this->dataCompra->format(DateTimeInterface::ATOM)
         ];
     }
 }
