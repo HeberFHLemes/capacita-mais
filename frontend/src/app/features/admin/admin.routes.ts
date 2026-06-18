@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { GestaoCursosPage } from './pages/gestao-cursos-page/gestao-cursos-page';
 import { GestaoCategoriasPage } from './pages/gestao-categorias-page/gestao-categorias-page';
+import { CadastroCursoPage } from './pages/cadastro-curso-page/cadastro-curso-page';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -10,9 +11,19 @@ export const ADMIN_ROUTES: Routes = [
   },
   {
     path: 'cursos',
-    component: GestaoCursosPage
-  },{
+    children: [
+      {
+        path: '',
+        component: GestaoCursosPage
+      },
+      {
+        path: 'novo-curso',
+        component: CadastroCursoPage
+      }
+    ]
+  },
+  {
     path: 'categorias',
     component: GestaoCategoriasPage
-  },
+  }
 ];
