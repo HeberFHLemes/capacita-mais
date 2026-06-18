@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { PublicLayout } from './layouts/public-layout/public-layout';
-import { AdminLayout } from './layouts/admin-layout/admin-layout';
+import { AdminLayout } from './features/admin/layouts/admin-layout/admin-layout';
 import { ADMIN_ROUTES } from './features/admin/admin.routes';
 import { HOME_ROUTES } from './features/home/home.routes';
 import { CURSOS_ROUTES } from './features/cursos/cursos.routes';
@@ -20,16 +19,10 @@ export const routes: Routes = [
     ],
     canActivate: [ adminGuard ]
   },
-  {
-    path: '',
-    component: PublicLayout,
-    children: [
-      ...HOME_ROUTES,
-      ...CURSOS_ROUTES,
-      ...MATRICULAS_ROUTES,
-      ...AUTH_ROUTES,
-      { path: 'acesso-negado', component: AcessoNegadoPage },
-      { path: '**', component: NotFoundPage }
-    ]
-  },
+  ...HOME_ROUTES,
+  ...CURSOS_ROUTES,
+  ...MATRICULAS_ROUTES,
+  ...AUTH_ROUTES,
+  { path: 'acesso-negado', component: AcessoNegadoPage },
+  { path: '**', component: NotFoundPage }
 ];
