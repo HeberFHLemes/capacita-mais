@@ -66,11 +66,11 @@ class CursoController extends RestController
             $curso = $this->cursoService->criar(
                 $dados['nome'],
                 $dados['descricao'],
-                $dados['categoria_id'],
+                (int) $dados['categoria_id'],
                 $dados['nivel'],
-                $dados['preco'],
-                $dados['preco_original'],
-                $dados['em_destaque']
+                (float) $dados['preco'],
+                (float) $dados['preco_original'],
+                (bool) $dados['em_destaque']
             );
 
             ApiResponse::json(['criado' => true, 'curso' => $curso], 201);

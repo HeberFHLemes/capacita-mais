@@ -2,59 +2,131 @@
   <div class="row justify-content-center">
     <div class="col-lg-6">
       <div class="card shadow-sm p-4 form-card">
+        <h1 class="h3 mb-4 pb-3 border-bottom ">
+          Novo curso
+        </h1>
 
-        <h1 class="h4 mb-4 text-center">Novo curso</h1>
+        <form id="form-cadastro-curso" [formGroup]="cadastroCursoForm" (ngSubmit)="cadastrarCurso()">
 
-        <form id="form-cadastro-curso">
           <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
-            <input type="text" id="nome" name="nome" class="form-control" required />
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              class="form-control"
+              formControlName="nome"
+              required />
           </div>
 
           <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea id="descricao" name="descricao" class="form-control" rows="3"></textarea>
+            <textarea
+              id="descricao"
+              name="descricao"
+              class="form-control"
+              rows="3"
+              formControlName="descricao"
+            ></textarea>
           </div>
 
           <div class="mb-3">
-            <label for="categoria" class="form-label">Categoria</label>
-            <input type="text" id="categoria" name="categoria" class="form-control" required />
-          </div>
-
-          <div class="mb-3">
-            <label for="plataforma" class="form-label">Plataforma</label>
-            <input type="text" id="plataforma" name="plataforma" class="form-control" required />
-          </div>
-
-          <div class="mb-3">
-            <label for="custo" class="form-label">Custo</label>
-            <select id="custo" name="custo" class="form-select" required>
-              <option value="Gratuito">Gratuito</option>
-              <option value="Pago">Pago</option>
+            <select
+              id="categoria"
+              name="categoria"
+              class="form-select p-2"
+              required
+              formControlName="categoria"
+            >
+              <option value="0" disabled>Selecione a categoria</option>
+              @for (categoria of this.categorias; track categoria.id) {
+                <option [value]="categoria.id">{{ categoria.nome }}</option>
+              }
             </select>
           </div>
 
+          <!-- Filtro de nível (como em nivel-filter) mas na mesma linha -->
+          <fieldset class="mb-3">
+            <legend class="form-label mb-2">Nível</legend>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio"
+                     formControlName="nivel" value="iniciante" id="radio-iniciante" />
+              <label class="form-check-label" for="radio-iniciante">Iniciante</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio"
+                     formControlName="nivel" value="intermediario" id="radio-intermediario" />
+              <label class="form-check-label" for="radio-intermediario">Intermediário</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio"
+                     formControlName="nivel" value="avancado" id="radio-avancado" />
+              <label class="form-check-label" for="radio-avancado">Avançado</label>
+            </div>
+          </fieldset>
+
           <div class="mb-3">
-            <label for="link" class="form-label">Link do Curso</label>
-            <input
-              type="url"
-              id="link"
-              name="link"
-              class="form-control"
-              placeholder="https://..."
-              required
-            />
+            <label for="preco" class="form-label">Preço</label>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">R$</span>
+              <input
+                type="number"
+                class="form-control"
+                aria-label="Preço"
+                formControlName="preco"
+                name="preco"
+              >
+            </div>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100">Cadastrar Curso</button>
+          <div class="mb-3">
+            <label for="preco_original" class="form-label">Preço original</label>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">R$</span>
+              <input
+                type="number"
+                class="form-control"
+                aria-label="Preço original"
+                formControlName="preco_original"
+                name="preco_original"
+              >
+            </div>
+          </div>
+
+          <div class="form-check form-switch mb-3">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="em_destaque"
+              formControlName="em_destaque"
+            >
+            <label class="form-check-label" for="em_destaque">
+              Em destaque
+            </label>
+          </div>
+
+          <!-- feedback pro usuário -->
+          <app-alerta [tipo]="tipoMensagem" [texto]="mensagem" />
+
+          <div class="text-end">
+            <a routerLink="/admin" class="text-decoration-none text-dark me-3">
+              Cancelar
+            </a>
+            <button
+              type="submit"
+              class="btn btn-primary px-4"
+            >
+              Salvar
+            </button>
+          </div>
         </form>
 
         <div id="msg" class="alert alert-success mt-3 d-none" role="alert"></div>
-
-        <p class="text-center mt-4">
-          <a routerLink="/admin" class="text-decoration-none">Voltar</a>
-        </p>
-
       </div>
     </div>
   </div>
