@@ -5,8 +5,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
 import { Categoria } from '../../../categorias/models/categoria';
 import { CursoRequest } from '../../models/curso-request';
-import {Alerta} from '../../../../shared/components/alerta/alerta';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Alerta } from '../../../../shared/components/alerta/alerta';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro-curso-page',
@@ -65,13 +65,21 @@ export class CadastroCursoPage implements OnInit {
 
   cadastrarCurso(): void {
 
-    if (this.cadastroCursoForm.invalid) return;
+    if (this.cadastroCursoForm.invalid) {
+      this.mensagem = 'Existem campos com valores inválidos';
+      this.tipoMensagem = 'warning';
+      return;
+    }
 
     let form = this.cadastroCursoForm.getRawValue();
 
     if (form.preco > form.preco_original) {
+      this.mensagem = 'Preço deve ser menor ou igual ao preço original';
+      this.tipoMensagem = 'warning';
       return;
     }
+
+    this.limparMensagem();
 
     let curso: CursoRequest = {
       nome: form.nome,
@@ -100,7 +108,7 @@ export class CadastroCursoPage implements OnInit {
 
           } else {
             this.tipoMensagem = 'danger';
-            this.mensagem = 'Curso cadastrado com sucesso!';
+            this.mensagem = 'Não foi possível cadastrar o curso.';
 
           }
         }
