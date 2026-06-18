@@ -1,0 +1,24 @@
+<div id="admin-layout-div" class="d-flex">
+  <!-- Sidebar fica fixa no desktop/tela larga -->
+  <div class="d-none d-lg-flex flex-column">
+    <app-admin-sidebar />
+  </div>
+
+  <div class="flex-grow-1 overflow-y-auto">
+    <!-- ...mas mostra botão pra abrir no mobile -->
+    <button
+      class="btn btn-dark d-lg-none m-0 rounded-0"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#admin-sidebar"
+      aria-controls="admin-sidebar"
+    >
+      <i class="bi bi-list"></i>
+    </button>
+
+    <app-admin-sidebar-offcanvas />
+
+    <!-- conteúdo em si -->
+    <router-outlet />
+  </div>
+</div>

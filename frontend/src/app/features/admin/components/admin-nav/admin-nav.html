@@ -1,34 +1,14 @@
-<nav>
-  <div class="d-flex align-items-end mx-4 border-bottom">
-    <ul class="nav nav-underline">
-      <li class="nav-item">
-        <a class="nav-link formulario-link"
-          routerLink="/cadastro"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-plus"></i> Cadastrar
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link formulario-link"
-          routerLink="/edicao"
-          routerLinkActive="active">
-          <i class="bi bi-pencil-square"></i> Editar
-        </a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link formulario-link"
-          routerLink="/remocao"
-          routerLinkActive="active">
-          <i class="bi bi-x"></i> Remover
-        </a>
-      </li>
-    </ul>
-    <div class="ms-auto">
-      <a class="nav-link text-danger fw-semibold mb-2 logout-link"
-        href="/logout">
-        <i class="bi bi-box-arrow-right"></i> Sair
-      </a>
-    </div>
-  </div>
+<nav class="nav flex-column h-100">
+  <a class="nav-link my-2 p-3" routerLink="/admin/cursos" routerLinkActive="active">
+    <i class="bi bi-book me-2"></i>
+    Cursos
+  </a>
+  <a class="nav-link my-2 p-3" routerLink="/admin/categorias" routerLinkActive="active">
+    <i class="bi bi-folder me-2"></i>
+    Categorias
+  </a>
+
+  <a class="nav-link mt-auto p-3 bg-black text-white text-center" routerLink="/">
+    Voltar à página inicial
+  </a>
 </nav>

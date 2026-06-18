@@ -1,0 +1,33 @@
+<div class="p-4 mx-lg-4 my-lg-5" id="gestao-cursos-page-div">
+
+  <div class="d-flex justify-content-between align-items-center mb-1">
+    <h1 class="mb-0">
+      Cursos
+    </h1>
+
+    <button
+      class="btn btn-primary btn-sm"
+      routerLink="/admin/cursos/novo-curso"
+    >
+      <i class="bi bi-plus me-2"></i>
+      Novo curso
+    </button>
+  </div>
+
+  <p class="text-muted mb-4 fs-6">
+    Gerencie os cursos disponíveis na plataforma
+  </p>
+
+  <!-- TODO: search bar admin -->
+
+  <div class="row align-items-stretch g-3">
+    @for (curso of cursos; track curso.id) {
+      <div class="col-12 col-md-6 col-xl-4">
+        <app-gestao-curso-card
+          [curso]="curso"
+          (remover$)="onRemoverCurso($event)"
+        />
+      </div>
+    }
+  </div>
+</div>

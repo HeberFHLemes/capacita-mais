@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AdminCursosApiService } from './crud-cursos-service';
+import { AdminCursosApiService } from './admin-cursos-api-service';
 
-describe('CrudCursosService', () => {
+describe('AdminCursosApiService', () => {
   let service: AdminCursosApiService;
 
   beforeEach(() => {

@@ -12,9 +12,9 @@ export class AdminCursosApiService {
 
   private readonly httpClient: HttpClient = inject(HttpClient);
 
-  /*
-   * TODO: Revisar tipos.
-   */
+  buscarCursos(): Observable<Curso[]> {
+    return this.httpClient.get<Curso[]>(`${this.apiBaseUrl}`);
+  }
 
   cadastrarCurso(curso: Curso): Observable<any> {
     return this.httpClient.post<any>(this.apiBaseUrl, curso);

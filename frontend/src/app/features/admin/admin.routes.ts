@@ -1,22 +1,34 @@
 import { Routes } from '@angular/router';
+import { GestaoCursosPage } from './pages/gestao-cursos-page/gestao-cursos-page';
+import { GestaoCategoriasPage } from './pages/gestao-categorias-page/gestao-categorias-page';
 import { CadastroCursoPage } from './pages/cadastro-curso-page/cadastro-curso-page';
+import { EditarCursoPage } from './pages/editar-curso-page/editar-curso-page';
 
 export const ADMIN_ROUTES: Routes = [
-  /* TODO:
-   * 1 - Layout inicial da área adminstrativa
-   * 2 - Página de gestão de cursos
-   * 3 - Página de gestão de categorias
-   * 4 - Formulários de cadastro e de edição para cursos e para categorias
-   * 5 - Aside/nav para navegar entre as seções de categorias e cursos
-   *
-   * Por enquanto usando esta página CadastroCursoPage para testar guards.
-   */
   {
     path: '',
-    component: CadastroCursoPage,
+    redirectTo: 'cursos',
+    pathMatch: 'full'
   },
   {
-    path: 'cadastro',
-    component: CadastroCursoPage
+    path: 'cursos',
+    children: [
+      {
+        path: '',
+        component: GestaoCursosPage
+      },
+      {
+        path: 'novo-curso',
+        component: CadastroCursoPage
+      },
+      {
+        path: 'editar',
+        component: EditarCursoPage
+      }
+    ]
   },
+  {
+    path: 'categorias',
+    component: GestaoCategoriasPage
+  }
 ];

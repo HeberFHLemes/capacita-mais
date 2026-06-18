@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminNav } from './admin-nav';
+import { GestaoCursoCard } from './gestao-curso-card';
 
-describe('AdminNav', () => {
-  let component: AdminNav;
-  let fixture: ComponentFixture<AdminNav>;
+describe('GestaoCursoCard', () => {
+  let component: GestaoCursoCard;
+  let fixture: ComponentFixture<GestaoCursoCard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminNav]
+      imports: [GestaoCursoCard]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminNav);
+    fixture = TestBed.createComponent(GestaoCursoCard);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

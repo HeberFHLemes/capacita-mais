@@ -1,0 +1,13 @@
+aside {
+  width: 280px;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.admin-sidebar-desktop {
+  background-color: black;
+  color: white;
+  min-height: 4vh;
+  width: 100%;
+}
+

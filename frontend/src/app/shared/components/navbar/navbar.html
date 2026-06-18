@@ -23,7 +23,7 @@
                 class="btn btn-sm btn-outline-dark shadow-sm w-100"
                 [routerLink]="item.rota"
                 routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
+                [routerLinkActiveOptions]="{ exact: item.exact ?? true }"
               >
                 <i [class]="item.icone"></i> {{ item.label }}
               </a>
