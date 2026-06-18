@@ -1,7 +1,6 @@
-/* Constrói sem alongar demais que faça ter que rolar a tela */
 aside {
   width: 280px;
-  height: calc(100vh - 60px);
+  height: 100dvh;
   overflow: hidden;
 }
 
