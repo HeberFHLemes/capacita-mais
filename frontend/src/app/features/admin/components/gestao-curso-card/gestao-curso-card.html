@@ -5,7 +5,7 @@
     </h2>
     <div class="mb-2 d-flex gap-2 flex-wrap">
       <span class="badge bg-primary">{{ curso.categoria.nome }}</span>
-      <span class="badge bg-secondary">{{ nivelLabel(curso.nivel) }}</span>
+      <span class="badge bg-secondary">{{ nivelCurso }}</span>
       <span class="badge bg-success">
       @if (emPromocao) {
         <s>R$ {{ curso.preco_original }}</s> &nbsp; R$ {{ curso.preco }}
@@ -17,6 +17,22 @@
     <p class="card-text text-secondary flex-grow-1 card-curso-descricao">
       {{ curso.descricao ?? '' }}
     </p>
-    <app-botao-adicionar-ao-carrinho [cursoId]="curso.id" />
+    <div class="row justify-content-between mx-auto w-100">
+      <button
+        class="btn btn-outline-dark col-5"
+        [routerLink]="['/admin/cursos', curso.id, 'editar']"
+      >
+        <i class="bi bi-pencil me-2"></i>
+        Editar
+      </button>
+
+      <button
+        class="btn btn-outline-danger col-5"
+        (click)="remover()"
+      >
+        <i class="bi bi-trash me-2"></i>
+        Remover
+      </button>
+    </div>
   </div>
 </div>

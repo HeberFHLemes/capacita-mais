@@ -1,9 +1,7 @@
-<div class="container m-5">
-
-  <div id="gestao-cursos-header" class="row justify-content-between">
+<div class="container ms-0">
+  <div id="gestao-cursos-header" class="row justify-content-between mt-4 ms-2">
     <div id="gestao-cursos-title" class="col-6">
       <h1>Cursos</h1>
-      <p>Gerencie os cursos disponíveis na plataforma</p>
     </div>
 
     <div class="col-5 text-end">
@@ -17,6 +15,24 @@
       </button>
     </div>
     <div class="col-1"></div>
+
+    <p id="gestao-cursos-descricao" class="p-1 ms-2">
+      Gerencie os cursos disponíveis na plataforma
+    </p>
   </div>
 
+  <!-- TODO: search bar admin -->
+
+  <div class="container">
+    <div id="catalogo-gestao-cursos" class="row align-items-stretch">
+      @for (curso of this.cursos; track curso.id) {
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+         <app-gestao-curso-card
+           [curso]="curso"
+           (remover$)="onRemoverCurso($event)"
+         />
+        </div>
+      }
+    </div>
+  </div>
 </div>

@@ -55,3 +55,28 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
+
+.card-curso .card-title {
+  font-size: 1.2rem;
+}
+
+.card-curso .card-body {
+  padding: 1.25rem;
+}
+
+.card-curso-descricao {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.card-curso .badge {
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 0.5em 0.8em;
+}
+
