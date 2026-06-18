@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CursosApiService } from '../../../cursos/services/cursos-api-service';
 import { Curso } from '../../../cursos/models/curso';
 import { GestaoCursoCard } from '../../components/gestao-curso-card/gestao-curso-card';
+import { AdminCursosApiService } from '../../services/admin-cursos-api-service';
 
 @Component({
   selector: 'app-gestao-cursos-page',
@@ -12,7 +12,7 @@ import { GestaoCursoCard } from '../../components/gestao-curso-card/gestao-curso
 })
 export class GestaoCursosPage implements OnInit {
 
-  private readonly cursoApiService: CursosApiService = inject(CursosApiService);
+  private readonly apiService: AdminCursosApiService = inject(AdminCursosApiService);
 
   cursos: Curso[] = [];
 
@@ -21,11 +21,19 @@ export class GestaoCursosPage implements OnInit {
   }
 
   carregarCursos() {
-    this.cursoApiService.buscarCursos()
+    this.apiService.buscarCursos()
       .subscribe((resposta) => this.cursos = resposta);
   }
 
-  onRemoverCurso(curso: Curso): void {
-    // TODO
+  onRemoverCurso(cursoRemovido: Curso): void {
+    this.apiService.removerCurso(cursoRemovido.id)
+      .subscribe({
+        next: () => {
+          this.cursos = this.cursos.filter(
+            curso => curso.id !== cursoRemovido.id
+          );
+        },
+        error: err => {} // TODO: feedback de erro
+      });
   }
 }

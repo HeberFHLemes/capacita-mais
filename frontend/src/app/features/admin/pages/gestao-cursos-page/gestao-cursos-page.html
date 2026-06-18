@@ -1,38 +1,33 @@
-<div class="container ms-0">
-  <div id="gestao-cursos-header" class="row justify-content-between mt-4 ms-2">
-    <div id="gestao-cursos-title" class="col-6">
-      <h1>Cursos</h1>
-    </div>
+<div class="p-4 mx-lg-4 my-lg-5" id="gestao-cursos-page-div">
 
-    <div class="col-5 text-end">
-      <button
-        class="btn btn-primary"
-        id="btn-novo-curso"
-        routerLink="/admin/cursos/novo-curso"
-      >
-        <i class="bi bi-plus me-2"></i>
-        Novo curso
-      </button>
-    </div>
-    <div class="col-1"></div>
+  <div class="d-flex justify-content-between align-items-center mb-1">
+    <h1 class="mb-0">
+      Cursos
+    </h1>
 
-    <p id="gestao-cursos-descricao" class="p-1 ms-2">
-      Gerencie os cursos disponíveis na plataforma
-    </p>
+    <button
+      class="btn btn-primary btn-sm"
+      routerLink="/admin/cursos/novo-curso"
+    >
+      <i class="bi bi-plus me-2"></i>
+      Novo curso
+    </button>
   </div>
+
+  <p class="text-muted mb-4 fs-6">
+    Gerencie os cursos disponíveis na plataforma
+  </p>
 
   <!-- TODO: search bar admin -->
 
-  <div class="container">
-    <div id="catalogo-gestao-cursos" class="row align-items-stretch">
-      @for (curso of this.cursos; track curso.id) {
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
-         <app-gestao-curso-card
-           [curso]="curso"
-           (remover$)="onRemoverCurso($event)"
-         />
-        </div>
-      }
-    </div>
+  <div class="row align-items-stretch g-3">
+    @for (curso of cursos; track curso.id) {
+      <div class="col-12 col-md-6 col-xl-4">
+        <app-gestao-curso-card
+          [curso]="curso"
+          (remover$)="onRemoverCurso($event)"
+        />
+      </div>
+    }
   </div>
 </div>
