@@ -6,6 +6,7 @@ import { CarrinhoService } from '../../../features/carrinhos/services/carrinho-s
 interface NavItem {
   label: string;
   rota?: string;
+  exact?: boolean;
   acao?: 'logout' | 'abrirCarrinho';
   icone?: string;
 }
@@ -76,6 +77,7 @@ export class Navbar {
         {
           label: 'Área administrativa',
           rota: '/admin',
+          exact: false,
           icone: IconeNavbar.ADMIN
         }
       )
