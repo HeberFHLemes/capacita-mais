@@ -1,12 +1,4 @@
-.formulario-link {
-  color: #0645ad;
-}
-
-.formulario-link a:hover,
-.formulario-link a:focus {
-  color: #0b0080;
-}
-
-.form-card {
-  border-radius: 20px 20px 20px 20px;
+#admin-layout-div {
+  height: 100%;
+  overflow: hidden;
 }

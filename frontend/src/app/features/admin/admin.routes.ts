@@ -12,7 +12,7 @@ export const ADMIN_ROUTES: Routes = [
     path: 'cursos',
     component: GestaoCursosPage
   },{
-    path: 'categorais',
+    path: 'categorias',
     component: GestaoCategoriasPage
   },
 ];

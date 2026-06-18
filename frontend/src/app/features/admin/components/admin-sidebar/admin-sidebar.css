@@ -1,0 +1,14 @@
+/* Constrói sem alongar demais que faça ter que rolar a tela */
+aside {
+  width: 280px;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+.admin-sidebar-desktop {
+  background-color: black;
+  color: white;
+  min-height: 4vh;
+  width: 100%;
+}
+

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AdminSidebar } from '../../components/admin-sidebar/admin-sidebar';
+import { AdminSidebarOffcanvas } from '../../components/admin-sidebar-offcanvas/admin-sidebar-offcanvas';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterOutlet, AdminSidebar],
+  standalone: true,
+  imports: [RouterOutlet, AdminSidebar, AdminSidebarOffcanvas],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',
 })
