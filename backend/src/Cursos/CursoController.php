@@ -30,6 +30,7 @@ class CursoController extends RestController
         return [
             new Route(HttpMethod::GET, '/cursos', 'buscarCursos'),
             new Route(HttpMethod::GET, '/cursos/destaques', 'buscarCursosEmDestaque'),
+            new Route(HttpMethod::GET, '/cursos/{cursoId:\d+}', 'buscarCursoPorId'),
             new Route(HttpMethod::POST, '/cursos', 'cadastrarCurso', true, Perfil::ADMIN),
             new Route(HttpMethod::PUT, '/cursos/{cursoId:\d+}', 'editarCurso', true, Perfil::ADMIN),
             new Route(HttpMethod::DELETE, '/cursos/{cursoId:\d+}', 'removerCurso', true, Perfil::ADMIN)
@@ -48,6 +49,18 @@ class CursoController extends RestController
     {
         $cursos = $this->cursoService->listarCursosEmDestaque();
         ApiResponse::json($cursos);
+    }
+
+    // GET /{id}
+    public function buscarCursoPorId(int $cursoId): void
+    {
+        try {
+            $curso = $this->cursoService->buscarCursoPorId($cursoId);
+            ApiResponse::json($curso);
+
+        } catch (CursoNaoEncontradoException) {
+            ApiResponse::erro("Curso não encontrado", 404);
+        }
     }
 
     // POST

@@ -40,6 +40,12 @@ readonly class CursoService
         return $this->cursoRepository->buscarCursosEmDestaque();
     }
 
+    public function buscarCursoPorId(int $id): Curso
+    {
+        return $this->cursoRepository->buscarPorId($id)
+            ?? throw new CursoNaoEncontradoException();
+    }
+
     public function criar(
         string $nome,
         ?string $descricao,
@@ -82,7 +88,7 @@ readonly class CursoService
         int $id,
         string $nome,
         ?string $descricao,
-        string $categoriaId,
+        int $categoriaId,
         string $nivel,
         float $preco,
         float $precoOriginal,
