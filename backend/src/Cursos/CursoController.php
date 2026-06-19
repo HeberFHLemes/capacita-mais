@@ -51,7 +51,7 @@ class CursoController extends RestController
         ApiResponse::json($cursos);
     }
 
-    // GET /{id}
+    // GET /{cursoId}
     public function buscarCursoPorId(int $cursoId): void
     {
         try {
@@ -88,13 +88,13 @@ class CursoController extends RestController
 
             ApiResponse::json(['criado' => true, 'curso' => $curso], 201);
         
-        } catch (CategoriaNaoEncontradaException $e) {
+        } catch (CategoriaNaoEncontradaException) {
             ApiResponse::json(
                 [ 'criado' => false, 'erros' => ['Categoria não encontrada'] ],
                 404
             );
 
-        } catch (CursoDuplicadoException $e) {
+        } catch (CursoDuplicadoException) {
             ApiResponse::json(
                 [ 'criado' => false, 'erros' => ['Curso já cadastrado'] ],
                 409
@@ -102,7 +102,7 @@ class CursoController extends RestController
         }
     }
 
-    // PUT
+    // PUT /{cursoId}
     public function editarCurso(int $cursoId): void
     {
         $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
@@ -125,34 +125,34 @@ class CursoController extends RestController
                 $cursoId,
                 $dados['nome'],
                 $dados['descricao'],
-                $dados['categoria_id'],
+                (int) $dados['categoria_id'],
                 $dados['nivel'],
-                $dados['preco'],
-                $dados['preco_original'],
-                $dados['em_destaque']
+                (float) $dados['preco'],
+                (float) $dados['preco_original'],
+                (bool) $dados['em_destaque']
             );
 
             ApiResponse::json(['editado' => true, "curso" => $cursoAtualizado]);
 
-        } catch (SemAlteracoesException $e) { // Também retorna 200 OK
+        } catch (SemAlteracoesException) {// Também retorna 200 OK
             ApiResponse::json(["editado" => false, "mensagem" => "Nenhuma alteração detectada."]);
 
-        } catch (CategoriaNaoEncontradaException $e) {
+        } catch (CategoriaNaoEncontradaException) {
             ApiResponse::json(
                 [ "editado" => false, "mensagem" => "Categoria não encontrada" ],
                 404
             );
 
-        } catch (CursoNaoEncontradoException $e) {
+        } catch (CursoNaoEncontradoException) {
             ApiResponse::erro("Curso não encontrado", 404);
 
-        } catch (CursoDuplicadoException $e) {
+        } catch (CursoDuplicadoException) {
             ApiResponse::erro("Curso já cadastrado", 409);
 
         }
     }
 
-    // DELETE
+    // DELETE /{cursoId}
     public function removerCurso(int $cursoId): void
     {        
         $cursoId = filter_var($cursoId, FILTER_VALIDATE_INT);
