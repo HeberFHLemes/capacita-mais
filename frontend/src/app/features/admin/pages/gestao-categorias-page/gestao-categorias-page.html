@@ -1,1 +1,41 @@
-<p>gestao-categorias-page works!</p>
+<div class="p-4 mx-lg-4 my-lg-5" id="gestao-categorias-page-div">
+
+  <div class="d-flex justify-content-between align-items-center mb-1">
+    <h1 class="mb-0">
+      Categorias
+    </h1>
+
+    <button
+      class="btn btn-primary btn-sm"
+      routerLink="/admin/categorias/nova-categoria"
+    > <!-- TODO: abrir modal ou página cadastro-categoria -->
+      <i class="bi bi-plus me-2"></i>
+      Nova categoria
+    </button>
+  </div>
+
+  <p class="text-muted mb-4 fs-6">
+    Gerencie as categorias disponíveis na plataforma
+  </p>
+
+  <div id="tabela-categorias" class="p-4 shadow-sm me-2">
+    <table class="table table-hover table-borderless">
+      <thead>
+        <tr>
+          <th scope="col" class="text-muted">Nome da categoria</th>
+          <th scope="col" class="text-muted text-center">Cursos vinculados</th>
+          <th scope="col" class="text-muted text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (categoria of categorias; track categoria.id) {
+          <tr
+            app-categoria-row
+            [categoria]="categoria"
+            (remover$)="remover($event)"
+          ></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
