@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Curso } from '../../../cursos/models/curso';
 import { Alerta } from '../../../../shared/components/alerta/alerta';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';

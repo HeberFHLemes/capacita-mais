@@ -17,6 +17,10 @@ export class AdminCursosApiService {
     return this.httpClient.get<Curso[]>(`${this.apiBaseUrl}`);
   }
 
+  buscarCursoPorId(cursoId: number): Observable<Curso> {
+    return this.httpClient.get<Curso>(`${this.apiBaseUrl}/${cursoId}`);
+  }
+
   cadastrarCurso(curso: CursoRequest): Observable<Curso> {
     return this.httpClient.post<Curso>(this.apiBaseUrl, curso);
   }
