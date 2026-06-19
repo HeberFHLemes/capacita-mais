@@ -1,0 +1,35 @@
+<div class="card shadow-sm p-4 form-card">
+  <h1 class="h3 mb-4 pb-3 border-bottom ">
+    {{ titulo }}
+  </h1>
+
+  <form id="form-cadastro-categoria" [formGroup]="categoriaForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        class="form-control"
+        formControlName="nome"
+        required />
+    </div>
+
+    <!-- feedback pro usuário -->
+    <app-alerta [tipo]="tipoMensagem" [texto]="mensagem" />
+
+    <div class="text-end">
+      <a routerLink="/admin/categorias" class="text-decoration-none text-dark me-3">
+        Cancelar
+      </a>
+      <button
+        type="submit"
+        class="btn btn-primary px-4"
+      >
+        Salvar
+      </button>
+    </div>
+  </form>
+
+  <div id="msg" class="alert alert-success mt-3 d-none" role="alert"></div>
+</div>
