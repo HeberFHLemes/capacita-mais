@@ -1,1 +1,13 @@
-<p>editar-categoria-page works!</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <app-categoria-form
+        [titulo]="'Editar categoria'"
+        [categoria]="this.categoria"
+        [mensagem]="this.mensagem"
+        [tipoMensagem]="this.tipoMensagem"
+        (formSubmit)="editarCategoria($event)"
+      />
+    </div>
+  </div>
+</div>

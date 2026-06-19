@@ -28,7 +28,6 @@ export class EditarCursoPage implements OnInit {
   @ViewChild(CursoForm)
   cursoForm!: CursoForm;
 
-  // TODO: feedback
   mensagem: string|null = null;
   tipoMensagem: 'danger'|'success'|'warning'|null = null;
 
@@ -60,6 +59,9 @@ export class EditarCursoPage implements OnInit {
   }
 
   editarCurso(curso: CursoRequest): void {
+    this.tipoMensagem = null;
+    this.mensagem = null;
+
     if (!this.cursoId) {
       return;
     }

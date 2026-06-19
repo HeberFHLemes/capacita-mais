@@ -24,7 +24,7 @@ class CategoriaController extends RestController
     {
         return [
             new Route(HttpMethod::GET, '/categorias', 'buscarCategorias'),
-            new Route(HttpMethod::GET, '/categorias/{categoriaId:\d+', 'buscarCategoriaPorId'),
+            new Route(HttpMethod::GET, '/categorias/{categoriaId:\d+}', 'buscarCategoriaPorId'),
             new Route(HttpMethod::POST, '/categorias', 'cadastrarCategoria', true, Perfil::ADMIN),
             new Route(HttpMethod::PUT, '/categorias/{categoriaId:\d+}', 'editarCategoria', true, Perfil::ADMIN),
             new Route(HttpMethod::DELETE, '/categorias/{categoriaId:\d+}', 'removerCategoria', true, Perfil::ADMIN)

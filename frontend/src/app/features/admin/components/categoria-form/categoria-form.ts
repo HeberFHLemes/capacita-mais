@@ -21,7 +21,7 @@ export class CategoriaForm implements OnChanges {
   titulo: string = 'Curso';
 
   @Input({required: false})
-  categoria: Categoria|null = null;
+  categoria?: Categoria;
 
   @Input()
   tipoMensagem: 'success'|'danger'|'warning'|null = null;
