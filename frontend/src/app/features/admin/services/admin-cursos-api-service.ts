@@ -3,6 +3,8 @@ import { Curso } from '../../cursos/models/curso';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CursoRequest } from '../models/curso-request';
+import {CadastrarCursoResponse} from '../models/cadastrar-curso-response';
+import {EditarCursoResponse} from '../models/editar-curso-response';
 
 @Injectable({
   providedIn: 'root',
@@ -21,12 +23,12 @@ export class AdminCursosApiService {
     return this.httpClient.get<Curso>(`${this.apiBaseUrl}/${cursoId}`);
   }
 
-  cadastrarCurso(curso: CursoRequest): Observable<Curso> {
-    return this.httpClient.post<Curso>(this.apiBaseUrl, curso);
+  cadastrarCurso(curso: CursoRequest): Observable<CadastrarCursoResponse> {
+    return this.httpClient.post<CadastrarCursoResponse>(this.apiBaseUrl, curso);
   }
 
-  editarCurso(curso: CursoRequest, cursoId: number): Observable<Curso> {
-    return this.httpClient.put<Curso>(`${this.apiBaseUrl}/${cursoId}`, curso);
+  editarCurso(curso: CursoRequest, cursoId: number): Observable<EditarCursoResponse> {
+    return this.httpClient.put<EditarCursoResponse>(`${this.apiBaseUrl}/${cursoId}`, curso);
   }
 
   removerCurso(cursoId: number): Observable<void> {
