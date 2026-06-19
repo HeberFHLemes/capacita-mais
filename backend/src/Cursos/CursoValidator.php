@@ -12,7 +12,7 @@ class CursoValidator extends Validator
     {
         $this->validarCampoNaoVazio($dados, 'nome');
         $this->validarNivel($dados);
-        $this->validarCampoObrigatorio($dados, 'categoria_id');
+        $this->validarCategoria($dados);
         $this->validarCampoObrigatorio($dados, 'preco');
         $this->validarCampoObrigatorio($dados, 'preco_original');
         $this->validarCampoObrigatorio($dados, 'em_destaque');
@@ -42,5 +42,11 @@ class CursoValidator extends Validator
 
             $this->erros[$campo] = "O campo $campo deve ser um dos valores: $valoresValidos";
         }
+    }
+
+    private function validarCategoria(array $dados): void
+    {
+        $this->validarCampoObrigatorio($dados, 'categoria_id');
+        $this->validarInteiro($dados, 'categoria_id');
     }
 }

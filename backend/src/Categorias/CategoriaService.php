@@ -2,6 +2,7 @@
 
 namespace App\Categorias;
 
+use App\Categorias\Exceptions\CategoriaJaExistenteException;
 use App\Utils\Normalizador;
 
 readonly class CategoriaService
@@ -44,6 +45,34 @@ readonly class CategoriaService
 
     public function criar(string $nome): Categoria
     {
-        return $this->buscarOuCriar($nome);
+        $nomeNormalizado = Normalizador::normalizarTexto($nome);
+
+        $categoria = $this->categoriaRepository->buscarPorNormalizado($nomeNormalizado);
+
+        if ($categoria) {
+            throw new CategoriaJaExistenteException();
+        }
+
+        return $this->categoriaRepository->criar($nome, $nomeNormalizado);
+    }
+
+    public function editar(int $id, string $nome): Categoria
+    {
+        $nomeNormalizado = Normalizador::normalizarTexto($nome);
+
+        $categoria = $this->categoriaRepository->buscarPorNormalizado($nomeNormalizado);
+
+        if ($categoria) {
+            throw new CategoriaJaExistenteException();
+        }
+
+        $this->categoriaRepository->atualizar($id, $nome, $nomeNormalizado);
+
+        return new Categoria($id, $nome, $nomeNormalizado);
+    }
+
+    public function remover(int $id): bool
+    {
+        return $this->categoriaRepository->remover($id);
     }
 }
