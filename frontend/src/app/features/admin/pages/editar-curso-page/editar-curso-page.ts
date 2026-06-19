@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
 import { CursoRequest } from '../../models/curso-request';
 import { CursoForm } from '../../components/curso-form/curso-form';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-curso-page',
@@ -65,12 +66,31 @@ export class EditarCursoPage implements OnInit {
 
     this.cursosApiService.editarCurso(curso, this.cursoId)
       .subscribe({
-        next: (curso) => {
-          this.curso = curso;
-          // TODO: feedback
+        next: (resposta) => {
+          if (!resposta.editado) {
+            this.tipoMensagem = 'warning';
+            this.mensagem = 'Curso sem alterações';
+            return;
+          }
+
+          if (resposta.curso) {
+            this.curso = resposta.curso;
+          }
+
+          this.tipoMensagem = 'success';
+          this.mensagem = 'Curso editado com sucesso!';
+          console.log(resposta);
         },
-        error: (err) => {
-          // TODO: feedback
+        error: (err: HttpErrorResponse) => {
+          if (err.status === 409) {
+            this.tipoMensagem = 'warning';
+            this.mensagem = 'Curso já existente';
+
+          } else {
+            this.tipoMensagem = 'danger';
+            this.mensagem = 'Não foi possível editar o curso.';
+
+          }
         }
       });
   }

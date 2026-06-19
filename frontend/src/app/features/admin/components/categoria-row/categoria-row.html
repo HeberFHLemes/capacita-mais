@@ -1,0 +1,35 @@
+<td class="py-3">
+  {{ categoria.nome }}
+</td>
+<td class="text-center py-3">
+  <span
+    class="badge rounded-pill bg-primary-subtle border border-black text-dark px-4 py-2"
+  >
+    {{ categoria.quantidade_cursos }}
+    {{ categoria.quantidade_cursos !== 1 ? 'cursos' : 'curso' }}
+  </span>
+</td>
+<td class="py-3 align-items-center">
+  <div class="d-flex gap-2 justify-content-center align-items-center">
+    <button
+      class="btn btn-sm btn-outline-dark me-2"
+      routerLink="/admin/categorias/{{ categoria.id }}/editar"
+    >  <!-- TODO: página ou modal -->
+      <i class="bi bi-pen me-2"></i> Editar
+    </button>
+    <button
+      class="btn btn-sm btn-danger me-2"
+      [disabled]="!removivel"
+      (click)="remover()"
+    >
+      <i class="bi bi-trash me-2"></i> Remover
+    </button>
+    @if (!removivel) {
+      <i
+        class="bi bi-info-circle"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="Não é possível remover categorias com cursos vinculados"></i>
+    }
+  </div>
+</td>
