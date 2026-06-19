@@ -1,1 +1,8 @@
-<p>editar-curso-page works!</p>
+<app-curso-form
+  [titulo]="'Editar curso'"
+  [categorias]="this.categorias"
+  [mensagem]="this.mensagem"
+  [tipoMensagem]="this.tipoMensagem"
+  [curso]="this.curso"
+  (formSubmit)="this.editarCurso($event)"
+/>

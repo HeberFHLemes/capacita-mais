@@ -22,7 +22,7 @@ export const ADMIN_ROUTES: Routes = [
         component: CadastroCursoPage
       },
       {
-        path: 'editar',
+        path: ':id/editar',
         component: EditarCursoPage
       }
     ]

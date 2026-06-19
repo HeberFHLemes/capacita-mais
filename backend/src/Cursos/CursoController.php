@@ -30,6 +30,7 @@ class CursoController extends RestController
         return [
             new Route(HttpMethod::GET, '/cursos', 'buscarCursos'),
             new Route(HttpMethod::GET, '/cursos/destaques', 'buscarCursosEmDestaque'),
+            new Route(HttpMethod::GET, '/cursos/{cursoId:\d+}', 'buscarCursoPorId'),
             new Route(HttpMethod::POST, '/cursos', 'cadastrarCurso', true, Perfil::ADMIN),
             new Route(HttpMethod::PUT, '/cursos/{cursoId:\d+}', 'editarCurso', true, Perfil::ADMIN),
             new Route(HttpMethod::DELETE, '/cursos/{cursoId:\d+}', 'removerCurso', true, Perfil::ADMIN)
@@ -50,6 +51,18 @@ class CursoController extends RestController
         ApiResponse::json($cursos);
     }
 
+    // GET /{id}
+    public function buscarCursoPorId(int $cursoId): void
+    {
+        try {
+            $curso = $this->cursoService->buscarCursoPorId($cursoId);
+            ApiResponse::json($curso);
+
+        } catch (CursoNaoEncontradoException) {
+            ApiResponse::erro("Curso não encontrado", 404);
+        }
+    }
+
     // POST
     public function cadastrarCurso(): void
     {
@@ -66,11 +79,11 @@ class CursoController extends RestController
             $curso = $this->cursoService->criar(
                 $dados['nome'],
                 $dados['descricao'],
-                $dados['categoria_id'],
+                (int) $dados['categoria_id'],
                 $dados['nivel'],
-                $dados['preco'],
-                $dados['preco_original'],
-                $dados['em_destaque']
+                (float) $dados['preco'],
+                (float) $dados['preco_original'],
+                (bool) $dados['em_destaque']
             );
 
             ApiResponse::json(['criado' => true, 'curso' => $curso], 201);

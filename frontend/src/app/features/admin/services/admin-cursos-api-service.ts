@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Curso } from '../../cursos/models/curso';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { CursoRequest } from '../models/curso-request';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +17,19 @@ export class AdminCursosApiService {
     return this.httpClient.get<Curso[]>(`${this.apiBaseUrl}`);
   }
 
-  cadastrarCurso(curso: Curso): Observable<any> {
-    return this.httpClient.post<any>(this.apiBaseUrl, curso);
+  buscarCursoPorId(cursoId: number): Observable<Curso> {
+    return this.httpClient.get<Curso>(`${this.apiBaseUrl}/${cursoId}`);
   }
 
-  editarCurso(curso: Curso): Observable<any> {
-    return this.httpClient.put<any>(`${this.apiBaseUrl}/${curso.id}`, curso);
+  cadastrarCurso(curso: CursoRequest): Observable<Curso> {
+    return this.httpClient.post<Curso>(this.apiBaseUrl, curso);
   }
 
-  removerCurso(cursoId: number): Observable<any> {
-    return this.httpClient.delete<any>(`${this.apiBaseUrl}/${cursoId}`);
+  editarCurso(curso: CursoRequest, cursoId: number): Observable<Curso> {
+    return this.httpClient.put<Curso>(`${this.apiBaseUrl}/${cursoId}`, curso);
+  }
+
+  removerCurso(cursoId: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiBaseUrl}/${cursoId}`);
   }
 }
