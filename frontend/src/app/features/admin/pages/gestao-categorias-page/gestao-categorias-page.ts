@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
 import { Categoria } from '../../../categorias/models/categoria';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { CategoriaRow } from '../../components/categoria-row/categoria-row';
+import { AdminCategoriasApiService } from '../../services/admin-categorias-api-service';
 
 @Component({
   selector: 'app-gestao-categorias-page',
@@ -14,7 +14,7 @@ import { CategoriaRow } from '../../components/categoria-row/categoria-row';
 })
 export class GestaoCategoriasPage implements OnInit {
 
-  private readonly apiService: CategoriaApiService = inject(CategoriaApiService);
+  private readonly apiService: AdminCategoriasApiService = inject(AdminCategoriasApiService);
 
   categorias: Categoria[] = [];
 

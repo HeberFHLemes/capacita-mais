@@ -7,7 +7,7 @@ import { Tooltip } from 'bootstrap';
 })
 export class TooltipDirective implements OnInit, OnDestroy {
 
-  // Habilita as tooltips do Bootstrap (vêm desativas por padrão)
+  // Habilita as tooltips do Bootstrap (vêm desativadas por padrão)
   // https://getbootstrap.com/docs/5.0/components/tooltips/
 
   private tooltip!: Tooltip;

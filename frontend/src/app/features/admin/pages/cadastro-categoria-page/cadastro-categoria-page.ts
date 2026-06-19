@@ -1,8 +1,8 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { CategoriaForm } from '../../components/categoria-form/categoria-form';
 import { CategoriaRequest } from '../../models/categoria-request';
-import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AdminCategoriasApiService } from '../../services/admin-categorias-api-service';
 
 @Component({
   selector: 'app-cadastro-categoria-page',
@@ -13,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class CadastroCategoriaPage {
 
-  private readonly categoriasApiService: CategoriaApiService = inject(CategoriaApiService);
+  private readonly categoriasApiService: AdminCategoriasApiService = inject(AdminCategoriasApiService);
 
   // feedback
   mensagem: string|null = null;

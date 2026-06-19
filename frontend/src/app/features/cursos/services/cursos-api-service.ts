@@ -19,4 +19,8 @@ export class CursosApiService {
   buscarCursosEmDestaque(): Observable<Curso[]> {
     return this.httpClient.get<Curso[]>(`${this.apiBaseUrl}/destaques`);
   }
+
+  buscarCursoPorId(cursoId: number): Observable<Curso> {
+    return this.httpClient.get<Curso>(`${this.apiBaseUrl}/${cursoId}`);
+  }
 }

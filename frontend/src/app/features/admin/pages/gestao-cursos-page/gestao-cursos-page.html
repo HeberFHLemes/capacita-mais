@@ -18,16 +18,37 @@
     Gerencie os cursos disponíveis na plataforma
   </p>
 
-  <!-- TODO: search bar admin -->
-
-  <div class="row align-items-stretch g-3">
-    @for (curso of cursos; track curso.id) {
-      <div class="col-12 col-md-6 col-xl-4">
-        <app-gestao-curso-card
-          [curso]="curso"
-          (remover$)="onRemoverCurso($event)"
-        />
+  @if (carregando) {
+    <!-- TODO: spinner ou outra forma de demonstrar carregamento
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Carregando cursos...</span>
       </div>
-    }
-  </div>
+    </div>
+    -->
+
+  } @else if (erro) {
+    <app-alerta
+      [visivel]="this.erro"
+      [texto]="'Não foi possível carregar os cursos'"
+      [tipo]="'danger'"
+    ></app-alerta>
+
+  } @else if (!cursos.length) {
+    <p>Nenhum curso cadastrado.</p>
+
+  } @else {
+    <!-- TODO: search bar admin -->
+
+    <div class="row align-items-stretch g-3">
+      @for (curso of cursos; track curso.id) {
+        <div class="col-12 col-md-6 col-xl-4">
+          <app-gestao-curso-card
+            [curso]="curso"
+            (remover$)="onRemoverCurso($event)"
+          />
+        </div>
+      }
+    </div>
+  }
 </div>

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CategoriaForm } from '../../components/categoria-form/categoria-form';
-import { CategoriaApiService } from '../../../categorias/services/categoria-api-service';
 import { ActivatedRoute } from '@angular/router';
 import { Categoria } from '../../../categorias/models/categoria';
 import { CategoriaRequest } from '../../models/categoria-request';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AdminCategoriasApiService } from '../../services/admin-categorias-api-service';
 
 @Component({
   selector: 'app-editar-categoria-page',
@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class EditarCategoriaPage implements OnInit {
 
-  private readonly categoriasApiService: CategoriaApiService = inject(CategoriaApiService);
+  private readonly categoriasApiService: AdminCategoriasApiService = inject(AdminCategoriasApiService);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
   categoria?: Categoria;
