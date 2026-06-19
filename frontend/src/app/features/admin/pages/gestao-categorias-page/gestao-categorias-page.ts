@@ -3,7 +3,7 @@ import { CategoriaApiService } from '../../../categorias/services/categoria-api-
 import { Categoria } from '../../../categorias/models/categoria';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
-import {CategoriaRow} from '../../components/categoria-row/categoria-row';
+import { CategoriaRow } from '../../components/categoria-row/categoria-row';
 
 @Component({
   selector: 'app-gestao-categorias-page',
