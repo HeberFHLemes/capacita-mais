@@ -102,4 +102,32 @@ class CategoriaRepository
             $dados['nome_normalizado']
         );
     }
+
+    public function atualizar(int $id, string $nome, string $nomeNormalizado): bool
+    {
+        $sql = "UPDATE categorias 
+                SET 
+                    nome = :nome,
+                    nome_normalizado = :nome_normalizado 
+                WHERE id = :id";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute([
+            ':id' => $id,
+            ':nome' => $nome,
+            ':nome_normalizado' => $nomeNormalizado,
+        ]);
+
+        return $stmt->rowCount() > 0;
+    }
+
+    public function remover(int $id): bool
+    {
+        $sql = "DELETE FROM categorias WHERE id = :id";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute([':id' => $id]);
+
+        return $stmt->rowCount() > 0;
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Categorias;
 
+use App\Categorias\Exceptions\CategoriaJaExistenteException;
+
 use App\Core\ApiResponse;
 use App\Core\HttpMethod;
 use App\Core\RestController;
@@ -22,6 +24,7 @@ class CategoriaController extends RestController
     {
         return [
             new Route(HttpMethod::GET, '/categorias', 'buscarCategorias'),
+            new Route(HttpMethod::GET, '/categorias/{categoriaId:\d+', 'buscarCategoriaPorId'),
             new Route(HttpMethod::POST, '/categorias', 'cadastrarCategoria', true, Perfil::ADMIN),
             new Route(HttpMethod::PUT, '/categorias/{categoriaId:\d+}', 'editarCategoria', true, Perfil::ADMIN),
             new Route(HttpMethod::DELETE, '/categorias/{categoriaId:\d+}', 'removerCategoria', true, Perfil::ADMIN)
@@ -34,21 +37,64 @@ class CategoriaController extends RestController
         ApiResponse::json($categorias);
     }
 
+    public function buscarCategoriaPorId(int $categoriaId): void
+    {
+        $categoria = $this->categoriaService->buscarPorId($categoriaId);
+
+        if ($categoria) {
+            ApiResponse::json($categoria);
+        }
+
+        ApiResponse::erro('Categoria não encontrada', 404);
+    }
+
     public function cadastrarCategoria(): void
     {
-        // TODO: implementar POST /api/categorias
-        ApiResponse::erro('Funcionalidade não implementada', 501);
+        $dados = $this->obterDadosDaRequisicao();
+
+        $nome = $dados['nome'];
+        if (!isset($nome)) {
+           ApiResponse::erro('É necessário informar o nome da categoria', 400);
+        }
+
+        try {
+            $categoria = $this->categoriaService->criar($nome);
+
+            ApiResponse::json($categoria, 201);
+
+        } catch (CategoriaJaExistenteException) {
+            ApiResponse::erro('Categoria já existente', 409);
+        }
     }
 
     public function editarCategoria(int $categoriaId): void
     {
-        // TODO: implementar PUT /api/categorias
-        ApiResponse::erro('Funcionalidade não implementada', 501);
+        $dados = $this->obterDadosDaRequisicao();
+
+        $nome = $dados['nome'];
+        if (!isset($nome)) {
+            ApiResponse::erro('É necessário informar o nome da categoria', 400);
+        }
+
+        try {
+            $categoria = $this->categoriaService->editar($categoriaId, $nome);
+
+            ApiResponse::json($categoria);
+
+        } catch (CategoriaJaExistenteException) {
+            ApiResponse::erro('Categoria já existente', 409);
+        }
     }
 
     public function removerCategoria(int $categoriaId): void
     {
-        // TODO: implementar DELETE /api/categorias
-        ApiResponse::erro('Funcionalidade não implementada', 501);
+        $removido = $this->categoriaService->remover($categoriaId);
+
+        if ($removido) {
+            http_response_code(204);
+            exit;
+        }
+
+        ApiResponse::erro('Não foi possível remover a categoria', 404);
     }
 }
