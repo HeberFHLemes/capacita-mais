@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { Curso } from '../../../cursos/models/curso';
 import { GestaoCursoCard } from '../../components/gestao-curso-card/gestao-curso-card';
 import { AdminCursosApiService } from '../../services/admin-cursos-api-service';
+import { Alerta } from '../../../../shared/components/alerta/alerta';
 
 @Component({
   selector: 'app-gestao-cursos-page',
-  imports: [RouterLink, GestaoCursoCard],
+  imports: [RouterLink, GestaoCursoCard, Alerta],
   templateUrl: './gestao-cursos-page.html',
   styleUrl: './gestao-cursos-page.css',
 })
@@ -16,13 +17,27 @@ export class GestaoCursosPage implements OnInit {
 
   cursos: Curso[] = [];
 
+  erro: boolean = false;
+  carregando: boolean = true;
+
   ngOnInit() {
     this.carregarCursos();
   }
 
   carregarCursos() {
+    this.carregando = true;
+
     this.apiService.buscarCursos()
-      .subscribe((resposta) => this.cursos = resposta);
+      .subscribe({
+        next: (resposta) => {
+          this.cursos = resposta;
+          this.carregando = false;
+        },
+        error: () => {
+          this.erro = true;
+          this.carregando = false;
+        }
+      });
   }
 
   onRemoverCurso(cursoRemovido: Curso): void {

@@ -1,0 +1,12 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <app-categoria-form
+        [titulo]="'Nova categoria'"
+        [mensagem]="this.mensagem"
+        [tipoMensagem]="this.tipoMensagem"
+        (formSubmit)="cadastrarCategoria($event)"
+      />
+    </div>
+  </div>
+</div>

@@ -1,18 +1,20 @@
-import {Directive, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { Tooltip } from 'bootstrap';
 
 @Directive({
-  selector: '[data-bs-toggle="tooltip"]',
+  selector: '[appTooltip]',
   standalone: true
 })
 export class TooltipDirective implements OnInit, OnDestroy {
 
-  // Habilita as tooltips do Bootstrap (vêm desativas por padrão)
+  // Habilita as tooltips do Bootstrap (vêm desativadas por padrão)
   // https://getbootstrap.com/docs/5.0/components/tooltips/
 
   private tooltip!: Tooltip;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) {
+    this.el.nativeElement.setAttribute('data-bs-toggle', 'tooltip');
+  }
 
   ngOnInit() {
     this.tooltip = new Tooltip(this.el.nativeElement);

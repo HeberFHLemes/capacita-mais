@@ -38,7 +38,8 @@ export class CadastroCursoPage implements OnInit {
   }
 
   cadastrarCurso(curso: CursoRequest): void {
-    this.limparMensagem();
+    this.tipoMensagem = null;
+    this.mensagem = null;
 
     this.cursosApiService.cadastrarCurso(curso)
       .subscribe({
@@ -62,10 +63,5 @@ export class CadastroCursoPage implements OnInit {
           }
         }
       })
-  }
-
-  limparMensagem(): void {
-    this.mensagem = null;
-    this.tipoMensagem = null;
   }
 }
