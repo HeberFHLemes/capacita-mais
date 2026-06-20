@@ -1,5 +1,11 @@
 import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { Tooltip } from 'bootstrap';
+import type { Tooltip } from 'bootstrap';
+
+// import normal do Tooltip chamava o script global do Boostrap uma segunda vez,
+// então import type com abstração do new.
+declare const bootstrap: {
+  Tooltip: new (element: Element, options?: Partial<Tooltip.Options>) => Tooltip;
+};
 
 @Directive({
   selector: '[appTooltip]',
@@ -17,7 +23,7 @@ export class TooltipDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.tooltip = new Tooltip(this.el.nativeElement);
+    this.tooltip = new bootstrap.Tooltip(this.el.nativeElement);
   }
 
   ngOnDestroy() {
