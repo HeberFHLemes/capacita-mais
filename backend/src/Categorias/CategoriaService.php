@@ -3,6 +3,7 @@
 namespace App\Categorias;
 
 use App\Categorias\Exceptions\CategoriaJaExistenteException;
+use App\Categorias\Exceptions\CategoriaNaoEncontradaException;
 use App\Utils\Normalizador;
 
 readonly class CategoriaService
@@ -21,7 +22,7 @@ readonly class CategoriaService
         $nomeNormalizado = Normalizador::normalizarTexto($nome);
 
         $categoria = $this->categoriaRepository->buscarPorNormalizado($nomeNormalizado);
-        
+
         if ($categoria) {
             return $categoria;
         }
@@ -58,11 +59,19 @@ readonly class CategoriaService
 
     public function editar(int $id, string $nome): Categoria
     {
+        // verificar se a categoria existe
+        $categoriaAtual = $this->categoriaRepository->buscarPorId($id);
+
+        if (!$categoriaAtual) {
+            throw new CategoriaNaoEncontradaException();
+        }
+
         $nomeNormalizado = Normalizador::normalizarTexto($nome);
 
-        $categoria = $this->categoriaRepository->buscarPorNormalizado($nomeNormalizado);
+        $categoriaExistente = $this->categoriaRepository->buscarPorNormalizado($nomeNormalizado);
 
-        if ($categoria) {
+        // só é conflito de nome se pertencer a OUTRA categoria (outro id)
+        if ($categoriaExistente && $categoriaExistente->id !== $id) {
             throw new CategoriaJaExistenteException();
         }
 
