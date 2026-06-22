@@ -6,6 +6,7 @@
     </h1>
 
     <button
+      type="button"
       class="btn btn-primary btn-sm"
       routerLink="/admin/cursos/novo-curso"
     >
@@ -18,14 +19,13 @@
     Gerencie os cursos disponíveis na plataforma
   </p>
 
+  <app-alerta
+    [visivel]="!!erroRemocao"
+    [texto]="erroRemocao"
+    [tipo]="'danger'"
+  ></app-alerta>
+
   @if (carregando) {
-    <!-- TODO: spinner ou outra forma de demonstrar carregamento
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Carregando cursos...</span>
-      </div>
-    </div>
-    -->
 
   } @else if (erro) {
     <app-alerta
@@ -38,8 +38,6 @@
     <p>Nenhum curso cadastrado.</p>
 
   } @else {
-    <!-- TODO: search bar admin -->
-
     <div class="row align-items-stretch g-3">
       @for (curso of cursos; track curso.id) {
         <div class="col-12 col-md-6 col-xl-4">
