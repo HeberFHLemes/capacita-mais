@@ -18,6 +18,12 @@
     Gerencie as categorias disponíveis na plataforma
   </p>
 
+  <app-alerta
+    [visivel]="!!erroRemocao"
+    [texto]="erroRemocao"
+    [tipo]="'danger'"
+  ></app-alerta>
+
   <div id="tabela-categorias" class="p-4 shadow-sm me-2">
     <table class="table table-hover table-borderless">
       <thead>
