@@ -7,6 +7,7 @@ import { Alerta } from '../../../../shared/components/alerta/alerta';
 
 @Component({
   selector: 'app-gestao-cursos-page',
+  standalone: true,
   imports: [RouterLink, GestaoCursoCard, Alerta],
   templateUrl: './gestao-cursos-page.html',
   styleUrl: './gestao-cursos-page.css',
@@ -19,6 +20,9 @@ export class GestaoCursosPage implements OnInit {
 
   erro: boolean = false;
   carregando: boolean = true;
+
+  // feedback de erro ao tentar remover um curso
+  erroRemocao: string | null = null;
 
   ngOnInit() {
     this.carregarCursos();
@@ -48,7 +52,11 @@ export class GestaoCursosPage implements OnInit {
             curso => curso.id !== cursoRemovido.id
           );
         },
-        error: err => {} // TODO: feedback de erro
+        error: err => {
+          this.erroRemocao = err.status === 404
+            ? 'Este curso já não existe mais. Atualize a página.'
+            : 'Não foi possível remover o curso. Tente novamente.';
+        }
       });
   }
 }
