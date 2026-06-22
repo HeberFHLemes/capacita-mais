@@ -3,6 +3,7 @@
 namespace App\Categorias;
 
 use App\Categorias\Exceptions\CategoriaJaExistenteException;
+use App\Categorias\Exceptions\CategoriaNaoEncontradaException;
 
 use App\Core\ApiResponse;
 use App\Core\HttpMethod;
@@ -54,7 +55,7 @@ class CategoriaController extends RestController
 
         $nome = $dados['nome'];
         if (!isset($nome)) {
-           ApiResponse::erro('É necessário informar o nome da categoria', 400);
+            ApiResponse::erro('É necessário informar o nome da categoria', 400);
         }
 
         try {
@@ -80,6 +81,9 @@ class CategoriaController extends RestController
             $categoria = $this->categoriaService->editar($categoriaId, $nome);
 
             ApiResponse::json($categoria);
+
+        } catch (CategoriaNaoEncontradaException) {
+            ApiResponse::erro('Categoria não encontrada', 404);
 
         } catch (CategoriaJaExistenteException) {
             ApiResponse::erro('Categoria já existente', 409);
