@@ -1,7 +1,7 @@
 {
   "name": "capacita-mais",
   "version": "2.2.0",
-  "description": "Capacita+ é um website que visa indicar conteúdo gratuito e acessível para capacitação.",
+  "description": "Capacita+ é uma plataforma de cursos on-line para capacitação.",
   "scripts": {
     "dev:backend": "cd backend/ && php -S localhost:9000 -t public/",
     "dev:frontend": "cd frontend/ && npm run start"
