@@ -6,7 +6,7 @@
 
 ## Descrição
 
-Um portal aberto de cursos de capacitação online.
+Um portal aberto de cursos de capacitação on-line.
 
 Versão estática acessível em: 
 [https://heberfhlemes.github.io/capacita-mais](https://heberfhlemes.github.io/capacita-mais)
@@ -31,13 +31,14 @@ Projeto desenvolvido com fins educacionais para praticar:
 Crie um arquivo `.env` na raiz do projeto com base no `.env.example` e defina nele as variáveis de ambiente necessárias
 
 ### 2. Instale as dependências necessárias
+> Se for executar fora do Docker
 ```bash
-# Para o backend
+# Para o back-end
 cd backend/
 composer install
 
-# Para o frontend
-cd ../frontend
+# Para o front-end
+cd ../frontend/
 npm install
 ```
 

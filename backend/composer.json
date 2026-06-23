@@ -1,6 +1,6 @@
 {
   "name": "heberfhlemes/capacita-mais",
-  "description": "Capacita+ é um website que visa indicar conteúdo gratuito e acessível para capacitação.",
+  "description": "Capacita+ é uma plataforma de cursos on-line para capacitação.",
   "type": "project",
   "require": {
     "vlucas/phpdotenv": "^5.6",
