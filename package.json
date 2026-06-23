@@ -1,6 +1,6 @@
 {
   "name": "capacita-mais",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Capacita+ é uma plataforma de cursos on-line para capacitação.",
   "scripts": {
     "dev:backend": "cd backend/ && php -S localhost:9000 -t public/",
