@@ -28,7 +28,9 @@ Projeto desenvolvido com fins educacionais para praticar:
 ## Configurando o ambiente local
 
 ### 1. Configure as variáveis de ambiente
-Crie um arquivo `.env` na raiz do projeto com base no `.env.example` e defina nele as variáveis de ambiente necessárias
+Crie um arquivo `.env` na raiz do projeto com base no `.env.example` e defina nele as variáveis de ambiente necessárias para o banco de dados.
+
+Faça o mesmo no diretório `backend/`, com base no arquivo `backend/.env.example`.
 
 ### 2. Instale as dependências necessárias
 > Se for executar fora do Docker
