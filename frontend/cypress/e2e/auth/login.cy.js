@@ -6,12 +6,14 @@ describe('Tela de login', () => {
   const preencherLogin = (email, senha) => {
     cy.get('#email').type(email)
     cy.get('#senha').type(senha)
-    cy.get('[type=submit]').click()
   }
+
+  const enviarLogin = () => cy.get('[type=submit]').click()
 
   it('CT1 - Autentica usuário com credenciais válidas', () => {
     cy.env(['email', 'senha']).then(({ email, senha }) => {
       preencherLogin(email, senha)
+      enviarLogin()
 
       cy.location('pathname').should('eq', '/admin/cursos')
     })
@@ -20,6 +22,7 @@ describe('Tela de login', () => {
   it('CT2 - Não autentica com senha incorreta', () => {
     cy.env(['email']).then(({ email }) => {
       preencherLogin(email, 'senhaincorreta')
+      enviarLogin()
 
       cy.location('pathname').should('eq', '/login')
     })
@@ -27,6 +30,7 @@ describe('Tela de login', () => {
 
   it('CT3 - Não autentica com e-mail incorreto', () => {
     preencherLogin('email@falso.com', 'souadmin')
+    enviarLogin()
 
     cy.location('pathname').should('eq', '/login')
   })
@@ -34,7 +38,7 @@ describe('Tela de login', () => {
   it('CT4 - Valida campos obrigatórios na autenticação', () => {
     cy.get('#email').invoke('removeAttr', 'required')
     cy.get('#senha').invoke('removeAttr', 'required')
-    cy.get('[type=submit]').click()
+    enviarLogin()
 
     cy.location('pathname').should('eq', '/login')
   })
