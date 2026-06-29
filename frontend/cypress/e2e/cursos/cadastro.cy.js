@@ -1,7 +1,7 @@
 describe('Cadastro de cursos', () => {
   beforeEach(() => {
     cy.login()
-    cy.visit('/cadastro')
+    cy.visit('/admin/cursos/novo-curso')
   })
 
   it('CT12 - Cadastro de novos cursos', () => {
@@ -10,105 +10,86 @@ describe('Cadastro de cursos', () => {
       // concatena o nome com a data atual do teste
       const nome = `${curso.novo.baseNome} ${Date.now()}`
 
-      const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
-
       cy.preencherFormCurso(
         nome,
         curso.novo.descricao,
-        curso.novo.categoria,
-        curso.novo.plataforma,
-        custo,
-        curso.novo.url
+        curso.novo.categoria_id,
+        curso.novo.nivel,
+        curso.novo.preco,
+        curso.novo.preco_original,
+        curso.novo.em_destaque
       )
 
       // salva a requisição para obter depois a resposta dela
       cy.intercept('POST', '/api/cursos').as('postCurso')
 
       // submit
-      cy.contains('Cadastrar Curso').click()
+      cy.get('form').submit()
 
       // requisição deve retornar 201
       cy.wait('@postCurso').its('response.statusCode').should('eq', 201)
 
-      // Na resposta, em vez de conferir o texto em si na tela do form,
-      // confere se há o componente de mensagem, está sem 'd-none',
-      // está com alert-success e tem (qualquer) texto dentro.
-      // https://docs.cypress.io/app/references/assertions#Chai-jQuery
-      cy.get('#msg')
-        .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-success')
+      cy.get('app-alerta > div')
+        .should('have.class', 'alert-success')
         .and('not.be.empty')
+        .and('be.visible')
     })
   })
 
   it('CT13 - Valida campos obrigatórios no cadastro', () => {
-      // remove o required (HTML) de todos os campos obrigatórios
-      cy.get('[name=nome]').invoke('removeAttr', 'required')
-      cy.get('[name=categoria]').invoke('removeAttr', 'required')
-      cy.get('[name=plataforma]').invoke('removeAttr', 'required')
-      cy.get('[name=custo]').invoke('removeAttr', 'required')
-      cy.get('[name=link]').invoke('removeAttr', 'required')
+    cy.get('[name=nome]').invoke('removeAttr', 'required')
+    cy.get('[name=categoria]').invoke('removeAttr', 'required')
+    cy.get('[name=preco]').invoke('removeAttr', 'required')
+    cy.get('[name=preco_original]').invoke('removeAttr', 'required')
+    // em_destaque e nivel não validados (valores iniciais)
 
-      cy.intercept('POST', '/api/cursos').as('postCurso')
+    cy.intercept('POST', '/api/cursos').as('postCurso')
 
-      cy.contains('Cadastrar Curso').click()
+    cy.get('form').submit()
 
-      // requisição deve retornar 400 (bad request)
-      cy.wait('@postCurso').its('response.statusCode').should('eq', 400)
-
-      // Confere se há mensagem de erro na tela
-      cy.get('#msg')
-        .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-danger')
-        .and('not.be.empty')
+    cy.get('@postCurso.all').should('have.length', 0)
   })
 
   it('CT14 - Não cadastra curso duplicado', () => {
     cy.fixture('cursos').then((curso) => {
       const nome = `${curso.novo.baseNome} ${Date.now()}`
-      const custo = curso.novo.gratuito ? 'Gratuito' : 'Pago'
 
       // cadastra curso válido
       cy.preencherFormCurso(
         nome,
         curso.novo.descricao,
-        curso.novo.categoria,
-        curso.novo.plataforma,
-        custo,
-        curso.novo.url
+        curso.novo.categoria_id,
+        curso.novo.nivel,
+        curso.novo.preco,
+        curso.novo.preco_original,
+        curso.novo.em_destaque
       )
 
       cy.intercept('POST', '/api/cursos').as('postCurso1')
 
-      cy.contains('Cadastrar Curso').click()
+      cy.get('form').submit()
 
       cy.wait('@postCurso1').its('response.statusCode').should('eq', 201)
 
-      cy.get('#msg')
-        .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-success')
+      cy.get('app-alerta > div')
+        .should('have.class', 'alert-success')
         .and('not.be.empty')
+        .and('be.visible')
 
-      // tenta cadastrar um curso com o mesmo nome, plataforma e custo
-      cy.preencherFormCurso(
-        nome,
-        'Outra descrição',
-        'Outra categoria',
-        curso.novo.plataforma,
-        custo,
-        'https://google.com/search?q=outro-link'
-      )
+      // tenta cadastrar um curso com o mesmo nome, categoria e nivel
+      cy.preencherFormCurso(nome, 'descrição', curso.novo.categoria_id, curso.novo.nivel, 10, 10, true)
 
       cy.intercept('POST', '/api/cursos').as('postCurso2')
 
-      cy.contains('Cadastrar Curso').click()
+      cy.get('form').submit()
 
       // deve falhar e informar o usuário
       cy.wait('@postCurso2').its('response.statusCode').should('eq', 409)
-      cy.get('#msg')
-        .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-warning')
+
+      cy.get('app-alerta > div')
+        .should('have.class', 'alert-warning')
         .and('not.be.empty')
+        .and('be.visible')
     })
   })
 })
