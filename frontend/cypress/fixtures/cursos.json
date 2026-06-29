@@ -2,12 +2,9 @@
   "novo": {
     "baseNome": "Introdução a Testes Automatizados",
     "descricao": "Aprenda testes automatizados",
-    "categoria": "Testes",
-    "plataforma": "Capacita+",
-    "gratuito": true,
-    "url": "https://localhost:4200",
-    "nivel":"Iniciante",
-    "preco": 0,
+    "categoria_id": "2",
+    "nivel":"iniciante",
+    "preco":0,
     "preco_original": 0,
     "em_destaque": false
   }

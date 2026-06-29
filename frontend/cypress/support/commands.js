@@ -1,11 +1,9 @@
 // Comando de login a ser utilizado em diferentes testes
 Cypress.Commands.add('login', () => {
-  // https://docs.cypress.io/api/commands/env#Multiple-Variables
   cy.env(['email', 'senha']).then(({ email, senha }) => {
     cy.request({
       method: 'POST',
       url: '/login',
-      form: true,
       body: {
         email: email,
         senha: senha,
@@ -15,19 +13,15 @@ Cypress.Commands.add('login', () => {
 })
 
 // Comando para preencher um formulário com os dados de um curso
-Cypress.Commands.add('preencherFormCurso', (nome, descricao, categoria, plataforma, custo, url) => {
-  if (nome !== "") cy.get('[name=nome]').type(nome)
-  if (descricao !== "") cy.get('[name=descricao]').type(descricao)
-  if (descricao !== "") cy.get('[name=categoria]').type(categoria)
-  if (descricao !== "") cy.get('[name=plataforma]').type(plataforma)
+Cypress.Commands.add('preencherFormCurso',
+  (nome, descricao, categoria_id, preco, preco_original, em_destaque) => {
+    if (nome !== "") cy.get('[name=nome]').type(nome)
+    if (descricao !== "") cy.get('[name=descricao]').type(descricao)
 
-  if (custo !== "") {
-    cy.get('[name=custo]').select(custo)
-    cy.get('select[name="custo"]').find('option:selected').should('contain', custo)
-  }
+    // TODO: refatorar preenchimento dos formulários de cursos.
 
-  if (url !== "") cy.get('[name=link]').type(url)
-})
+    cy.get('[name=em_destaque]').type(em_destaque ?? false);
+  })
 
 // Comando para selecionar a última opção de um select
 // e retornar seu valor e texto

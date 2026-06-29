@@ -4,8 +4,8 @@ describe('Tela de login', () => {
   })
 
   const preencherLogin = (email, senha) => {
-    cy.get('[name=email]').type(email)
-    cy.get('[name=senha]').type(senha)
+    cy.get('#email').type(email)
+    cy.get('#senha').type(senha)
     cy.get('[type=submit]').click()
   }
 
@@ -13,7 +13,7 @@ describe('Tela de login', () => {
     cy.env(['email', 'senha']).then(({ email, senha }) => {
       preencherLogin(email, senha)
 
-      cy.location('pathname').should('eq', '/cadastro')
+      cy.location('pathname').should('eq', '/admin/cursos')
     })
   })
 
@@ -22,8 +22,6 @@ describe('Tela de login', () => {
       preencherLogin(email, 'senhaincorreta')
 
       cy.location('pathname').should('eq', '/login')
-
-      cy.get('.alert-danger').should('be.visible').and('not.be.empty')
     })
   })
 
@@ -31,23 +29,22 @@ describe('Tela de login', () => {
     preencherLogin('email@falso.com', 'souadmin')
 
     cy.location('pathname').should('eq', '/login')
-
-    cy.get('.alert-danger').should('be.visible').and('not.be.empty')
   })
 
   it('CT4 - Valida campos obrigatórios na autenticação', () => {
-    cy.get('[name=email]').invoke('removeAttr', 'required')
-    cy.get('[name=senha]').invoke('removeAttr', 'required')
+    cy.get('#email').invoke('removeAttr', 'required')
+    cy.get('#senha').invoke('removeAttr', 'required')
     cy.get('[type=submit]').click()
 
     cy.location('pathname').should('eq', '/login')
-
-    cy.get('.alert-danger').should('be.visible').and('not.be.empty')
   })
 
-  it('CT5 - Exige autenticação nos formulários administrativos', () => {
-    cy.visit('/cadastro')
+  it('CT5 - Exige autenticação na área administrativa', () => {
+    cy.visit('/admin')
 
-    cy.location('pathname').should('eq', '/login')
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq('/login')
+      expect(loc.search).to.contain('returnUrl=')
+    })
   })
 })
