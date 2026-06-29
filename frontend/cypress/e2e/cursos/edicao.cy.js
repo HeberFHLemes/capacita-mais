@@ -1,59 +1,63 @@
 describe('Edição de cursos', () => {
-  const SELECT = 'select-cursos-edicao'
 
   beforeEach(() => {
     cy.login()
-    cy.visit('/edicao')
+    cy.visit('/admin/cursos')
   })
 
-  it('carrega o select de cursos', () => {
-    // elemento deve estar visível...
-    cy.get(`[name=${SELECT}]`).should('be.visible')
+  const selecionarPrimeiroCurso = () => {
+    cy.get('.card-curso').first().within(() => {
+      cy.contains('button', 'Editar').click()
+    })
 
-    // ...e ter mais de uma opção
-    // sendo que a primeira é a "placeholder" (mesmo com hidden e disabled)
-    cy.get(`[name=${SELECT}]`).find('option').should('have.length.greaterThan', 1)
-  })
+    // conferir rota (regex por conta do id) e retornar o id
+    return cy.location('pathname').then((pathname) => {
+      const [, cursoId] = pathname.match(/^\/admin\/cursos\/(\d+)\/editar$/)
+      return cursoId
+    })
+  }
 
   it('CT15 - Seleção de um curso existente para edição', () => {
-    cy.selecionarEmSelect(SELECT)
-
-    // campos de tipo input obrigatórios devem estar preenchidos
-    cy.get('input[required]')
-      .should('have.length.greaterThan', 0)
-      .each(($input) => {
-        cy.wrap($input).should('not.have.value', '')
-      })
+    selecionarPrimeiroCurso().then(() => {
+      // campos de tipo input obrigatórios devem estar preenchidos
+      cy.get('form')
+        .find('input[required]')
+        .should('have.length.greaterThan', 0)
+        .each(($input) => {
+          cy.wrap($input).should('not.have.value', '')
+        })
+    })
   })
 
   it('CT16 - Edição de um curso existente', () => {
-    cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
-      cy.intercept('PUT', `/api/cursos?id=${cursoId}`).as('putCurso')
+    selecionarPrimeiroCurso().then((cursoId) => {
+
+      cy.intercept('PUT', `/api/cursos/${cursoId}`).as('putCurso')
 
       // editar o nome
       const nome = `Editado ${Date.now()}`
       cy.get('[name=nome]').clear().type(nome)
 
-      cy.get('[type=submit]').click()
+      cy.get('form').submit()
 
-      // status 200
+      // status 200 OK
       cy.wait('@putCurso').its('response.statusCode').should('eq', 200)
     })
   })
 
   it('CT17 - Edição sem alterações nos dados', () => {
-    cy.selecionarEmSelect(SELECT).then(({ value: cursoId }) => {
-      cy.intercept('PUT', `/api/cursos?id=${cursoId}`).as('putCurso')
+    selecionarPrimeiroCurso()
 
-      cy.get('[type=submit]').click()
+    cy.intercept('PUT', '**/api/cursos/*').as('putCurso')
 
-      // status 200
-      cy.wait('@putCurso').its('response.statusCode').should('eq', 200)
+    cy.get('[type=submit]').click()
 
-      cy.get('#msg-edicao')
-        .should('not.have.class', 'd-none')
-        .and('have.class', 'alert-warning')
-        .and('not.be.empty')
-    })
+    cy.wait('@putCurso')
+      .its('response.statusCode')
+      .should('eq', 200)
+
+    cy.get('app-alerta > div')
+      .should('have.class', 'alert-warning')
+      .and('be.visible')
   })
 })
