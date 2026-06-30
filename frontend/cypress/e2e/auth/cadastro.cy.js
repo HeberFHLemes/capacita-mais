@@ -10,7 +10,7 @@ describe('Tela de cadastro', () => {
     cy.get('#confirmar-senha').type(senhaConfirma)
   }
 
-  it('CT20 - Cadastra novo usuário comum', () => {
+  it('CT19 - Cadastra novo usuário comum', () => {
 
     const nome =  `Comum${Date.now()}`
     const email = `${nome}@email.com`
